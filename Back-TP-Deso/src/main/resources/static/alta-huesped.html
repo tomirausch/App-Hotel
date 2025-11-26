@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TP DeSo</title>
+
+  <!-- hojar de estilos local, servida por Spring desde /static -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- librerías externas (CDN) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.0.1/css/countrySelect.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.0.1/js/countrySelect.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="home">
+      <img class="imagenHome" src="/images/casa.png" alt="">
+    </div>
+    <div class="logoDiv">
+      <img class="logoHotel" src="/images/logoHotel.png" alt="">
+    </div>
+    <div class="usuario">
+      <img class="imagenUsuario" src="/images/avatar.png" alt="">
+    </div>
+  </header>
+
+  <div class="titulo">
+    <h1>Dar Alta Huésped</h1>
+  </div>
+
+  <form id="formulario" class="scroll-form">
+    <fieldset>
+      <legend>Datos Personales</legend>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="Apellido">Apellido*</label>
+          <input type="text" name="Apellido" placeholder="Apellido">
+        </div>
+        <div class="form-group">
+          <label for="Nombre">Nombre*</label>
+          <input type="text" name="Nombre" placeholder="Nombre">
+        </div>
+        <div class="form-group">
+          <label for="TipoDocumento">Tipo de Documento*</label>
+          <select name="TipoDocumento">
+            <option value="DNI">DNI</option>
+            <option value="Pasaporte">Pasaporte</option>
+            <option value="LE">LE</option>
+            <option value="LC">LC</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="NumeroDocumento">Número de Documento*</label>
+          <input type="text" name="NumeroDocumento" placeholder="Número de documento">
+        </div>
+        <div class="form-group">
+          <label for="CUIT">CUIT</label>
+          <input type="text" name="CUIT" placeholder="CUIT">
+        </div>
+        <div class="form-group">
+          <label for="PosicionIVA">Posición IVA*</label>
+          <select name="PosicionIVA">
+            <option value="ConsumidorFinal">Consumidor final</option>
+            <option value="Monotributo">Monotributo</option>
+            <option value="ResponsableInscripto">Responsable inscripto</option>
+            <option value="Excento">Exento</option>
+            <option value="NoResponsable">No responsable</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="FechaNacimiento">Fecha de Nacimiento*</label>
+          <input type="date" name="FechaNacimiento">
+        </div>
+        <div class="form-group">
+          <label for="NumeroTelefono">Teléfono*</label>
+          <input type="text" name="NumeroTelefono" placeholder="(011) 1234-5678">
+        </div>
+        <div class="form-group">
+          <label for="Email">Email</label>
+          <input type="text" name="Email" placeholder="correo@ejemplo.com">
+        </div>
+        <div class="form-group">
+          <label for="Ocupacion">Ocupación*</label>
+          <input type="text" name="Ocupacion" placeholder="Ocupación">
+        </div>
+        <div class="form-group full-width">
+          <label for="Nacionalidad">Nacionalidad*</label>
+          <input type="text" name="Nacionalidad" placeholder="Nacionalidad">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Dirección</legend>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="Calle">Calle*</label>
+          <input type="text" name="Calle" placeholder="Calle">
+        </div>
+        <div class="form-group">
+          <label for="Numero">Número*</label>
+          <input type="number" name="Numero" placeholder="Número">
+        </div>
+        <div class="form-group">
+          <label for="Departamento">Departamento</label>
+          <input type="text" name="Departamento" placeholder="Departamento">
+        </div>
+        <div class="form-group">
+          <label for="Piso">Piso</label>
+          <input type="number" name="Piso" placeholder="Piso">
+        </div>
+        <div class="form-group">
+          <label for="CP">Código Postal*</label>
+          <input type="text" name="CP" placeholder="Código Postal">
+        </div>
+        <div class="form-group">
+          <label for="Pais">País*</label>
+          <select id="Pais" name="Pais">
+            <option value="">Seleccionar país</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="Provincia">Provincia*</label>
+          <input type="text" name="Provincia" placeholder="Provincia">
+        </div>
+        <div class="form-group">
+          <label for="Localidad">Localidad*</label>
+          <input type="text" name="Localidad" placeholder="Localidad">
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <div class="form-buttons">
+    <button id="btnCancelar" type="button">Cancelar</button>
+    <input type="submit" form="formulario" value="Siguiente">
+  </div>
+
+  <div id="modalDuplicado" class="modal hidden">
+    <div class="modal-content">
+      <h3>⚠️ ¡CUIDADO!</h3>
+      <p>El tipo y número de documento ya existen en el sistema.</p>
+      <div class="modal-buttons">
+        <button id="btnCancelarDuplicado" class="btn-cancel">Cancelar</button>
+        <button id="btnCorregir" class="btn-warning">Corregir</button>
+        <button id="btnAceptarIgualmente" class="btn-confirm">Aceptar igualmente</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalCancelar" class="modal hidden">
+    <div class="modal-content">
+      <h3>❓¿Desea cancelar el alta del huésped?</h3>
+      <div class="modal-buttons">
+        <button id="btnCancelarNo" class="btn-cancel">No</button>
+        <button id="btnCancelarSi" class="btn-confirm">Sí</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalExito" class="modal hidden">
+    <div class="modal-content">
+      <h3>✅ Registro exitoso</h3>
+      <p id="mensajeExito"></p>
+      <div class="modal-buttons">
+        <button id="btnCargarOtro" class="btn-confirm">Sí</button>
+        <button id="btnFinalizar" class="btn-cancel">No</button>
+      </div>
+    </div>
+  </div>
+
+  <p id="mensaje" class="mensaje"></p>
+
+  <!-- script local, servido por Spring desde /static -->
+  <script defer src="/script.js"></script>
+</body>
+</html>

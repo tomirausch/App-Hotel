@@ -1,0 +1,159 @@
+.formulario, .containerResponse{
+  width: 900px;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+}
+
+.containerResponse{
+    min-height: 100px;
+    align-items: center;
+}
+
+.containerForm{
+    display: flex;
+    justify-content: center;
+}
+
+.fieldset{
+  border: none;
+}
+
+.legend{
+  font-weight: bold;
+  padding: 20px 0 15px 0;
+  margin-left: 10px;
+}
+
+.containerInput{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-bottom: 20px;
+}
+
+.containerAllInputs{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.containerInput label{
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.containerResponse{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.btnBase {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.btnCancelar {
+  composes: btnBase;
+  background-color: #f44336;
+  color: white;
+}
+
+.btnSiguiente {
+  composes: btnBase;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btnCancelar:hover {
+  background-color: #a82f27;
+}
+
+.btnSiguiente:hover {
+  background-color: #337535;
+}
+
+.btnCancelar:active,
+.btnSiguiente:active {
+  transform: scale(0.95);
+}
+
+.containerPersona {
+  width: 100%;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 10px;
+  padding: 15px;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.containerPersona:last-child{
+  border-bottom: none;
+}
+
+.containerPersona:first-child{
+  cursor: auto;
+}
+
+.containerPersona p {
+  text-align: start;
+  margin: 0;
+  white-space: nowrap; /* Evita que el texto salte de línea si es largo */
+  overflow: hidden;    /* Corta el texto si es muy largo */
+  text-overflow: ellipsis; /* Pone "..." si se corta */
+}
+
+.header {
+  background-color: rgb(179, 179, 160);
+  font-weight: bold;
+  border-radius: 10px 10px 0 0;
+}
+
+.containerP{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.containerP p{
+  border-right: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.header .containerP:last-child p{
+  border-right: transparent;
+}
+
+.row:hover {
+  background-color: #018db479;
+}
+
+.seleccionado{
+  background-color: #018db4;
+}
+
+.seleccionado:hover{
+  background-color: #018db4;
+}

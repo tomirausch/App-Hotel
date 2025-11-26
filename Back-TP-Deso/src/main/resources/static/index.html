@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado del Servidor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Color base para neumorfismo */
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #4a4a4a;
+        }
+
+        .card {
+            /* Mismo fondo que el body para que parezca una sola superficie */
+            background: #e0e0e0;
+            padding: 3rem;
+            border-radius: 30px;
+            /* Sombra suave hacia afuera (Neumorfismo flat) */
+            box-shadow:  20px 20px 60px #bebebe,
+                        -20px -20px 60px #ffffff;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .status-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px #bebebe;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .pulse {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #28a745;
+            box-shadow: 0 0 0 rgba(40, 167, 69, 0.4);
+            animation: pulse 2s infinite;
+            margin-left: 5px;
+        }
+
+        /* --- BOTÓN NEUMÓRFICO --- */
+        .btn-neumorphic {
+            display: inline-block;
+            text-decoration: none;
+            padding: 15px 30px;
+            font-weight: bold;
+            color: #555;
+            border-radius: 50px;
+            background: #e0e0e0;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            
+            /* La magia del neumorfismo: Luces y Sombras */
+            box-shadow:  6px 6px 12px #bebebe,
+                        -6px -6px 12px #ffffff;
+        }
+
+        /* Efecto al presionar (Inset) */
+        .btn-neumorphic:active {
+            color: #28a745;
+            box-shadow: inset 4px 4px 8px #bebebe,
+                        inset -4px -4px 8px #ffffff;
+        }
+        
+        /* Efecto Hover opcional */
+        .btn-neumorphic:hover {
+            color: #333;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="status-icon">✅</div>
+        <h1>Backend Operativo</h1>
+        <p>El sistema Hotel API está corriendo correctamente <span class="pulse"></span></p>
+        
+        <!-- Botón que lleva al Frontend -->
+        <a href="http://localhost:3000" class="btn-neumorphic">
+            Ir al Hotel
+        </a>
+
+        <div class="footer">
+            Spring Boot Server | Port: 8080
+        </div>
+    </div>
+
+</body>
+</html>

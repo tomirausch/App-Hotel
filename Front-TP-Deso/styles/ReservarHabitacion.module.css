@@ -1,0 +1,88 @@
+.formulario{
+  width: 600px;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+}
+
+.inputContainer{
+	display: flex;
+  flex-direction: column;
+}
+
+.allInputContainer{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: center;
+	gap: 50px;
+}
+.fieldset{
+  border: none;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding-bottom: 20px;
+	padding-top: 0;
+}
+
+.legend{
+  font-weight: bold;
+  padding: 20px 0 15px 0;
+  margin-left: 10px;
+}
+
+.legendContainer{
+	display: flex;
+	justify-content: center;
+}
+.btnBase {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.btnCancelar {
+  composes: btnBase;
+  background-color: #f44336;
+  color: white;
+}
+
+.btnSiguiente {
+  composes: btnBase;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btnCancelar:hover {
+  background-color: #a82f27;
+}
+
+.btnSiguiente:hover {
+  background-color: #337535;
+}
+
+.btnCancelar:active,
+.btnSiguiente:active {
+  transform: scale(0.95);
+}
+
+.btnSiguiente:disabled {
+  background-color: #204821;
+  cursor: not-allowed;
+  color: white;
+}
+
+.formButtons{
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	margin-top: 20px;
+}
