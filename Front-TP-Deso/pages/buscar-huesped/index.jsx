@@ -125,7 +125,7 @@ export default function BuscarHuesped() {
             <img 
               src={orden === "asc" ? "/flecha-arriba.png" : "/flecha-abajo.png"} 
               alt="Orden"
-              style={{height: "20px", width:"20px"}} 
+              style={{height: "20px", width:"20px", filter: "invert(1)"}} 
             />
           )}
         </div>
@@ -136,7 +136,7 @@ export default function BuscarHuesped() {
             <img 
               src={orden === "asc" ? "/flecha-arriba.png" : "/flecha-abajo.png"} 
               alt="Orden"
-              style={{height: "20px", width:"20px"}} 
+              style={{height: "20px", width:"20px", filter: "invert(1)"}} 
             />
           )}
         </div>
@@ -147,7 +147,7 @@ export default function BuscarHuesped() {
             <img 
               src={orden === "asc" ? "/flecha-arriba.png" : "/flecha-abajo.png"} 
               alt="Orden"
-              style={{height: "20px", width:"20px"}} 
+              style={{height: "20px", width:"20px", filter: "invert(1)"}} 
             />
           )}
         </div>
@@ -158,7 +158,7 @@ export default function BuscarHuesped() {
             <img 
               src={orden === "asc" ? "/flecha-arriba.png" : "/flecha-abajo.png"} 
               alt="Orden"
-              style={{height: "20px", width:"20px"}} 
+              style={{height: "20px", width:"20px" , filter: "invert(1)"}} 
             />
           )}
         </div>

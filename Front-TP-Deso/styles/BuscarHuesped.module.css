@@ -123,7 +123,8 @@
 }
 
 .header {
-  background-color: rgb(179, 179, 160);
+  background-color: #111428;
+  color: whitesmoke;
   font-weight: bold;
   border-radius: 10px 10px 0 0;
 }
