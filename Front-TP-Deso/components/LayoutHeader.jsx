@@ -40,20 +40,23 @@ function LayoutHeader({ children }) {
         
         <ul className={styles.ulMenu}>
           <div className={styles.buttonContainer}> 
-          <button onClick = {botonMenu} className={`${styles.closeButton} ${styles.botonMenu}`}><img className={styles.icons} src="/lista.png" alt="Cerrar" /></button>
-        </div>
-          <li className={styles.opcionMenu}>
-            <img className={styles.iconOption} src="/agregar-usuario.png" alt="Icon" />
-            <Link onClick={botonMenu} className={styles.liMenu} href="/dar-alta-huesped">Dar Alta Huésped</Link>
-          </li>
-          <li className={styles.opcionMenu}>
-            <img className={styles.iconOption} src="/lupa.png" alt="Icon" />
-            <Link onClick={botonMenu} className={styles.liMenu} href="/buscar-huesped">Buscar Huésped</Link>
-          </li>
-          <li className={styles.opcionMenu}>
-            <img className={styles.iconOption} src="/reserva.png" alt="Icon" />
-            <Link onClick={botonMenu} className={styles.liMenu} href="/reservar-habitacion">Reservar Habitación</Link>
-          </li>
+            <button onClick = {botonMenu} className={`${styles.closeButton} ${styles.botonMenu}`}><img className={styles.icons} src="/lista.png" alt="Cerrar" /></button>
+          </div>
+
+          <div className={styles.opcionesContainer}>
+            <li className={styles.opcionMenu}>
+              <img className={styles.iconOption} src="/agregar-usuario.png" alt="Icon" />
+              <Link onClick={botonMenu} className={styles.liMenu} href="/dar-alta-huesped">Dar Alta Huésped</Link>
+            </li>
+            <li className={styles.opcionMenu}>
+              <img className={styles.iconOption} src="/lupa.png" alt="Icon" />
+              <Link onClick={botonMenu} className={styles.liMenu} href="/buscar-huesped">Buscar Huésped</Link>
+            </li>
+            <li className={styles.opcionMenu}>
+              <img className={styles.iconOption} src="/reserva.png" alt="Icon" />
+              <Link onClick={botonMenu} className={styles.liMenu} href="/reservar-habitacion">Reservar Habitación</Link>
+            </li>
+          </div>
         </ul>
       </div>
 

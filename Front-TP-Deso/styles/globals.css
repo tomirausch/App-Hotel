@@ -3,8 +3,9 @@
 }
 
 body{
-  background-color: beige;
+  background-color: #1E2448;
   font-family: Helvetica;
+  color: whitesmoke;
 }
 
 html {
@@ -15,11 +16,17 @@ input, select{
   padding: 8px;
   font-size: 14px;
   border: none;
-  border-bottom: 1px solid #909090;
+  border-bottom: 1px solid whitesmoke;
   border-radius: 5px;
   background-color: transparent;
+  color: rgba(245, 245, 245, 0.5);
 }
 
 input{
   text-transform: uppercase;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;   /* Para que aparezca la manito al pasar el mouse */
+    filter: opacity(0.5) invert(1);
 }
