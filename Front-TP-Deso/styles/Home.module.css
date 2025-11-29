@@ -5,4 +5,48 @@
     align-items: center;
     justify-content: center;
     margin-top: 50px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.box{
+    border: solid 2px whitesmoke;
+    height: 250px;
+    width: 250px;
+    border-radius: 30px;
+    background: linear-gradient(145deg, #1b2041, #20274d);
+    box-shadow:  25px 25px 50px #141831;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.box:hover{
+    border-radius: 30px;
+    background: linear-gradient(145deg, #161b36, #13172d);
+    box-shadow:  20px 20px 54px #0f1223,
+                -20px -20px 54px #1b2141;
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.boxTitle{
+    margin-top: 30px;
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.boxImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
+.container::selection {
+  background-color: var(--primary);
 }
