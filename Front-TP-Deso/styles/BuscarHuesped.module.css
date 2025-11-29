@@ -38,6 +38,7 @@
 .containerAllInputs{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
@@ -51,6 +52,7 @@
     margin-bottom: 50px;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .formButtons {

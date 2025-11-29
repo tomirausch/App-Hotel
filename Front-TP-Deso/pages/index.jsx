@@ -10,7 +10,7 @@ export default function Home() {
 
         <Link href="/dar-alta-huesped" style={{textDecoration: "none"}}>
         <div className={styles.box}>
-          <h2 className={styles.boxTitle}>Dar Alta Huesped</h2>
+          <h2 className={styles.boxTitle}>Dar Alta Huésped</h2>
           <div className={styles.boxImage}>
             <img style={{height: "100px", filter: "invert(1)"}} src="/agregar-usuario.png" alt=""/>
           </div>
@@ -19,7 +19,7 @@ export default function Home() {
         
         <Link href="/buscar-huesped" style={{textDecoration: "none"}}>
         <div className={styles.box}>
-          <h2 className={styles.boxTitle}>Buscar Huesped</h2>
+          <h2 className={styles.boxTitle}>Buscar Huésped</h2>
           <div className={styles.boxImage}>
             <img style={{height: "100px", filter: "invert(1)"}} src="/lupa.png" alt=""/>
           </div>
@@ -29,7 +29,7 @@ export default function Home() {
 
         <Link href="/reservar-habitacion" style={{textDecoration: "none"}}>
         <div className={styles.box}>
-          <h2 className={styles.boxTitle}>Reservar Habitacion</h2>
+          <h2 className={styles.boxTitle}>Reservar Habitación</h2>
           <div  className={styles.boxImage}>
             <img style={{height: "100px", filter: "invert(1)"}} src="/reserva.png" alt="" />
           </div>

@@ -22,7 +22,7 @@ function LayoutHeader({ children }) {
         <nav className={styles.nav}>
           <ul className={styles.ul}>
             <li><button onClick={botonMenu} className={styles.botonMenu}><img className={styles.icons} src="/lista.png" alt="Menú" /></button></li>
-            <li><Link href="/"><img className={styles.logoHotel} src="/logoHotel.png" alt="Logo hotel" /></Link></li>
+            <li><Link href="/"><img className={styles.logoHotel} src="/hotel-icon.png" alt="Logo hotel" /></Link></li>
             <li><Link href="/perfil"><img className={styles.icons} src="/avatar.png" alt="Perfil" /></Link></li>
           </ul>
         </nav>
