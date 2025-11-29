@@ -63,9 +63,11 @@ export default function BuscarHuesped() {
     const datos = {
       Apellido: formData.get('Apellido').trim(),
       Nombre: formData.get('Nombre').trim(),
-      TipoDocumento: formData.get('TipoDocumento').trim().toUpperCase(),
+      TipoDocumento: formData.get('TipoDocumento') === "-" ? "" : formData.get('TipoDocumento').trim().toUpperCase(),
       NumeroDocumento: formData.get('NumeroDocumento').trim()
     };
+
+    console.log(datos);
 
     let query = 'http://localhost:8080/api/huespedes/buscar';
     datos.Apellido !== "" && (query += `?apellido=${datos.Apellido}&`);
@@ -215,8 +217,8 @@ export default function BuscarHuesped() {
     <Head>
       <title>Buscar Huesped</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="shortcut icon" href="/logoHotel.ico?v=2" />
-      <link rel="icon" href="/logoHotel.ico?v=2" />
+      <link rel="shortcut icon" href="/hotel-icon.ico?v=2" />
+      <link rel="icon" href="/hotel-icon.ico?v=2" />
     </Head>
 
     <div className={styles.containerForm}>

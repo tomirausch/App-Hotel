@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/huespedes")
+@CrossOrigin(origins = "http://localhost:3000")
 public class HuespedController {
 
     private final GestorHuespedes service;
