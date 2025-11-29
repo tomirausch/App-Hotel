@@ -29,18 +29,58 @@ public class Habitacion {
     private EstadoHabitacion estadoActual;
 
     // Getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Integer getNumero() { return numero; }
-    public void setNumero(Integer numero) { this.numero = numero; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Integer getPiso() { return piso; }
-    public void setPiso(Integer piso) { this.piso = piso; }
+    public Integer getNumero() {
+        return numero;
+    }
 
-    public TipoHabitacion getTipoHabitacion() { return tipoHabitacion; }
-    public void setTipoHabitacion(TipoHabitacion tipoHabitacion) { this.tipoHabitacion = tipoHabitacion; }
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
 
-    public EstadoHabitacion getEstadoActual() { return estadoActual; }
-    public void setEstadoActual(EstadoHabitacion estadoActual) { this.estadoActual = estadoActual; }
+    public Integer getPiso() {
+        return piso;
+    }
+
+    public void setPiso(Integer piso) {
+        this.piso = piso;
+    }
+
+    public TipoHabitacion getTipoHabitacion() {
+        return tipoHabitacion;
+    }
+
+    public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
+        this.tipoHabitacion = tipoHabitacion;
+    }
+
+    public EstadoHabitacion getEstadoActual() {
+        return estadoActual;
+    }
+
+    public void setEstadoActual(EstadoHabitacion estadoActual) {
+        this.estadoActual = estadoActual;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Habitacion that = (Habitacion) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

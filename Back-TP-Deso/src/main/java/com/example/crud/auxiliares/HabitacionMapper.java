@@ -1,16 +1,18 @@
 package com.example.crud.auxiliares;
 
-import com.example.crud.dto.HabitacionResponse;
+import com.example.crud.dto.HabitacionDTO;
 import com.example.crud.model.Habitacion;
 
 public final class HabitacionMapper {
 
-    private HabitacionMapper() {}
+    private HabitacionMapper() {
+    }
 
-    public static HabitacionResponse toResponse(Habitacion h) {
-        if (h == null) return null;
+    public static HabitacionDTO toDTO(Habitacion h) {
+        if (h == null)
+            return null;
 
-        HabitacionResponse dto = new HabitacionResponse();
+        HabitacionDTO dto = new HabitacionDTO();
         dto.setId(h.getId());
         dto.setNumero(h.getNumero());
         dto.setPiso(h.getPiso());
@@ -20,7 +22,7 @@ public final class HabitacionMapper {
             dto.setCosto(h.getTipoHabitacion().getCosto());
         }
 
-        dto.setEstadoActual(h.getEstadoActual());
+        dto.setEstado(h.getEstadoActual());
 
         return dto;
     }

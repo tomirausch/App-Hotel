@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -25,5 +26,15 @@ public class AcompanianteDaoJpa implements AcompanianteDao {
     @Override
     public Optional<Acompaniante> findById(Long id) {
         return Optional.ofNullable(em.find(Acompaniante.class, id));
+    }
+
+    @Override
+    public List<Acompaniante> findAllById(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
+        return em.createQuery("SELECT a FROM Acompaniante a WHERE a.id IN :ids", Acompaniante.class)
+                .setParameter("ids", ids)
+                .getResultList();
     }
 }

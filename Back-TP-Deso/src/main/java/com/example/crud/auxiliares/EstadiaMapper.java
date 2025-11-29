@@ -1,42 +1,55 @@
 package com.example.crud.auxiliares;
 
-import com.example.crud.dto.OcuparHabitacionRequest;
-import com.example.crud.model.Acompaniante;
-import com.example.crud.model.Estadia;
-import com.example.crud.model.Habitacion;
-import com.example.crud.model.Huesped;
+import com.example.crud.dto.EstadiaDTO;
+import com.example.crud.dto.EstadiaDetalleDTO;
+import com.example.crud.model.*;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class EstadiaMapper {
 
-    private EstadiaMapper() {}
+    private EstadiaMapper() {
+    }
 
-    public static Estadia toEntity(OcuparHabitacionRequest request,
-                                   Habitacion habitacion,
-                                   Huesped responsable,
-                                   List<Acompaniante> acompanantesGuardados) {
+    public static Estadia toEntity(EstadiaDTO dto,
+            List<Habitacion> habitaciones,
+            Huesped responsable,
+            List<Acompaniante> acompanantesGuardados,
+            BigDecimal costoEstadia) {
 
         Estadia e = new Estadia();
 
-        // Datos directos del request
-        e.setFechaInicio(request.getFechaInicio());
-        e.setFechaFin(request.getFechaFin());
-
-        // Relaciones ya recuperadas/guardadas
-        e.setHabitacion(habitacion);
+        // Datos directos
         e.setResponsable(responsable);
         e.setAcompanantes(acompanantesGuardados);
+        e.setCostoEstadia(costoEstadia);
 
-        // Lógica simple de cálculo
+        // Lógica simple de cálculo de personas
         int cantidad = 1; // El responsable cuenta
         if (acompanantesGuardados != null) {
             cantidad += acompanantesGuardados.size();
         }
         e.setCantPersonas(cantidad);
 
-        // Descuento por defecto (o podría venir en el request)
+        // Descuento por defecto
         e.setDescuento(0.0);
+
+        // Crear mapa de habitaciones por ID para búsqueda rápida
+        Map<Long, Habitacion> habitacionMap = habitaciones.stream()
+                .collect(Collectors.toMap(Habitacion::getId, h -> h));
+
+        // Crear EstadiaHabitacion por cada detalle
+        for (EstadiaDetalleDTO detalle : dto.getDetalles()) {
+            Habitacion hab = habitacionMap.get(detalle.getIdHabitacion());
+            if (hab == null) {
+                throw new IllegalArgumentException("Habitación con ID " + detalle.getIdHabitacion() + " no encontrada");
+            }
+            EstadiaHabitacion eh = new EstadiaHabitacion(e, hab, detalle.getFecha());
+            e.addEstadiaHabitacion(eh);
+        }
 
         return e;
     }

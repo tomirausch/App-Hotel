@@ -1,18 +1,19 @@
 package com.example.crud.auxiliares;
 
-import com.example.crud.dto.HuespedRequest;
-import com.example.crud.dto.HuespedResponse;
+import com.example.crud.dto.HuespedDTO;
 import com.example.crud.model.Huesped;
 
 public final class HuespedMapper {
 
-    private HuespedMapper() {}
+    private HuespedMapper() {
+    }
 
     // ============================
     // 1) DTO de entrada -> Entidad
     // ============================
-    public static Huesped toEntity(HuespedRequest dto) {
-        if (dto == null) return null;
+    public static Huesped toEntity(HuespedDTO dto) {
+        if (dto == null)
+            return null;
 
         Huesped h = new Huesped();
 
@@ -45,10 +46,11 @@ public final class HuespedMapper {
     // ============================
     // 2) Entidad -> DTO de salida
     // ============================
-    public static HuespedResponse toResponse(Huesped h) {
-        if (h == null) return null;
+    public static HuespedDTO toDTO(Huesped h) {
+        if (h == null)
+            return null;
 
-        HuespedResponse dto = new HuespedResponse();
+        HuespedDTO dto = new HuespedDTO();
 
         dto.setId(h.getId());
 
@@ -81,8 +83,9 @@ public final class HuespedMapper {
     // ============================
     // 3) (Opcional) actualizar entidad existente
     // ============================
-    public static void updateEntity(Huesped h, HuespedRequest dto) {
-        if (h == null || dto == null) return;
+    public static void updateEntity(Huesped h, HuespedDTO dto) {
+        if (h == null || dto == null)
+            return;
 
         h.setNombre(dto.getNombre());
         h.setApellido(dto.getApellido());
@@ -104,5 +107,21 @@ public final class HuespedMapper {
         h.setNumero(dto.getNumero());
         h.setDepartamento(dto.getDepartamento());
         h.setPiso(dto.getPiso());
+    }
+
+    // ============================
+    // 4) HuespedReservaDTO -> HuespedDTO
+    // ============================
+    public static HuespedDTO toHuespedDTO(com.example.crud.dto.HuespedReservaDTO source) {
+        if (source == null)
+            return null;
+
+        HuespedDTO target = new HuespedDTO();
+        target.setNombre(source.getNombre());
+        target.setApellido(source.getApellido());
+        target.setTipoDocumento(source.getTipoDocumento());
+        target.setNumeroDocumento(source.getNumeroDocumento());
+        target.setTelefono(source.getTelefono());
+        return target;
     }
 }

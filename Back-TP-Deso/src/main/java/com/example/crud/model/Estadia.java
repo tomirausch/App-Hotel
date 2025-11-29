@@ -1,8 +1,7 @@
 package com.example.crud.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,52 +13,104 @@ public class Estadia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @Column(name = "fecha_inicio") private LocalDate fechaInicio;
-    @NotNull @Column(name = "fecha_fin") private LocalDate fechaFin;
-    private Double descuento;
-    @Column(name = "cant_personas") private Integer cantPersonas;
+    @OneToMany(mappedBy = "estadia", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EstadiaHabitacion> estadiaHabitaciones = new ArrayList<>();
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_habitacion", nullable = false)
-    private Habitacion habitacion;
+    @Column(name = "costo_estadia", precision = 10, scale = 2)
+    private BigDecimal costoEstadia;
+
+    private Double descuento;
+
+    @Column(name = "cant_personas")
+    private Integer cantPersonas;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_huesped_responsable", nullable = false)
     private Huesped responsable;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_reserva_origen", nullable = true) // Puede ser nulo si vino sin reserva
+    @JoinColumn(name = "id_reserva_origen", nullable = true)
     private Reserva reservaOrigen;
 
     @ManyToMany
-    @JoinTable(
-            name = "estadia_acompanantes",
-            joinColumns = @JoinColumn(name = "id_estadia"),
-            inverseJoinColumns = @JoinColumn(name = "id_acompanante")
-    )
+    @JoinTable(name = "estadia_acompanantes", joinColumns = @JoinColumn(name = "id_estadia"), inverseJoinColumns = @JoinColumn(name = "id_acompanante"))
     private List<Acompaniante> acompanantes = new ArrayList<>();
 
-    public Estadia() {}
+    public Estadia() {
+    }
 
     // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public LocalDate getFechaInicio() { return fechaInicio; }
-    public void setFechaInicio(LocalDate fechaInicio) { this.fechaInicio = fechaInicio; }
-    public LocalDate getFechaFin() { return fechaFin; }
-    public void setFechaFin(LocalDate fechaFin) { this.fechaFin = fechaFin; }
-    public Double getDescuento() { return descuento; }
-    public void setDescuento(Double descuento) { this.descuento = descuento; }
-    public Integer getCantPersonas() { return cantPersonas; }
-    public void setCantPersonas(Integer cantPersonas) { this.cantPersonas = cantPersonas; }
-    public Habitacion getHabitacion() { return habitacion; }
-    public void setHabitacion(Habitacion habitacion) { this.habitacion = habitacion; }
-    public Huesped getResponsable() { return responsable; }
-    public void setResponsable(Huesped responsable) { this.responsable = responsable; }
-    public List<Acompaniante> getAcompanantes() { return acompanantes; }
-    public void setAcompanantes(List<Acompaniante> acompanantes) { this.acompanantes = acompanantes; }
+    public Long getId() {
+        return id;
+    }
 
-    // Getter y Setter nuevo
-    public Reserva getReservaOrigen() { return reservaOrigen; }
-    public void setReservaOrigen(Reserva reservaOrigen) { this.reservaOrigen = reservaOrigen; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<EstadiaHabitacion> getEstadiaHabitaciones() {
+        return estadiaHabitaciones;
+    }
+
+    public void setEstadiaHabitaciones(List<EstadiaHabitacion> estadiaHabitaciones) {
+        this.estadiaHabitaciones = estadiaHabitaciones;
+    }
+
+    public void addEstadiaHabitacion(EstadiaHabitacion estadiaHabitacion) {
+        estadiaHabitaciones.add(estadiaHabitacion);
+        estadiaHabitacion.setEstadia(this);
+    }
+
+    public void removeEstadiaHabitacion(EstadiaHabitacion estadiaHabitacion) {
+        estadiaHabitaciones.remove(estadiaHabitacion);
+        estadiaHabitacion.setEstadia(null);
+    }
+
+    public BigDecimal getCostoEstadia() {
+        return costoEstadia;
+    }
+
+    public void setCostoEstadia(BigDecimal costoEstadia) {
+        this.costoEstadia = costoEstadia;
+    }
+
+    public Double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(Double descuento) {
+        this.descuento = descuento;
+    }
+
+    public Integer getCantPersonas() {
+        return cantPersonas;
+    }
+
+    public void setCantPersonas(Integer cantPersonas) {
+        this.cantPersonas = cantPersonas;
+    }
+
+    public Huesped getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Huesped responsable) {
+        this.responsable = responsable;
+    }
+
+    public List<Acompaniante> getAcompanantes() {
+        return acompanantes;
+    }
+
+    public void setAcompanantes(List<Acompaniante> acompanantes) {
+        this.acompanantes = acompanantes;
+    }
+
+    public Reserva getReservaOrigen() {
+        return reservaOrigen;
+    }
+
+    public void setReservaOrigen(Reserva reservaOrigen) {
+        this.reservaOrigen = reservaOrigen;
+    }
 }

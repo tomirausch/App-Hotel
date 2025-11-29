@@ -1,6 +1,6 @@
 package com.example.crud.api;
 
-import com.example.crud.dto.CrearReservaRequest;
+import com.example.crud.dto.ReservaDTO;
 import com.example.crud.model.Reserva;
 import com.example.crud.service.GestorHabitaciones;
 import jakarta.validation.Valid;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/reservas")
 public class ReservaController {
@@ -21,7 +20,7 @@ public class ReservaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> crearReserva(@Valid @RequestBody CrearReservaRequest request) {
+    public ResponseEntity<?> crearReserva(@Valid @RequestBody ReservaDTO request) {
         Reserva nuevaReserva = gestorHabitaciones.confirmarReserva(request);
 
         return ResponseEntity
