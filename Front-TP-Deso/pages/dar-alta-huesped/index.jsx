@@ -340,7 +340,6 @@ export default function DarAltaHuesped() {
       >
         <div className={styles.modalContent}>
           
-          {/* 1. ÍCONO SEGÚN TIPO */}
           <div className={styles.iconContainer}>
             {modalConfig.tipo === 'exito' && '✅'}
             {modalConfig.tipo === 'error' && '❌'}
@@ -348,18 +347,14 @@ export default function DarAltaHuesped() {
             {modalConfig.tipo === 'confirmacion' && '❓'}
           </div>
 
-          {/* 2. TEXTOS */}
           <h2 className={styles.modalTitle}>{modalConfig.titulo}</h2>
           <p className={modalConfig.mensaje === "" ? "" : styles.modalMessage}>{modalConfig.mensaje}</p>
 
-          {/* 3. BOTONES DINÁMICOS (Aquí ocurre la magia) */}
-          <div className={styles.botonesContainer}>
-            {/* Validamos que 'acciones' exista antes de hacer map */}
+          <div className={styles.botonesContainer}>+
             {modalConfig.acciones && modalConfig.acciones.map((accion, index) => (
               <button 
                 key={index}
                 onClick={accion.onClick}
-                // Combina clase base + la clase específica que definiste en el objeto (primario, cancelar, aceptar, etc.)
                 className={`${styles.btnModal} ${styles[accion.estilo]}`}
                 disabled={accion.disabled}
               >
