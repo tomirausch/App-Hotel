@@ -1,3 +1,9 @@
+.contenedorPrincipal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
 .formulario{
   width: 600px;
   max-width: 600px;
@@ -85,4 +91,57 @@
 	justify-content: center;
 	gap: 20px;
 	margin-top: 20px;
+}
+
+.containerResponse{
+  overflow: hidden;
+  margin: 0;
+  width: 900px;
+  max-width: 900px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: baseline;
+  gap: 10px;
+}
+
+.contenedorResultados{
+  display: flex;
+  flex-direction: row;
+  max-width: auto;
+  overflow: auto;
+}
+
+.estadoContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.contenedorFechas{
+  display: flex;
+  flex-direction: column;
+}
+
+.tituloFechas{
+  color: black;
+}
+
+.fecha{
+  color: whitesmoke;
+}
+
+.fechaContainer{
+  border: 1px solid whitesmoke;
+  padding: 10px 30px;
+  white-space: nowrap;
+}
+
+.titulosContainer{
+  background-color: #79a1eb;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
 }
