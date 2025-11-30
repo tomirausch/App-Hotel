@@ -4,7 +4,6 @@ import com.example.crud.auxiliares.HuespedMapper;
 import com.example.crud.auxiliares.ReservaMapper;
 import com.example.crud.dao.*;
 import com.example.crud.dto.*;
-import com.example.crud.exception.HabitacionNoDisponibleException;
 import com.example.crud.exception.RecursoNoEncontradoException;
 import com.example.crud.model.*;
 import org.springframework.stereotype.Service;
@@ -95,7 +94,7 @@ public class GestorHabitaciones {
     // ===========================================================
     @Transactional
     public Reserva confirmarReserva(ReservaDTO request) {
-        List<Habitacion> habitaciones = verificarDisponibilidad(request.getDetalles());
+        List<Habitacion> habitaciones = obtenerHabitaciones(request.getDetalles());
         Huesped huesped = obtenerOcrearHuesped(request);
         BigDecimal montoTotal = calcularMontoTotal(habitaciones, request.getDetalles());
         Reserva nuevaReserva = ReservaMapper.toEntity(request, huesped, habitaciones, montoTotal);
@@ -176,10 +175,6 @@ public class GestorHabitaciones {
         return estadiaDao.save(estadia);
     }
 
-    // ===========================================================
-    // MÉTODOS AUXILIARES PARA CU15
-    // ===========================================================
-
     private Map<String, List<OcuparHabitacionDetalleDTO>> agruparDetallesPorTipo(
             List<OcuparHabitacionDetalleDTO> detalles,
             Long idHuespedResponsableEstadia) {
@@ -259,33 +254,12 @@ public class GestorHabitaciones {
         return total;
     }
 
-    // ===========================================================
-    // MÉTODOS AUXILIARES PRIVADOS
-    // ===========================================================
-
-    private List<Habitacion> verificarDisponibilidad(List<ReservaDetalleDTO> detalles) {
-        List<Habitacion> habitaciones = new ArrayList<>();
-        Set<Long> idsProcesados = new HashSet<>();
-
-        if (detalles == null)
-            return habitaciones;
-
-        for (ReservaDetalleDTO detalle : detalles) {
-            List<Reserva> conflictos = reservaDao.buscarConfirmadasPorHabitacionYFecha(
-                    detalle.getIdHabitacion(),
-                    detalle.getFecha());
-
-            if (!conflictos.isEmpty()) {
-                throw new HabitacionNoDisponibleException("La habitación con ID " + detalle.getIdHabitacion() +
-                        " no está disponible para la fecha " + detalle.getFecha());
-            }
-
-            if (!idsProcesados.contains(detalle.getIdHabitacion())) {
-                habitaciones.add(obtenerPorId(detalle.getIdHabitacion()));
-                idsProcesados.add(detalle.getIdHabitacion());
-            }
-        }
-        return habitaciones;
+    private List<Habitacion> obtenerHabitaciones(List<ReservaDetalleDTO> detalles) {
+        List<Long> ids = detalles.stream()
+                .map(ReservaDetalleDTO::getIdHabitacion)
+                .distinct()
+                .toList();
+        return habitacionDao.findAllById(ids);
     }
 
     private Huesped obtenerOcrearHuesped(ReservaDTO req) {

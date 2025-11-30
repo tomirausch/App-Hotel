@@ -11,7 +11,6 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/reservas")
-@CrossOrigin(origins = "http://localhost:3000")
 public class ReservaController {
 
     private final GestorHabitaciones gestorHabitaciones;

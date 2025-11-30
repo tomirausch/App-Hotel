@@ -9,6 +9,8 @@ import com.example.crud.model.TipoDocumento;
 public interface HuespedDao {
     Huesped save(Huesped h);
 
+    Optional<Huesped> findByDocumento(String tipo, String numero);
+
     List<Huesped> buscarPorCriterios(String apellido,
             String nombre,
             TipoDocumento tipoDocumento,

@@ -23,6 +23,20 @@ public class HuespedDaoJpa implements HuespedDao {
     }
 
     @Override
+    public Optional<Huesped> findByDocumento(String tipo, String numero) {
+        var q = em.createQuery("""
+                    SELECT h FROM Huesped h
+                    WHERE h.tipoDocumento = :t AND h.numeroDocumento = :n
+                """, Huesped.class);
+
+        q.setParameter("t", TipoDocumento.valueOf(tipo));
+        q.setParameter("n", numero);
+
+        var r = q.getResultList();
+        return r.isEmpty() ? Optional.empty() : Optional.of(r.get(0));
+    }
+
+    @Override
     public List<Huesped> buscarPorCriterios(String apellido,
             String nombre,
             TipoDocumento tipoDocumento,

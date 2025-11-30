@@ -38,4 +38,18 @@ public class HabitacionDaoJpa implements HabitacionDao {
         }
         return em.merge(h);
     }
+
+    @Override
+    public List<Habitacion> findAllById(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
+        return em.createQuery("""
+                SELECT h FROM Habitacion h
+                JOIN FETCH h.tipoHabitacion
+                WHERE h.id IN :ids
+                """, Habitacion.class)
+                .setParameter("ids", ids)
+                .getResultList();
+    }
 }

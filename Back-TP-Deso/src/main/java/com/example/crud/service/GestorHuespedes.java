@@ -4,9 +4,12 @@ import com.example.crud.dao.HuespedDao;
 import com.example.crud.dto.HuespedDTO;
 import com.example.crud.exception.RecursoNoEncontradoException;
 import com.example.crud.model.Huesped;
+import com.example.crud.model.TipoDocumento;
+
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GestorHuespedes {
@@ -43,5 +46,12 @@ public class GestorHuespedes {
                 .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró el huésped con id=" + id));
         com.example.crud.auxiliares.HuespedMapper.updateEntity(existente, datos);
         return dao.save(existente);
+    }
+
+    @Transactional
+    public Optional<Huesped> buscarPorDocumento(TipoDocumento tipo, String numero) {
+        if (tipo == null || numero == null)
+            return Optional.empty();
+        return dao.findByDocumento(tipo.name(), numero);
     }
 }

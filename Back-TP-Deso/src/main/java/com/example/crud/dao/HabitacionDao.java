@@ -12,5 +12,6 @@ public interface HabitacionDao {
     Optional<Habitacion> findById(Long id);
 
     Habitacion save(Habitacion h);
-}
 
+    List<Habitacion> findAllById(List<Long> ids);
+}
