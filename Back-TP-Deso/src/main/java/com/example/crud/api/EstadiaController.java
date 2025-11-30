@@ -11,6 +11,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/estadias")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EstadiaController {
 
     private final GestorHabitaciones gestorHabitaciones;
