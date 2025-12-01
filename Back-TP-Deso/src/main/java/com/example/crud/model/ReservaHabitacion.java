@@ -1,5 +1,6 @@
 package com.example.crud.model;
 
+import com.example.crud.enums.EstadoReserva;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 

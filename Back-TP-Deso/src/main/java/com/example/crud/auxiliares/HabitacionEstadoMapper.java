@@ -1,7 +1,7 @@
 package com.example.crud.auxiliares;
 
 import com.example.crud.dto.HabitacionDTO;
-import com.example.crud.model.EstadoHabitacion;
+import com.example.crud.enums.EstadoHabitacion;
 import com.example.crud.model.Habitacion;
 
 public final class HabitacionEstadoMapper {

@@ -1,6 +1,6 @@
 package com.example.crud.dto;
 
-import com.example.crud.model.EstadoHabitacion;
+import com.example.crud.enums.EstadoHabitacion;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

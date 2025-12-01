@@ -2,7 +2,7 @@ package com.example.crud.auxiliares;
 
 import com.example.crud.dto.ReservaDTO;
 import com.example.crud.dto.ReservaDetalleDTO;
-import com.example.crud.model.EstadoReserva;
+import com.example.crud.enums.EstadoReserva;
 import com.example.crud.model.Habitacion;
 import com.example.crud.model.Huesped;
 import com.example.crud.model.Reserva;
