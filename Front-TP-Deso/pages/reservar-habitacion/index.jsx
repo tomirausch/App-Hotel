@@ -9,6 +9,9 @@
     const [seleccionadoFin, setSeleccionadoFin] = useState([]);
     const [reservasAcumuladas, setReservasAcumuladas] = useState([]);
     const [mostrandoLista, setMostrandoLista] = useState(false);
+    const [cargando, setCargando] = useState(false);
+    const [fechaDesde, setFechaDesde] = useState("");
+    const [fechaHasta, setFechaHasta] = useState("");
 
     const fechasEntreFechas = (fechaA, fechaB) => {
         const fechas = [];
@@ -90,6 +93,7 @@
     const enviarDatos = async (e) => {
       setHabitaciones([]);
       e.preventDefault();
+      setCargando(true);
       const formData = new FormData(e.target);
 
       const datos = {
@@ -116,7 +120,9 @@
         }
       } catch (e) {
         console.log(e);
-      } 
+      } finally {
+        setCargando(false);
+      }
     };
 
     const ordenarDatos = useMemo(() => {
@@ -454,12 +460,22 @@
               <div className={styles.allInputContainer}>
                 <div className={styles.inputContainer}>
                   <label htmlFor="Desde">Desde</label>
-                  <input type="date" name="Desde" />
+                  <input 
+                    type="date"
+                    name="Desde" 
+                    value={fechaDesde}
+                    onChange={(e) => setFechaDesde(e.target.value)}
+                  />
                 </div>
 
                 <div className={styles.inputContainer}>
                   <label htmlFor="Hasta"> Hasta</label>
-                  <input type="date" name="Hasta" />
+                  <input 
+                    type="date" 
+                    name="Hasta" 
+                    value={fechaHasta} 
+                    onChange={(e) => setFechaHasta(e.target.value)}
+                  />
                 </div>
               </div>
             </fieldset>
@@ -482,7 +498,8 @@
 
             <input
               type="submit"
-              value="Buscar"
+              value={cargando ? "Buscando..." : "Buscar"}
+              disabled={cargando || !fechaDesde || !fechaHasta || (fechaHasta < fechaDesde)}
               form="formulario"
               className={styles.btnSiguiente} 
               onClick={ ()=>{
@@ -501,7 +518,7 @@
             </div>
           ) : 
           <div className={styles.containerNullResponse}>
-            Realice una busqueda...
+            {cargando ? "Buscando..." : "Realice una búsqueda..."}
           </div>
           }
         </div>
