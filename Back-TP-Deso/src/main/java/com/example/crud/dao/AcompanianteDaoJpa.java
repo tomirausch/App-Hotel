@@ -1,6 +1,7 @@
 package com.example.crud.dao;
 
 import com.example.crud.model.Acompaniante;
+import com.example.crud.enums.TipoDocumento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -36,5 +37,17 @@ public class AcompanianteDaoJpa implements AcompanianteDao {
         return em.createQuery("SELECT a FROM Acompaniante a WHERE a.id IN :ids", Acompaniante.class)
                 .setParameter("ids", ids)
                 .getResultList();
+    }
+
+    @Override
+    public Optional<Acompaniante> findByDocumento(TipoDocumento tipoDoc, String numeroDoc) {
+        return em.createQuery(
+                "SELECT a FROM Acompaniante a WHERE a.tipoDocumento = :tipoDoc AND a.numeroDocumento = :numeroDoc",
+                Acompaniante.class)
+                .setParameter("tipoDoc", tipoDoc)
+                .setParameter("numeroDoc", numeroDoc)
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 }
