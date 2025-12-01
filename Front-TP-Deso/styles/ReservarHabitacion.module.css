@@ -363,69 +363,97 @@
   margin-bottom: 60px;
 }
 
+/* --- ESTILOS DE MODAL UNIFICADOS --- */
 .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Asegura que esté por encima de todo */
+  z-index: 2000;
   animation: fadeIn 0.2s ease-in-out;
+  backdrop-filter: blur(2px);
 }
 
 .modalContent {
   background-color: white;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  max-width: 450px;
   width: 90%;
   text-align: center;
-  border-top: 5px solid #ef4444; /* Borde rojo de error */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Bordes de colores por tipo */
+.exito { border-top: 6px solid #22c55e; }
+.error { border-top: 6px solid #ef4444; }
+.advertencia { border-top: 6px solid #eab308; }
+
 .modalIcon {
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: 15px;
   display: block;
+  line-height: 1;
 }
 
 .modalTitulo {
-  font-size: 1.25rem;
-  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 700;
   color: #1f2937;
   margin-bottom: 10px;
 }
 
 .modalMensaje {
   color: #4b5563;
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-
-/* Reutilizamos tu botón cancelar pero le damos ancho completo en el modal */
-.btnModalCerrar {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
+  margin-bottom: 25px;
+  line-height: 1.6;
   font-size: 1rem;
-  width: 100%;
-  transition: background 0.2s;
 }
 
-.btnModalCerrar:hover {
-  background-color: #dc2626;
+.botonesContainer {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
 }
+
+.btnModal {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
+}
+
+.btnModal:hover { opacity: 0.9; }
+
+.cancelar { background-color: #ef4444; color: white; }
+.aceptar { background-color: #22c55e; color: white; }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.inputError {
+  border-bottom: 2px solid red !important;
+  background-color: transparent;
+}
+.mensajeError {
+  font-size: 0.85rem;
+  display: block;
+  color: red;
+  margin-top: 4px;
+  font-weight: 500;
 }

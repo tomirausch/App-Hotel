@@ -18,6 +18,9 @@ export default function DarAltaHuesped() {
   const aMayusculas = (e) => {
     e.target.value = e.target.value.toUpperCase();
   };
+  const soloNumeros = (e) => {
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+  };
 
   const router = useRouter();
   const refresh = () => router.reload();
@@ -158,7 +161,6 @@ export default function DarAltaHuesped() {
       });
 
       const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-
       const nombreVal = formData.get('Nombre');
       if (nombreVal && !regexSoloLetras.test(nombreVal.toString())) {
         nuevosErrores['Nombre'] = "El nombre solo puede contener letras y espacios";
@@ -466,7 +468,8 @@ export default function DarAltaHuesped() {
             <div className={styles.formGroup}>
               <label htmlFor="NumeroTelefono">Teléfono*</label>
               <input type="text" name="NumeroTelefono" placeholder="(011) 1234-5678"
-                className={errores.NumeroTelefono ? styles.inputError : ''} 
+                className={errores.NumeroTelefono ? styles.inputError : ''}
+                onInput={soloNumeros}
                 onChange={() => setErrores({...errores, NumeroTelefono: null})} 
               />
               {errores.NumeroTelefono && <span className={styles.mensajeError}>{errores.NumeroTelefono}</span>}
