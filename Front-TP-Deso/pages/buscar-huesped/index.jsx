@@ -67,13 +67,25 @@ export default function BuscarHuesped() {
       NumeroDocumento: formData.get('NumeroDocumento').trim()
     };
 
-    console.log(datos);
+    const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/;
+
+    if (!regexSoloLetras.test(datos.Apellido)) {
+      alert("El apellido solo puede contener letras y espacios.");
+      setCargando(false); 
+      return;
+    }
+
+    if (!regexSoloLetras.test(datos.Nombre)) {
+      alert("El nombre solo puede contener letras y espacios.");
+      setCargando(false);
+      return;
+    }
 
     let query = 'http://localhost:8080/api/huespedes/buscar';
     datos.Apellido !== "" && (query += `?apellido=${datos.Apellido}&`);
     datos.Nombre !== "" && (query += `?nombre=${datos.Nombre}&`);
-    datos.TipoDocumento !== "" && (query += `?apellido=${datos.TipoDocumento}&`);
-    datos.NumeroDocumento !== "" && (query += `?apellido=${datos.NumeroDocumento}&`);
+    datos.TipoDocumento !== "" && (query += `?tipoDocumento=${datos.TipoDocumento}&`);
+    datos.NumeroDocumento !== "" && (query += `?numeroDocumento=${datos.NumeroDocumento}&`);
 
     try{
       const respuesta = await fetch(query, {

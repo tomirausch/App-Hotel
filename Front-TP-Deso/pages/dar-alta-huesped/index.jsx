@@ -64,6 +64,80 @@ export default function DarAltaHuesped() {
     }
   };
 
+  const crearHuesped = async (datosApi) => {
+    try {
+      const respuesta = await fetch('http://localhost:8080/api/huespedes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datosApi),
+      });
+
+      if (respuesta.ok) {
+        const nuevoHuesped = await respuesta.json();
+        cerrarModal();
+        setModalConfig({
+          tipo: "exito",
+          titulo: "¡Huésped registrado!",
+          mensaje: `Se dio de alta a ${nuevoHuesped.nombre} ${nuevoHuesped.apellido}.`,
+          acciones: [
+            { texto: "Aceptar", estilo: "aceptar", onClick: refresh }
+          ]
+        });
+        abrirModal();
+      } else {
+        throw new Error("Error al crear");
+      }
+    } catch (error) {
+      mostrarErrorGenerico();
+    } finally {
+      setEnviando(false);
+    }
+  };
+  const actualizarHuesped = async (id, datosApi) => {
+    setModalConfig({
+      tipo: "confirmacion", 
+      titulo: "Actualizando...",
+      mensaje: "Sobrescribiendo los datos del huésped existente...",
+      acciones: []
+    });
+    
+    try {
+      const respuesta = await fetch(`http://localhost:8080/api/huespedes/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datosApi),
+      });
+
+      if (respuesta.ok) {
+        const actualizado = await respuesta.json();
+        setModalConfig({
+          tipo: "exito",
+          titulo: "¡Actualización exitosa!",
+          mensaje: `Se actualizaron los datos de ${actualizado.nombre} ${actualizado.apellido}.`,
+          acciones: [
+            { texto: "Aceptar", estilo: "aceptar", onClick: refresh }
+          ]
+        });
+      } else {
+        throw new Error("Error al actualizar");
+      }
+    } catch (error) {
+      mostrarErrorGenerico();
+    } finally {
+      setEnviando(false);
+    }
+  };
+
+  const mostrarErrorGenerico = () => {
+    setModalConfig({
+      tipo: "error",
+      titulo: "Error",
+      mensaje: "Ha ocurrido un error inesperado, intente nuevamente",
+      acciones: [{ texto: "Cerrar", estilo: "cancelar", onClick: cerrarModal }]
+    });
+    abrirModal();
+  };
+
   const enviarDatos = async (e) => {
       e.preventDefault();
       const formData = new FormData(e.target);
@@ -82,6 +156,18 @@ export default function DarAltaHuesped() {
           nuevosErrores[campo] = "Este campo es obligatorio";
         }
       });
+
+      const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
+
+      const nombreVal = formData.get('Nombre');
+      if (nombreVal && !regexSoloLetras.test(nombreVal.toString())) {
+        nuevosErrores['Nombre'] = "El nombre solo puede contener letras y espacios";
+      }
+
+      const apellidoVal = formData.get('Apellido');
+      if (apellidoVal && !regexSoloLetras.test(apellidoVal.toString())) {
+        nuevosErrores['Apellido'] = "El apellido solo puede contener letras y espacios";
+      }
 
       const email = formData.get('Email');
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -143,7 +229,6 @@ export default function DarAltaHuesped() {
         }
       };
 
-      // === Transformar datos del form -> modelo Huesped (backend) ===
       function mapearFrontAApi(data) {
         const isoOrNull = (d) => (d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : null);
         const numOrNull = (n) => (n === undefined || n === null || n === "" ? null : Number(n));
@@ -172,42 +257,27 @@ export default function DarAltaHuesped() {
           cuit:            data.CUIT || null
         };
       }
-
+      const datosParaApi = mapearFrontAApi(datos);
       setEnviando(true); 
       try {
-        const respuesta = await fetch('http://localhost:8080/api/huespedes', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(mapearFrontAApi(datos)),
+        const tipoDoc = datosParaApi.tipoDocumento;
+        const numDoc = datosParaApi.numeroDocumento;
+
+        const queryParams = new URLSearchParams({
+          tipoDocumento: tipoDoc,
+          numeroDocumento: numDoc
         });
 
-        const contenido = await respuesta.json(); 
+        const responseCheck = await fetch(`http://localhost:8080/api/huespedes/buscar?${queryParams}`);
+        
+        if (!responseCheck.ok) throw new Error("Error en la verificación");
+        
+        const listaDuplicados = await responseCheck.json();
 
-        if (respuesta.ok) {
-
-          setModalConfig({
-            tipo: "exito",
-            titulo: `¡Husesped ${datos.Nombre} ${datos.Apellido} dado de alta!`,
-            mensaje: "El huesped ha sido satisfactoriamente cargado al sistema. ¿Desea cargar otro?",
-            acciones: [
-              {
-                texto: "No",
-                estilo: "cancelar",
-                onClick: cerrarModal
-              },
-              {
-                texto: "Si",
-                estilo: "aceptar",
-                onClick: refresh
-              }
-            ]
-          });
-          abrirModal() 
-
-        } else if(contenido.error == "DOCUMENTO_DUPLICADO"){
-          console.log("entré")
+        if (listaDuplicados.length === 0) {
+          await crearHuesped(datosParaApi);
+        } else {
+          const huespedExistente = listaDuplicados[0];
           setModalConfig({
             tipo: "documento_duplicado",
             titulo: "Numero y tipo de documento duplicado",
@@ -258,48 +328,7 @@ export default function DarAltaHuesped() {
                         { texto: "Procesando...", estilo: "aceptar", disabled: true, onClick: () => {} } 
                     ]
                   });
-                  try{
-                    const respuesta2 = await fetch('http://localhost:8080/api/huespedes?forzar=true', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(mapearFrontAApi(datos)),
-                  });
-                  console.log("click");
-                  if(respuesta2.ok){
-                    console.log("entré");
-                    const huespedGuardado = await respuesta2.json();
-                    cerrarModal();
-                    setModalConfig({
-                      tipo: "exito",
-                      titulo: "¡Sobrescrito con éxito!",
-                      mensaje: `Se han actualizado los datos del huésped ${huespedGuardado.nombre} ${huespedGuardado.apellido}.`,
-                      acciones: [
-                        {
-                          texto: "Aceptar",
-                          estilo: "aceptar",
-                          onClick: refresh
-                        }
-                      ]
-                    });
-                    abrirModal();
-                  }
-                  } catch(e){
-                     setModalConfig({
-                      tipo: "error",
-                      titulo: "Error",
-                      mensaje: "Ha ocurrido un error inesperado, intente nuevamente",
-                      acciones:[
-                        {
-                          texto: "Cerrar",
-                          estilo: "cancelar",
-                          onClick: cerrarModal
-                        }
-                      ]
-                    })
-                    abrirModal();
-                  }
+                  actualizarHuesped(huespedExistente.id, datosParaApi);
                 }
               }
             ]

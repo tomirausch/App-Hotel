@@ -1,0 +1,3687 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/C:/Users/Windows/.m2/wrapper/dists/apache-maven-3.9.11/03d7e36a140982eea48e22c1dcac01d8862b2550b2939e09a0809bbc5182a5bc/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.example:crud >--------------------------
+[INFO] Building crud 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.7:run (default-cli) > test-compile @ crud >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ crud ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ crud ---
+[INFO] Recompiling the module because of added or removed source files.
+[INFO] Compiling 51 source files with javac [debug parameters release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ crud ---
+[INFO] skip non existing resourceDirectory C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ crud ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 21] to target\test-classes
+[INFO] 
+[INFO] <<< spring-boot:3.5.7:run (default-cli) < test-compile @ crud <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.7:run (default-cli) @ crud ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-12-01T13:34:48.153-03:00  INFO 24724 --- [           main] com.example.crud.CrudApplication         : Starting CrudApplication using Java 24.0.2 with PID 24724 (C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes started by Windows in C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso)
+2025-12-01T13:34:48.158-03:00  INFO 24724 --- [           main] com.example.crud.CrudApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-12-01T13:34:50.801-03:00  INFO 24724 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-01T13:34:50.912-03:00  INFO 24724 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 0 JPA repository interfaces.
+2025-12-01T13:34:52.534-03:00  INFO 24724 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-12-01T13:34:52.828-03:00  INFO 24724 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-01T13:34:52.828-03:00  INFO 24724 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-01T13:34:53.015-03:00  INFO 24724 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-01T13:34:53.017-03:00  INFO 24724 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4731 ms
+2025-12-01T13:34:53.411-03:00  INFO 24724 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-01T13:34:53.555-03:00  INFO 24724 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-01T13:34:53.640-03:00  INFO 24724 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-01T13:34:54.718-03:00  INFO 24724 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-01T13:34:54.824-03:00  INFO 24724 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-01T13:34:59.938-03:00  INFO 24724 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@59d6642a
+2025-12-01T13:34:59.944-03:00  INFO 24724 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-01T13:35:00.902-03:00  WARN 24724 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-01T13:35:00.904-03:00  WARN 24724 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-12-01T13:35:00.945-03:00  INFO 24724 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-01T13:35:03.608-03:00  INFO 24724 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-01T13:35:05.689-03:00 DEBUG 24724 --- [           main] org.hibernate.SQL                        : 
+    alter table habitaciones 
+       modify column estado_actual enum ('DISPONIBLE','FUERA_DE_SERVICIO','MANTENIMIENTO','OCUPADA','RESERVADA') not null
+Hibernate: 
+    alter table habitaciones 
+       modify column estado_actual enum ('DISPONIBLE','FUERA_DE_SERVICIO','MANTENIMIENTO','OCUPADA','RESERVADA') not null
+2025-12-01T13:35:06.620-03:00 DEBUG 24724 --- [           main] org.hibernate.SQL                        : 
+    alter table huespedes 
+       modify column posicion_iva enum ('CONSUMIDOR_FINAL','EXENTO','MONOTRIBUTISTA','NO_RESPONSABLE','RESPONSABLE_INSCRIPTO')
+Hibernate: 
+    alter table huespedes 
+       modify column posicion_iva enum ('CONSUMIDOR_FINAL','EXENTO','MONOTRIBUTISTA','NO_RESPONSABLE','RESPONSABLE_INSCRIPTO')
+2025-12-01T13:35:07.532-03:00 DEBUG 24724 --- [           main] org.hibernate.SQL                        : 
+    alter table reserva_habitaciones 
+       modify column estado enum ('CANCELADA','CONFIRMADA','PENDIENTE')
+Hibernate: 
+    alter table reserva_habitaciones 
+       modify column estado enum ('CANCELADA','CONFIRMADA','PENDIENTE')
+2025-12-01T13:35:23.609-03:00  INFO 24724 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-01T13:35:25.217-03:00  INFO 24724 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-12-01T13:35:25.225-03:00  INFO 24724 --- [           main] com.example.crud.CrudApplication         : Started CrudApplication in 38.417 seconds (process running for 39.306)
+2025-12-01T13:35:26.354-03:00  INFO 24724 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-01T13:35:26.354-03:00  INFO 24724 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-01T13:35:26.356-03:00  INFO 24724 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-12-01T13:37:41.340-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:37:42.385-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:37:42.386-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-12]
+2025-12-01T13:37:42.386-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-13]
+2025-12-01T13:37:42.855-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:37:42.855-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-12]
+2025-12-01T13:37:42.855-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-13]
+2025-12-01T13:42:33.975-03:00 DEBUG 24724 --- [nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:42:35.297-03:00 DEBUG 24724 --- [nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:42:35.298-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:42:35.299-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-15]
+2025-12-01T13:42:35.729-03:00 DEBUG 24724 --- [nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:42:35.730-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:42:35.731-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-15]
+2025-12-01T13:45:17.459-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:45:18.415-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:45:18.416-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:45:18.417-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-15]
+2025-12-01T13:45:18.854-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:45:18.856-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:45:18.857-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-15]
+2025-12-01T13:46:47.099-03:00 DEBUG 24724 --- [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:46:48.043-03:00 DEBUG 24724 --- [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:46:48.045-03:00 TRACE 24724 --- [nio-8080-exec-2] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:46:48.045-03:00 TRACE 24724 --- [nio-8080-exec-2] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2026-01-10]
+2025-12-01T13:46:48.541-03:00 DEBUG 24724 --- [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:46:48.541-03:00 TRACE 24724 --- [nio-8080-exec-2] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:46:48.541-03:00 TRACE 24724 --- [nio-8080-exec-2] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2026-01-10]
+2025-12-01T13:46:53.473-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:46:54.385-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:46:54.385-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:46:54.385-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2026-01-10]
+2025-12-01T13:46:54.841-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:46:54.843-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:46:54.845-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2026-01-10]
+2025-12-01T13:47:25.850-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:47:26.791-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:47:26.792-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-01]
+2025-12-01T13:47:26.792-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-07]
+2025-12-01T13:47:27.259-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+2025-12-01T13:47:27.260-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [79]
+2025-12-01T13:47:27.703-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-01T13:47:27.705-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [2]
+2025-12-01T13:47:28.150-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+2025-12-01T13:47:28.151-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [80]
+2025-12-01T13:47:28.568-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-01T13:47:28.570-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [3]
+2025-12-01T13:47:28.993-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+2025-12-01T13:47:28.995-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [81]
+2025-12-01T13:47:29.416-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-01T13:47:29.418-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [4]
+2025-12-01T13:47:29.932-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-01T13:47:29.932-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [9]
+2025-12-01T13:47:30.474-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+2025-12-01T13:47:30.476-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [83]
+2025-12-01T13:47:30.985-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:47:30.987-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-01]
+2025-12-01T13:47:30.988-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-07]
+2025-12-01T13:47:31.467-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-01T13:47:31.468-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [5]
+2025-12-01T13:47:31.932-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+2025-12-01T13:47:31.934-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [79]
+2025-12-01T13:47:32.501-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-01T13:47:32.502-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [1]
+2025-12-01T13:47:32.973-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-01T13:47:32.976-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [2]
+2025-12-01T13:47:33.421-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-01T13:47:33.423-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [3]
+2025-12-01T13:47:33.864-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+2025-12-01T13:47:33.865-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [80]
+2025-12-01T13:47:34.321-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-01T13:47:34.321-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [4]
+2025-12-01T13:49:36.438-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:49:37.311-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:49:37.313-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-01]
+2025-12-01T13:49:37.313-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-11-30]
+2025-12-01T13:49:37.716-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:49:37.718-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-01]
+2025-12-01T13:49:37.718-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-11-30]
+2025-12-01T13:51:46.690-03:00 DEBUG 24724 --- [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:51:47.579-03:00 DEBUG 24724 --- [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:51:47.581-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:51:47.582-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-13]
+2025-12-01T13:51:48.187-03:00 DEBUG 24724 --- [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:51:48.189-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:51:48.189-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-13]
+2025-12-01T13:51:55.777-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:51:56.767-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:51:56.768-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:51:56.768-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-05]
+2025-12-01T13:51:57.244-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:51:57.246-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:51:57.246-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-05]
+2025-12-01T13:52:16.265-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    order by
+        h1_0.numero
+2025-12-01T13:52:17.198-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+Hibernate: 
+    select
+        distinct r1_0.id_reserva,
+        r1_0.id_huesped,
+        r1_0.monto,
+        rh1_0.id_reserva,
+        rh1_0.id,
+        rh1_0.estado,
+        rh1_0.fecha,
+        rh1_0.id_habitacion 
+    from
+        reservas r1_0 
+    join
+        reserva_habitaciones rh1_0 
+            on r1_0.id_reserva=rh1_0.id_reserva 
+    where
+        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
+        and rh1_0.fecha between ? and ?
+2025-12-01T13:52:17.200-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:52:17.200-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-25]
+2025-12-01T13:52:17.634-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+Hibernate: 
+    select
+        distinct e1_0.id,
+        e1_0.cant_personas,
+        e1_0.costo_estadia,
+        e1_0.descuento,
+        eh1_0.id_estadia,
+        eh1_0.id,
+        eh1_0.fecha,
+        eh1_0.id_habitacion,
+        e1_0.id_reserva_origen,
+        e1_0.id_huesped_responsable 
+    from
+        estadias e1_0 
+    join
+        estadia_habitaciones eh1_0 
+            on e1_0.id=eh1_0.id_estadia 
+    where
+        eh1_0.fecha>=? 
+        and eh1_0.fecha<=?
+2025-12-01T13:52:17.635-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-10]
+2025-12-01T13:52:17.636-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-25]
+2025-12-01T13:54:08.917-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:54:11.740-03:00 DEBUG 24724 --- [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:54:19.375-03:00 DEBUG 24724 --- [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and upper(h1_0.apellido) like replace(?, '\\', '\\\\') 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and upper(h1_0.apellido) like replace(?, '\\', '\\\\') 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:54:19.812-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [454%]
+2025-12-01T13:57:21.117-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:59:08.431-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:59:12.127-03:00 DEBUG 24724 --- [nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:59:17.713-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and upper(h1_0.apellido) like replace(?, '\\', '\\\\') 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and upper(h1_0.apellido) like replace(?, '\\', '\\\\') 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:59:18.229-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [RAUSCH%]
+2025-12-01T13:59:23.975-03:00 DEBUG 24724 --- [io-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:59:24.515-03:00 TRACE 24724 --- [io-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:ENUM) <- [PASAPORTE]
+2025-12-01T13:59:27.018-03:00 DEBUG 24724 --- [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:59:27.483-03:00 TRACE 24724 --- [nio-8080-exec-2] org.hibernate.orm.jdbc.bind              : binding parameter (1:ENUM) <- [DNI]
+2025-12-01T13:59:34.907-03:00 DEBUG 24724 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T13:59:35.359-03:00 TRACE 24724 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [12345678]
+2025-12-01T14:00:11.668-03:00 DEBUG 24724 --- [nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and upper(h1_0.apellido) like replace(?, '\\', '\\\\') 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and upper(h1_0.apellido) like replace(?, '\\', '\\\\') 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:00:12.136-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [RAUSCH%]
+2025-12-01T14:02:32.218-03:00 DEBUG 24724 --- [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and upper(h1_0.apellido) like replace(?, '\\', '\\\\') 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and upper(h1_0.apellido) like replace(?, '\\', '\\\\') 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:02:32.672-03:00 TRACE 24724 --- [nio-8080-exec-9] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [GIMENEZ%]
+2025-12-01T14:03:22.962-03:00 DEBUG 24724 --- [io-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:04:31.295-03:00 DEBUG 24724 --- [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:07:25.984-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        huespedes
+        (apellido, calle, codigo_postal, cuit, departamento, email, fecha_nacimiento, localidad, nacionalidad, nombre, numero, numero_documento, ocupacion, pais, piso, posicion_iva, provincia, telefono, tipo_documento) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        huespedes
+        (apellido, calle, codigo_postal, cuit, departamento, email, fecha_nacimiento, localidad, nacionalidad, nombre, numero, numero_documento, ocupacion, pais, piso, posicion_iva, provincia, telefono, tipo_documento) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-01T14:07:25.989-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [PEREZ45]
+2025-12-01T14:07:25.989-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [AAA]
+2025-12-01T14:07:25.989-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [23213]
+2025-12-01T14:07:25.989-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [5498798798]
+2025-12-01T14:07:25.989-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2025-12-01T14:07:25.989-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [null]
+2025-12-01T14:07:25.989-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (7:DATE) <- [2000-10-10]
+2025-12-01T14:07:25.989-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [ACA]
+2025-12-01T14:07:25.989-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [PERUANO]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (10:VARCHAR) <- [RAMON]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (11:INTEGER) <- [123]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (12:VARCHAR) <- [22564879]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (13:VARCHAR) <- [ARQUITECTO]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (14:VARCHAR) <- [Perú]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (15:INTEGER) <- [null]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (16:ENUM) <- [CONSUMIDOR_FINAL]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (17:VARCHAR) <- [LIMA]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (18:VARCHAR) <- [44568784]
+2025-12-01T14:07:25.990-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (19:ENUM) <- [DNI]
+2025-12-01T14:09:45.324-03:00 DEBUG 24724 --- [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:10:25.371-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    insert 
+    into
+        huespedes
+        (apellido, calle, codigo_postal, cuit, departamento, email, fecha_nacimiento, localidad, nacionalidad, nombre, numero, numero_documento, ocupacion, pais, piso, posicion_iva, provincia, telefono, tipo_documento) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        huespedes
+        (apellido, calle, codigo_postal, cuit, departamento, email, fecha_nacimiento, localidad, nacionalidad, nombre, numero, numero_documento, ocupacion, pais, piso, posicion_iva, provincia, telefono, tipo_documento) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-01T14:10:25.371-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [GIMENEZ]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [AAA]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [213156]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [null]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [null]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (7:DATE) <- [2000-10-10]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [ACA]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [PERUANO]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (10:VARCHAR) <- [RAMON]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (11:INTEGER) <- [5]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (12:VARCHAR) <- [12345678]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (13:VARCHAR) <- [ARQUITECTO]
+2025-12-01T14:10:25.372-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (14:VARCHAR) <- [Perú]
+2025-12-01T14:10:25.373-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (15:INTEGER) <- [null]
+2025-12-01T14:10:25.373-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (16:ENUM) <- [CONSUMIDOR_FINAL]
+2025-12-01T14:10:25.373-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (17:VARCHAR) <- [LIMA]
+2025-12-01T14:10:25.373-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (18:VARCHAR) <- [556987454]
+2025-12-01T14:10:25.373-03:00 TRACE 24724 --- [nio-8080-exec-8] org.hibernate.orm.jdbc.bind              : binding parameter (19:ENUM) <- [DNI]
+2025-12-01T14:10:34.104-03:00 DEBUG 24724 --- [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:10:50.133-03:00 DEBUG 24724 --- [io-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:10:50.624-03:00 TRACE 24724 --- [io-8080-exec-10] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [12345678]
+2025-12-01T14:11:51.078-03:00 DEBUG 24724 --- [nio-8080-exec-1] org.hibernate.SQL                        : 
+    insert 
+    into
+        huespedes
+        (apellido, calle, codigo_postal, cuit, departamento, email, fecha_nacimiento, localidad, nacionalidad, nombre, numero, numero_documento, ocupacion, pais, piso, posicion_iva, provincia, telefono, tipo_documento) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        huespedes
+        (apellido, calle, codigo_postal, cuit, departamento, email, fecha_nacimiento, localidad, nacionalidad, nombre, numero, numero_documento, ocupacion, pais, piso, posicion_iva, provincia, telefono, tipo_documento) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [GIMENEZ]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [AAA]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [23213]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [null]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [null]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (7:DATE) <- [2000-10-10]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [ACA]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [PERUANO]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (10:VARCHAR) <- [RAMON]
+2025-12-01T14:11:51.080-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (11:INTEGER) <- [5]
+2025-12-01T14:11:51.081-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (12:VARCHAR) <- [12345678]
+2025-12-01T14:11:51.081-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (13:VARCHAR) <- [ARQUITECTO]
+2025-12-01T14:11:51.081-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (14:VARCHAR) <- [Bangladesh]
+2025-12-01T14:11:51.081-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (15:INTEGER) <- [null]
+2025-12-01T14:11:51.081-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (16:ENUM) <- [CONSUMIDOR_FINAL]
+2025-12-01T14:11:51.081-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (17:VARCHAR) <- [LIMA]
+2025-12-01T14:11:51.081-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (18:VARCHAR) <- [326548984]
+2025-12-01T14:11:51.081-03:00 TRACE 24724 --- [nio-8080-exec-1] org.hibernate.orm.jdbc.bind              : binding parameter (19:ENUM) <- [DNI]
+2025-12-01T14:30:58.862-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:30:59.317-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:ENUM) <- [DNI]
+2025-12-01T14:30:59.318-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [12345678]
+2025-12-01T14:31:09.582-03:00 DEBUG 24724 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:31:11.033-03:00 TRACE 24724 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:ENUM) <- [DNI]
+2025-12-01T14:31:11.033-03:00 TRACE 24724 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [12345678]
+2025-12-01T14:31:14.874-03:00 DEBUG 24724 --- [nio-8080-exec-5] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+2025-12-01T14:31:14.876-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [85]
+2025-12-01T14:31:15.566-03:00 DEBUG 24724 --- [nio-8080-exec-5] org.hibernate.SQL                        : 
+    update
+        huespedes 
+    set
+        apellido=?,
+        calle=?,
+        codigo_postal=?,
+        cuit=?,
+        departamento=?,
+        email=?,
+        fecha_nacimiento=?,
+        localidad=?,
+        nacionalidad=?,
+        nombre=?,
+        numero=?,
+        numero_documento=?,
+        ocupacion=?,
+        pais=?,
+        piso=?,
+        posicion_iva=?,
+        provincia=?,
+        telefono=?,
+        tipo_documento=? 
+    where
+        id=?
+Hibernate: 
+    update
+        huespedes 
+    set
+        apellido=?,
+        calle=?,
+        codigo_postal=?,
+        cuit=?,
+        departamento=?,
+        email=?,
+        fecha_nacimiento=?,
+        localidad=?,
+        nacionalidad=?,
+        nombre=?,
+        numero=?,
+        numero_documento=?,
+        ocupacion=?,
+        pais=?,
+        piso=?,
+        posicion_iva=?,
+        provincia=?,
+        telefono=?,
+        tipo_documento=? 
+    where
+        id=?
+2025-12-01T14:31:15.566-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [GIMENEZ]
+2025-12-01T14:31:15.566-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [AAA]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [213156]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [null]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [null]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (7:DATE) <- [2000-10-10]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [ALLA]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [PERUANO]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (10:VARCHAR) <- [RAMON]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (11:INTEGER) <- [5]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (12:VARCHAR) <- [12345678]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (13:VARCHAR) <- [ARQUITECTO]
+2025-12-01T14:31:15.567-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (14:VARCHAR) <- [Perú]
+2025-12-01T14:31:15.568-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (15:INTEGER) <- [null]
+2025-12-01T14:31:15.568-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (16:ENUM) <- [CONSUMIDOR_FINAL]
+2025-12-01T14:31:15.568-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (17:VARCHAR) <- [LIMA]
+2025-12-01T14:31:15.568-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (18:VARCHAR) <- [555484879]
+2025-12-01T14:31:15.568-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (19:ENUM) <- [DNI]
+2025-12-01T14:31:15.568-03:00 TRACE 24724 --- [nio-8080-exec-5] org.hibernate.orm.jdbc.bind              : binding parameter (20:BIGINT) <- [85]
+2025-12-01T14:31:27.753-03:00 DEBUG 24724 --- [nio-8080-exec-8] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:32:26.249-03:00 DEBUG 24724 --- [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:34:01.796-03:00 DEBUG 24724 --- [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:35:03.737-03:00 DEBUG 24724 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.tipo_documento=? 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:35:04.367-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:ENUM) <- [DNI]
+2025-12-01T14:35:04.368-03:00 TRACE 24724 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [12345678]
+2025-12-01T14:35:10.083-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+2025-12-01T14:35:10.085-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [80]
+2025-12-01T14:35:10.796-03:00 DEBUG 24724 --- [nio-8080-exec-6] org.hibernate.SQL                        : 
+    update
+        huespedes 
+    set
+        apellido=?,
+        calle=?,
+        codigo_postal=?,
+        cuit=?,
+        departamento=?,
+        email=?,
+        fecha_nacimiento=?,
+        localidad=?,
+        nacionalidad=?,
+        nombre=?,
+        numero=?,
+        numero_documento=?,
+        ocupacion=?,
+        pais=?,
+        piso=?,
+        posicion_iva=?,
+        provincia=?,
+        telefono=?,
+        tipo_documento=? 
+    where
+        id=?
+Hibernate: 
+    update
+        huespedes 
+    set
+        apellido=?,
+        calle=?,
+        codigo_postal=?,
+        cuit=?,
+        departamento=?,
+        email=?,
+        fecha_nacimiento=?,
+        localidad=?,
+        nacionalidad=?,
+        nombre=?,
+        numero=?,
+        numero_documento=?,
+        ocupacion=?,
+        pais=?,
+        piso=?,
+        posicion_iva=?,
+        provincia=?,
+        telefono=?,
+        tipo_documento=? 
+    where
+        id=?
+2025-12-01T14:35:10.797-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [RAUSCH]
+2025-12-01T14:35:10.797-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [ZONA RURAL]
+2025-12-01T14:35:10.797-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [3123]
+2025-12-01T14:35:10.797-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [null]
+2025-12-01T14:35:10.798-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [null]
+2025-12-01T14:35:10.798-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [null]
+2025-12-01T14:35:10.798-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (7:DATE) <- [2005-12-13]
+2025-12-01T14:35:10.798-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [ALDEA SANTA MARIA]
+2025-12-01T14:35:10.798-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (9:VARCHAR) <- [ARGENTINO]
+2025-12-01T14:35:10.798-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (10:VARCHAR) <- [TOMAS]
+2025-12-01T14:35:10.799-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (11:INTEGER) <- [1]
+2025-12-01T14:35:10.799-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (12:VARCHAR) <- [12345678]
+2025-12-01T14:35:10.799-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (13:VARCHAR) <- [ESTUDIANTE]
+2025-12-01T14:35:10.799-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (14:VARCHAR) <- [Argentina]
+2025-12-01T14:35:10.799-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (15:INTEGER) <- [null]
+2025-12-01T14:35:10.800-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (16:ENUM) <- [CONSUMIDOR_FINAL]
+2025-12-01T14:35:10.800-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (17:VARCHAR) <- [ENTRE RIOS]
+2025-12-01T14:35:10.800-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (18:VARCHAR) <- [3435331733]
+2025-12-01T14:35:10.800-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (19:ENUM) <- [DNI]
+2025-12-01T14:35:10.800-03:00 TRACE 24724 --- [nio-8080-exec-6] org.hibernate.orm.jdbc.bind              : binding parameter (20:BIGINT) <- [80]
+2025-12-01T14:35:23.225-03:00 DEBUG 24724 --- [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+        and h1_0.numero_documento=? 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+2025-12-01T14:35:23.853-03:00 TRACE 24724 --- [nio-8080-exec-7] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [12345678]
