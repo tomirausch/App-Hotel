@@ -82,7 +82,7 @@
           if (hayNoDisponibles) {
             setErrorModal({
               visible: true,
-              mensaje: "Has seleccionado fechas que NO están disponibles (Reservadas, Ocupadas o en Mantenimiento)."
+              mensaje: "La habitación no se encuentra DISPONIBLE para las fechas seleccionadas."
               });
             return;
           }
@@ -468,7 +468,7 @@
               value={cargando ? "Buscando..." : "Buscar"}
               disabled={cargando || !fechaDesde || !fechaHasta || (fechaHasta < fechaDesde)}
               form="formulario"
-              className={styles.btnSiguiente} 
+              className={`${styles.btnSiguiente} ${cargando || !fechaDesde || !fechaHasta || (fechaHasta < fechaDesde) ? styles.desactivado : null}`} 
               onClick={ ()=>{
                 setSeleccionadoInicio([]);
                 setSeleccionadoFin([]);

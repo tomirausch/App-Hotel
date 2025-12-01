@@ -160,3 +160,16 @@
 .seleccionado:hover{
   background-color: #018db4;
 }
+
+.desactivado{
+  opacity: 0.5;
+  cursor:default;
+}
+
+.desactivado:active{
+  opacity: 0.5 !important;
+}
+
+.desactivado:hover{
+  background-color: #4CAF50;
+}

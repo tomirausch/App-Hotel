@@ -7,8 +7,6 @@ import React from 'react';
 
 export default function DarAltaHuesped() {
 
-  const modalRef = useRef(null);
-
   const [errores, setErrores] = useState({});
 
   const [listaPaises, setListaPaises] = useState([]);
@@ -51,17 +49,18 @@ export default function DarAltaHuesped() {
   }, []);
 
   const [modalConfig, setModalConfig] = useState({
+    visible: false,
     tipo: "",
     titulo: "",
     mensaje: "",
     acciones:[]
   });
 
-  const cerrarModal = () => modalRef.current.close();
+  const cerrarModal = () => {
+    setModalConfig((prev) => ({ ...prev, visible: false }));
+  };
   const abrirModal = () => {
-    if (modalRef.current && !modalRef.current.open) {
-      modalRef.current.showModal();
-    }
+    setModalConfig((prev) => ({ ...prev, visible: true }));
   };
 
   const crearHuesped = async (datosApi) => {
@@ -118,6 +117,7 @@ export default function DarAltaHuesped() {
             { texto: "Aceptar", estilo: "aceptar", onClick: refresh }
           ]
         });
+        abrirModal();
       } else {
         throw new Error("Error al actualizar");
       }
@@ -329,6 +329,7 @@ export default function DarAltaHuesped() {
                     ]
                   });
                   actualizarHuesped(huespedExistente.id, datosParaApi);
+                  abrirModal();
                 }
               }
             ]
@@ -363,23 +364,24 @@ export default function DarAltaHuesped() {
       <link rel="icon" href="/hotel-icon.ico?v=2" />
     </Head>
 
-    <dialog 
-        ref={modalRef} 
-        className={`${styles.modal} ${styles[modalConfig.tipo]}`}
-      >
-        <div className={styles.modalContent}>
+    {/* --- NUEVO MODAL ESTILO OVERLAY --- */}
+    {modalConfig.visible && (
+      <div className={styles.modalOverlay}>
+        {/* Agregamos la clase del tipo dinámicamente para el borde superior de color */}
+        <div className={`${styles.modalContent} ${styles[modalConfig.tipo]}`}>
           
-          <div className={styles.iconContainer}>
+          <span className={styles.modalIcon}>
             {modalConfig.tipo === 'exito' && '✅'}
-            {modalConfig.tipo === 'error' && '❌'}
+            {modalConfig.tipo === 'error' && '⛔'}
             {modalConfig.tipo === 'documento_duplicado' && '⚠️'}
             {modalConfig.tipo === 'confirmacion' && '❓'}
-          </div>
+          </span>
 
-          <h2 className={styles.modalTitle}>{modalConfig.titulo}</h2>
-          <p className={modalConfig.mensaje === "" ? "" : styles.modalMessage}>{modalConfig.mensaje}</p>
+          <h2 className={styles.modalTitulo}>{modalConfig.titulo}</h2>
+          
+          <p className={styles.modalMensaje}>{modalConfig.mensaje}</p>
 
-          <div className={styles.botonesContainer}>+
+          <div className={styles.botonesContainer}>
             {modalConfig.acciones && modalConfig.acciones.map((accion, index) => (
               <button 
                 key={index}
@@ -393,7 +395,8 @@ export default function DarAltaHuesped() {
           </div>
 
         </div>
-      </dialog>
+      </div>
+    )}
       <form
         onSubmit={enviarDatos}
         id="formulario" 

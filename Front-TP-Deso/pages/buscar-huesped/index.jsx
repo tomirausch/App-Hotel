@@ -282,7 +282,7 @@ export default function BuscarHuesped() {
         type="submit"
         value={cargando ? "Buscando..." : "Buscar"}
         form ="formulario"
-        className={styles.btnSiguiente}
+        className={`${styles.btnSiguiente} ${cargando ? styles.desactivado : null}`}
         disabled={cargando}
         onClick={() => setSeleccionado(null)}
         />

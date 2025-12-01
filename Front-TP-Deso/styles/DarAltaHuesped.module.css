@@ -198,27 +198,6 @@
   cursor: pointer;
 }
 
-.modal{
-  position: fixed;
-  inset: 0;
-  margin: auto;
-  border-radius: 10px;
-  background-color: beige;
-  border: none;
-  min-height: 100px;
-}
-
-.modal[open]{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal::backdrop {
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
-}
-
 .iconContainer{
   display: flex;
   justify-content: center;
@@ -230,28 +209,119 @@
   gap: 20px;
 }
 
-.modalTitle{
+/* --- NUEVOS ESTILOS DE MODAL (Iguales a ReservarHabitacion) --- */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
+  z-index: 2000; /* Muy alto para tapar todo */
+  animation: fadeIn 0.2s ease-in-out;
+  backdrop-filter: blur(2px); /* Un pequeño desenfoque elegante */
 }
 
-.modalMessage{
-  padding-bottom: 20px;
+.modalContent {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modalContent{
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
 }
 
-.btnModal:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+/* --- BORDES DE COLORES SEGÚN TIPO --- */
+.exito {
+  border-top: 6px solid #22c55e; /* Verde */
+}
+
+.error {
+  border-top: 6px solid #ef4444; /* Rojo */
+}
+
+.documento_duplicado {
+  border-top: 6px solid #eab308; /* Amarillo/Dorado */
+}
+
+.confirmacion {
+  border-top: 6px solid #ef3232d4; 
+}
+
+/* --- ELEMENTOS INTERNOS DEL MODAL --- */
+.modalIcon {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  display: block;
+  line-height: 1;
+}
+
+.modalTitulo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.modalMensaje {
+  color: #4b5563;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.botonesContainer {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Botones dentro del modal */
+.btnModal {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1; /* Para que ocupen el mismo ancho si hay dos */
+  transition: transform 0.1s, opacity 0.2s;
+  font-size: 0.95rem;
+}
+
+.btnModal:active {
+  transform: scale(0.98);
+}
+
+/* Estilos de botones específicos */
+.cancelar {
+  background-color: #ef4444;
+  color: white;
+}
+.cancelar:hover { background-color: #dc2626; }
+
+.aceptar {
+  background-color: #22c55e;
+  color: white;
+}
+.aceptar:hover { background-color: #16a34a; }
+
+.corregir {
+  background-color: #eab308;
+  color: white;
+}
+.corregir:hover { background-color: #ca8a04; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
