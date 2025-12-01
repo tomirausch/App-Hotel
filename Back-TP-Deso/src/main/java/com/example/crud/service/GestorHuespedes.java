@@ -1,11 +1,14 @@
 package com.example.crud.service;
 
 import com.example.crud.dao.HuespedDao;
+import com.example.crud.dto.AcompanianteDTO;
 import com.example.crud.dto.HuespedDTO;
 import com.example.crud.exception.RecursoNoEncontradoException;
+import com.example.crud.dao.AcompanianteDao;
+import com.example.crud.model.Acompaniante;
 import com.example.crud.model.Huesped;
 import com.example.crud.model.TipoDocumento;
-
+import com.example.crud.auxiliares.AcompanianteMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -15,9 +18,11 @@ import java.util.Optional;
 public class GestorHuespedes {
 
     private final HuespedDao dao;
+    private final AcompanianteDao acompanianteDao;
 
-    public GestorHuespedes(HuespedDao dao) {
+    public GestorHuespedes(HuespedDao dao, AcompanianteDao acompanianteDao) {
         this.dao = dao;
+        this.acompanianteDao = acompanianteDao;
     }
 
     @Transactional
@@ -53,5 +58,19 @@ public class GestorHuespedes {
         if (tipo == null || numero == null)
             return Optional.empty();
         return dao.findByDocumento(tipo.name(), numero);
+    }
+
+    @Transactional
+    public AcompanianteDTO darDeAltaAcompaniante(AcompanianteDTO dto) {
+        Acompaniante nuevo = AcompanianteMapper.toEntity(dto);
+        return AcompanianteMapper.toDTO(acompanianteDao.save(nuevo));
+    }
+
+    @Transactional
+    public AcompanianteDTO buscarAcompaniante(TipoDocumento tipoDoc, String numeroDoc) {
+        Acompaniante encontrado = acompanianteDao.findByDocumento(tipoDoc, numeroDoc)
+                .orElseThrow(() -> new RecursoNoEncontradoException(
+                        "No se encontró acompañante con documento: " + numeroDoc));
+        return AcompanianteMapper.toDTO(encontrado);
     }
 }

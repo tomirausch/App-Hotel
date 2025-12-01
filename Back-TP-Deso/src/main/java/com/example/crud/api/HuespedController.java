@@ -1,6 +1,7 @@
 package com.example.crud.api;
 
 import com.example.crud.auxiliares.HuespedMapper;
+import com.example.crud.dto.AcompanianteDTO;
 import com.example.crud.dto.HuespedDTO;
 import com.example.crud.model.Huesped;
 import com.example.crud.model.TipoDocumento;
@@ -14,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/huespedes")
-@CrossOrigin(origins = "http://localhost:3000")
 public class HuespedController {
 
     private final GestorHuespedes service;
@@ -69,5 +69,22 @@ public class HuespedController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         service.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/acompañantes")
+    public ResponseEntity<AcompanianteDTO> crearAcompaniante(@RequestBody AcompanianteDTO datosContacto) {
+        AcompanianteDTO creado = service.darDeAltaAcompaniante(datosContacto);
+        return ResponseEntity
+                .created(URI.create("/api/huespedes/acompañantes/" + creado.getId()))
+                .body(creado);
+    }
+
+    @GetMapping("/acompañantes/buscar")
+    public ResponseEntity<AcompanianteDTO> buscarAcompaniante(@RequestParam TipoDocumento tipoDoc,
+            @RequestParam String numeroDoc) {
+        AcompanianteDTO encontrado = service.buscarAcompaniante(tipoDoc, numeroDoc);
+        return ResponseEntity
+                .created(URI.create("/api/huespedes/acompañantes/buscar/" + encontrado.getId()))
+                .body(encontrado);
     }
 }

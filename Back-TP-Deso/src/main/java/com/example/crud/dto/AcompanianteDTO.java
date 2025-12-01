@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 
 public class AcompanianteDTO {
 
+    private Long id;
+
     @NotBlank(message = "El nombre es obligatorio")
     @Size(max = 60)
     private String nombre;
@@ -23,6 +25,14 @@ public class AcompanianteDTO {
     private String numeroDocumento;
 
     // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
     }
