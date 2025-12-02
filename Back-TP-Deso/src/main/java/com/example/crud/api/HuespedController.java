@@ -14,7 +14,6 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/huespedes")
 public class HuespedController {
 
@@ -88,8 +87,4 @@ public class HuespedController {
                 .created(URI.create("/api/huespedes/acompañantes/buscar/" + encontrado.getId()))
                 .body(encontrado);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9750e49a63e362977753ffc33b0571e870a723c8

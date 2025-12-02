@@ -1,11 +1,7 @@
 package com.example.crud.dao;
 
 import com.example.crud.model.Acompaniante;
-<<<<<<< HEAD
-import com.example.crud.model.TipoDocumento;
-=======
 import com.example.crud.enums.TipoDocumento;
->>>>>>> 9750e49a63e362977753ffc33b0571e870a723c8
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -54,8 +50,4 @@ public class AcompanianteDaoJpa implements AcompanianteDao {
                 .stream()
                 .findFirst();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9750e49a63e362977753ffc33b0571e870a723c8

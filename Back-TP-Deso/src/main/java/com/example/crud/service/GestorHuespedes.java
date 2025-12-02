@@ -7,11 +7,7 @@ import com.example.crud.exception.RecursoNoEncontradoException;
 import com.example.crud.dao.AcompanianteDao;
 import com.example.crud.model.Acompaniante;
 import com.example.crud.model.Huesped;
-<<<<<<< HEAD
-import com.example.crud.model.TipoDocumento;
-=======
 import com.example.crud.enums.TipoDocumento;
->>>>>>> 9750e49a63e362977753ffc33b0571e870a723c8
 import com.example.crud.auxiliares.AcompanianteMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -77,8 +73,4 @@ public class GestorHuespedes {
                         "No se encontró acompañante con documento: " + numeroDoc));
         return AcompanianteMapper.toDTO(encontrado);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9750e49a63e362977753ffc33b0571e870a723c8

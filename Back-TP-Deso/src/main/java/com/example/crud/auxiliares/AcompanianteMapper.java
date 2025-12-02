@@ -34,8 +34,4 @@ public final class AcompanianteMapper {
 
         return dto;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9750e49a63e362977753ffc33b0571e870a723c8
