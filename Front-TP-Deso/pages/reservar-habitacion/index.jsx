@@ -406,20 +406,25 @@ export default function ReservarHabitacion() {
             </div>
           </>
         ) : (
-          <div className={styles.formulario} style={{ flexDirection: 'column', animation: 'fadeIn 0.3s' }}>
-            <h2 style={{ textAlign: 'center', color: '#1e293b', marginBottom: '10px' }}>Datos del Titular</h2>
+          <div className={`${styles.formulario} ${styles.formularioReservaContainer}`}>
+
+          <fieldset className={styles.fieldset}>
+            <div className={styles.legend} style={{paddingTop:"0px"}}>Datos del titular</div>
             <form onSubmit={enviarReserva} id="formDatosHuesped" className={styles.fieldset}>
-              <div className={styles.allInputContainer} style={{ flexWrap: 'wrap' }}>
+              <div className={styles.formReservaInputsContainer}>
+
                 <div className={styles.inputContainer}>
                   <label>Apellido*</label>
                   <input type="text" name="apellido" placeholder="Apellido" className={`${errores.Apellido ? styles.inputError : ''}`} onInput={(e) => e.target.value = e.target.value.toUpperCase()} onChange={() => setErrores({ ...errores, Apellido: null })} />
                   {errores.Apellido && <span className={styles.mensajeError}>{errores.Apellido}</span>}
                 </div>
+
                 <div className={styles.inputContainer}>
                   <label>Nombre*</label>
                   <input type="text" name="nombre" placeholder="Nombre" onInput={(e) => e.target.value = e.target.value.toUpperCase()} className={`${errores.Nombre ? styles.inputError : ''}`} onChange={() => setErrores({ ...errores, Nombre: null })} />
                   {errores.Nombre && <span className={styles.mensajeError}>{errores.Nombre}</span>}
                 </div>
+
                 <div className={styles.inputContainer}>
                   <label>Tipo Doc.*</label>
                   <select name="tipoDocumento">
@@ -430,18 +435,23 @@ export default function ReservarHabitacion() {
                     <option value="OTRO">Otro</option>
                   </select>
                 </div>
+
                 <div className={styles.inputContainer}>
                   <label>Nro. Documento*</label>
                   <input type="text" name="numeroDocumento" placeholder="Número" onChange={() => setErrores({ ...errores, NumeroDocumento: null })} className={`${errores.NumeroDocumento ? styles.inputError : ''}`} />
                   {errores.NumeroDocumento && <span className={styles.mensajeError}>{errores.NumeroDocumento}</span>}
                 </div>
+
                 <div className={styles.inputContainer}>
                   <label>Teléfono*</label>
                   <input type="text" name="telefono" placeholder="Teléfono" onChange={() => setErrores({ ...errores, NumeroTelefono: null })} className={`${errores.NumeroTelefono ? styles.inputError : ''}`} onInput={soloNumeros} />
                   {errores.NumeroTelefono && <span className={styles.mensajeError}>{errores.NumeroTelefono}</span>}
                 </div>
+
               </div>
             </form>
+          </fieldset>
+
             <div className={styles.botonesListaContainer}>
               <input type="button" value="Atrás" className={styles.btnCancelar} onClick={() => setMostrandoFormularioHuesped(false)} />
               
