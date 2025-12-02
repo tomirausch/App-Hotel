@@ -72,7 +72,7 @@ public class HuespedController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/acompañantes")
+    @PostMapping("/acompanantes")
     public ResponseEntity<AcompanianteDTO> crearAcompaniante(@RequestBody AcompanianteDTO datosContacto) {
         AcompanianteDTO creado = service.darDeAltaAcompaniante(datosContacto);
         return ResponseEntity
@@ -80,7 +80,7 @@ public class HuespedController {
                 .body(creado);
     }
 
-    @GetMapping("/acompañantes/buscar")
+    @GetMapping("/acompanantes/buscar")
     public ResponseEntity<AcompanianteDTO> buscarAcompaniante(@RequestParam TipoDocumento tipoDoc,
             @RequestParam String numeroDoc) {
         AcompanianteDTO encontrado = service.buscarAcompaniante(tipoDoc, numeroDoc);

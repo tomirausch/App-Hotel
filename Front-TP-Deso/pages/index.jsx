@@ -5,7 +5,6 @@ export default function Home() {
   return (
     <>
 
-    
       <div className={styles.container}>
 
         <Link href="/dar-alta-huesped" style={{textDecoration: "none"}}>

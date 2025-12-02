@@ -300,8 +300,9 @@
   border-bottom: 1px solid #e2e8f0;
   align-items: center;
   transition: background-color 0.2s;
-  color: #334155;
+  color: whitesmoke;
   font-size: 14px;
+  background-color: #1E2448;
 }
 
 .filaListaContainer:last-child {
@@ -309,12 +310,12 @@
 }
 
 .filaListaContainer:hover {
-  background-color: #f1f5f9;
+  background-color: #018db479;
 }
 
 .pListaContainer {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   text-align: center;
   padding: 0 5px;
 }
@@ -474,3 +475,28 @@
   to { opacity: 1; transform: scale(1); }
 }
 
+.containerP{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.containerP p{
+  border-right: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.header .containerP:last-child p{
+  border-right: transparent;
+}
+
+.seleccionado{
+  background-color: #018db4;
+}
+
+.seleccionado:hover{
+  background-color: #018db4;
+}

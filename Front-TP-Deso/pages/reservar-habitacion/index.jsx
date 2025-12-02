@@ -455,7 +455,6 @@ export default function ReservarHabitacion() {
             <div className={styles.botonesListaContainer}>
               <input type="button" value="Atrás" className={styles.btnCancelar} onClick={() => setMostrandoFormularioHuesped(false)} />
               
-              {/* --- CAMBIO 2: Botón deshabilitado si está enviando --- */}
               <input 
                 type="submit" 
                 form="formDatosHuesped" 
