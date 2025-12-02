@@ -39,6 +39,7 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 
  :: Spring Boot ::                (v3.5.7)
 
+<<<<<<< HEAD
 2025-12-02T08:59:56.564-03:00  INFO 13628 --- [           main] com.example.crud.CrudApplication         : Starting CrudApplication using Java 24.0.2 with PID 13628 (C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes started by Windows in C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso)
 2025-12-02T08:59:56.566-03:00  INFO 13628 --- [           main] com.example.crud.CrudApplication         : No active profile set, falling back to 1 default profile: "default"
 2025-12-02T08:59:57.261-03:00  INFO 13628 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
@@ -58,6 +59,27 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 2025-12-02T09:00:02.915-03:00  WARN 13628 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
 2025-12-02T09:00:02.916-03:00  WARN 13628 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
 2025-12-02T09:00:02.929-03:00  INFO 13628 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+=======
+2025-12-02T13:10:49.731-03:00  INFO 20112 --- [           main] com.example.crud.CrudApplication         : Starting CrudApplication using Java 24.0.2 with PID 20112 (C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes started by Windows in C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso)
+2025-12-02T13:10:49.736-03:00  INFO 20112 --- [           main] com.example.crud.CrudApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-12-02T13:10:51.323-03:00  INFO 20112 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-02T13:10:51.364-03:00  INFO 20112 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 0 JPA repository interfaces.
+2025-12-02T13:10:52.149-03:00  INFO 20112 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-12-02T13:10:52.180-03:00  INFO 20112 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-02T13:10:52.181-03:00  INFO 20112 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-02T13:10:52.282-03:00  INFO 20112 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-02T13:10:52.283-03:00  INFO 20112 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2420 ms
+2025-12-02T13:10:52.623-03:00  INFO 20112 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-02T13:10:52.771-03:00  INFO 20112 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-02T13:10:52.853-03:00  INFO 20112 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-02T13:10:53.579-03:00  INFO 20112 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-02T13:10:53.978-03:00  INFO 20112 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-02T13:11:00.555-03:00  INFO 20112 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@59d6642a
+2025-12-02T13:11:00.558-03:00  INFO 20112 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-02T13:11:01.223-03:00  WARN 20112 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-02T13:11:01.224-03:00  WARN 20112 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-12-02T13:11:01.247-03:00  INFO 20112 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+>>>>>>> ocuparHabitacion
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -65,25 +87,39 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
+<<<<<<< HEAD
 2025-12-02T09:00:03.869-03:00  INFO 13628 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 2025-12-02T09:00:05.921-03:00 DEBUG 13628 --- [           main] org.hibernate.SQL                        : 
+=======
+2025-12-02T13:11:03.038-03:00  INFO 20112 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-02T13:11:05.046-03:00 DEBUG 20112 --- [           main] org.hibernate.SQL                        : 
+>>>>>>> ocuparHabitacion
     alter table habitaciones 
        modify column estado_actual enum ('DISPONIBLE','FUERA_DE_SERVICIO','MANTENIMIENTO','OCUPADA','RESERVADA') not null
 Hibernate: 
     alter table habitaciones 
        modify column estado_actual enum ('DISPONIBLE','FUERA_DE_SERVICIO','MANTENIMIENTO','OCUPADA','RESERVADA') not null
+<<<<<<< HEAD
 2025-12-02T09:00:06.797-03:00 DEBUG 13628 --- [           main] org.hibernate.SQL                        : 
+=======
+2025-12-02T13:11:06.434-03:00 DEBUG 20112 --- [           main] org.hibernate.SQL                        : 
+>>>>>>> ocuparHabitacion
     alter table huespedes 
        modify column posicion_iva enum ('CONSUMIDOR_FINAL','EXENTO','MONOTRIBUTISTA','NO_RESPONSABLE','RESPONSABLE_INSCRIPTO')
 Hibernate: 
     alter table huespedes 
        modify column posicion_iva enum ('CONSUMIDOR_FINAL','EXENTO','MONOTRIBUTISTA','NO_RESPONSABLE','RESPONSABLE_INSCRIPTO')
+<<<<<<< HEAD
 2025-12-02T09:00:07.683-03:00 DEBUG 13628 --- [           main] org.hibernate.SQL                        : 
+=======
+2025-12-02T13:11:07.944-03:00 DEBUG 20112 --- [           main] org.hibernate.SQL                        : 
+>>>>>>> ocuparHabitacion
     alter table reserva_habitaciones 
        modify column estado enum ('CANCELADA','CONFIRMADA','PENDIENTE')
 Hibernate: 
     alter table reserva_habitaciones 
        modify column estado enum ('CANCELADA','CONFIRMADA','PENDIENTE')
+<<<<<<< HEAD
 2025-12-02T09:00:20.566-03:00  INFO 13628 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
 2025-12-02T09:00:21.043-03:00  INFO 13628 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2025-12-02T09:00:21.050-03:00  INFO 13628 --- [           main] com.example.crud.CrudApplication         : Started CrudApplication in 24.943 seconds (process running for 25.283)
@@ -91,6 +127,15 @@ Hibernate:
 2025-12-02T09:00:21.301-03:00  INFO 13628 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-12-02T09:00:21.302-03:00  INFO 13628 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 2025-12-02T09:00:39.955-03:00 DEBUG 13628 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+=======
+2025-12-02T13:11:20.172-03:00  INFO 20112 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-02T13:11:21.843-03:00  INFO 20112 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-12-02T13:11:21.861-03:00  INFO 20112 --- [           main] com.example.crud.CrudApplication         : Started CrudApplication in 33.278 seconds (process running for 34.211)
+2025-12-02T13:11:22.085-03:00  INFO 20112 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-02T13:11:22.085-03:00  INFO 20112 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-02T13:11:22.086-03:00  INFO 20112 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-12-02T13:11:46.572-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
+>>>>>>> ocuparHabitacion
     select
         h1_0.id_habitacion,
         h1_0.estado_actual,
@@ -126,7 +171,11 @@ Hibernate:
             on th1_0.id=h1_0.id_tipo_habitacion 
     order by
         h1_0.numero
+<<<<<<< HEAD
 2025-12-02T09:00:41.193-03:00 DEBUG 13628 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+=======
+2025-12-02T13:11:47.598-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
+>>>>>>> ocuparHabitacion
     select
         distinct r1_0.id_reserva,
         r1_0.id_huesped,
@@ -162,9 +211,105 @@ Hibernate:
     where
         rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
         and rh1_0.fecha between ? and ?
+<<<<<<< HEAD
 2025-12-02T09:00:41.194-03:00 TRACE 13628 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-10-10]
 2025-12-02T09:00:41.194-03:00 TRACE 13628 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-10-15]
 2025-12-02T09:00:41.696-03:00 DEBUG 13628 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
+=======
+2025-12-02T13:11:47.599-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-25]
+2025-12-02T13:11:47.600-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-31]
+2025-12-02T13:11:48.101-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        h1_0.id=?
+2025-12-02T13:11:48.101-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [80]
+2025-12-02T13:11:48.671-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+Hibernate: 
+    select
+        h1_0.id_habitacion,
+        h1_0.estado_actual,
+        h1_0.numero,
+        h1_0.piso,
+        h1_0.id_tipo_habitacion,
+        th1_0.id,
+        th1_0.costo,
+        th1_0.descripcion,
+        th1_0.tipo_habitacion 
+    from
+        habitaciones h1_0 
+    join
+        tipos_habitacion th1_0 
+            on th1_0.id=h1_0.id_tipo_habitacion 
+    where
+        h1_0.id_habitacion=?
+2025-12-02T13:11:48.672-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [46]
+2025-12-02T13:11:49.125-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
+>>>>>>> ocuparHabitacion
     select
         distinct e1_0.id,
         e1_0.cant_personas,
@@ -204,5 +349,68 @@ Hibernate:
     where
         eh1_0.fecha>=? 
         and eh1_0.fecha<=?
+<<<<<<< HEAD
 2025-12-02T09:00:41.696-03:00 TRACE 13628 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-10-10]
 2025-12-02T09:00:41.696-03:00 TRACE 13628 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-10-15]
+=======
+2025-12-02T13:11:49.125-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-25]
+2025-12-02T13:11:49.126-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-31]
+2025-12-02T13:23:04.946-03:00 DEBUG 20112 --- [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+Hibernate: 
+    select
+        h1_0.id,
+        h1_0.apellido,
+        h1_0.calle,
+        h1_0.codigo_postal,
+        h1_0.cuit,
+        h1_0.departamento,
+        h1_0.email,
+        h1_0.fecha_nacimiento,
+        h1_0.localidad,
+        h1_0.nacionalidad,
+        h1_0.nombre,
+        h1_0.numero,
+        h1_0.numero_documento,
+        h1_0.ocupacion,
+        h1_0.pais,
+        h1_0.piso,
+        h1_0.posicion_iva,
+        h1_0.provincia,
+        h1_0.telefono,
+        h1_0.tipo_documento 
+    from
+        huespedes h1_0 
+    where
+        1=1 
+    order by
+        h1_0.apellido,
+        h1_0.nombre
+>>>>>>> ocuparHabitacion

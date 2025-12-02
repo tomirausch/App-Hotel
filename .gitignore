@@ -1,0 +1,4 @@
+# Ignorar logs del sistema
+log_backend.txt
+log_frontend.txt
+*.log

@@ -3,13 +3,40 @@
 > next dev
 
 [32m✔[0m [33mConsole Ninja[0m extension is connected to [33mNext.js[0m, see [36mhttps://tinyurl.com/2vt8jxzw[0m
+<<<<<<< HEAD
 ⚠ Console Ninja Turbopack support is a PRO feature, [33mcurrently available to community users while in preview[0m
+=======
+>>>>>>> ocuparHabitacion
    ▲ Next.js 16.0.3 (Turbopack)
    - Local:         http://localhost:3000
    - Network:       http://192.168.1.106:3000
 
  ✓ Starting...
 [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+<<<<<<< HEAD
  ✓ Ready in 1231ms
  HEAD / 200 in 1180ms (compile: 1139ms, render: 41ms)
  GET / 200 in 137ms (compile: 15ms, render: 122ms)
+=======
+⚠ Console Ninja Turbopack support is a PRO feature, [33mcurrently available to community users while in preview[0m
+ ✓ Ready in 3.3s
+ HEAD / 200 in 2.8s (compile: 2.6s, render: 120ms)
+ GET / 200 in 765ms (compile: 30ms, render: 735ms)
+ ✓ Compiled in 187ms
+ ✓ Compiled in 163ms
+ ✓ Compiled in 186ms
+ ✓ Compiled in 161ms
+ ✓ Compiled in 125ms
+ ✓ Compiled in 129ms
+ ✓ Compiled in 118ms
+ ✓ Compiled in 211ms
+ ✓ Compiled in 130ms
+ ✓ Compiled in 95ms
+ ✓ Compiled in 129ms
+ ✓ Compiled in 127ms
+ ✓ Compiled in 146ms
+ ✓ Compiled in 127ms
+ ✓ Compiled in 126ms
+ ✓ Compiled in 135ms
+ ✓ Compiled in 140ms
+>>>>>>> ocuparHabitacion
