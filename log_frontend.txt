@@ -11,3 +11,8 @@
  ✓ Starting...
 [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
  ✓ Ready in 2.8s
+ ○ Compiling / ...
+ HEAD / 200 in 4.4s (compile: 4.3s, render: 153ms)
+ HEAD / 200 in 4.6s (compile: 4.4s, render: 183ms)
+ GET / 200 in 593ms (compile: 97ms, render: 497ms)
+ GET / 200 in 428ms (compile: 61ms, render: 367ms)
