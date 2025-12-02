@@ -99,6 +99,31 @@ export default function ReservarHabitacion() {
   const enviarDatos = async (e) => {
     setHabitaciones([]);
     e.preventDefault();
+    // --- INICIO VALIDACIONES DE FECHA ---
+    
+    // 1. Validar que no sean menores a 2024
+    const anioMinimo = 2024;
+    const anioDesde = parseInt(fechaDesde.split('-')[0]); // Extrae el año 'YYYY'
+    const anioHasta = parseInt(fechaHasta.split('-')[0]);
+
+    if (anioDesde < anioMinimo || anioHasta < anioMinimo) {
+      mostrarError(`Las fechas no pueden ser anteriores al año ${anioMinimo}.`);
+      return;
+    }
+
+    // 2. Validar rango máximo de 1 año
+    const dDesde = new Date(fechaDesde);
+    const dHasta = new Date(fechaHasta);
+    
+    // Calculamos la fecha límite (1 año después de la fecha de inicio)
+    const fechaLimite = new Date(dDesde);
+    fechaLimite.setFullYear(fechaLimite.getFullYear() + 1);
+
+    if (dHasta > fechaLimite) {
+      mostrarError("El rango de fechas no puede ser mayor a 1 año.");
+      return;
+    }
+    // --- FIN VALIDACIONES DE FECHA ---
     setCargando(true);
     const formData = new FormData(e.target);
 
@@ -257,7 +282,7 @@ export default function ReservarHabitacion() {
   const enviarReserva = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const camposObligatorios = ["apellido", "nombre", "tipoDocumento", "numeroDocumento", "telefono"];
+    const camposObligatorios = ["Apellido", "Nombre", "TipoDocumento", "NumeroDocumento", "Telefono"];
     const nuevosErrores = {};
 
     camposObligatorios.forEach((campo) => {
@@ -444,8 +469,8 @@ export default function ReservarHabitacion() {
 
                 <div className={styles.inputContainer}>
                   <label>Teléfono*</label>
-                  <input type="text" name="telefono" placeholder="Teléfono" onChange={() => setErrores({ ...errores, NumeroTelefono: null })} className={`${errores.NumeroTelefono ? styles.inputError : ''}`} onInput={soloNumeros} />
-                  {errores.NumeroTelefono && <span className={styles.mensajeError}>{errores.NumeroTelefono}</span>}
+                  <input type="text" name="telefono" placeholder="Teléfono" onChange={() => setErrores({ ...errores, Telefono: null })} className={`${errores.Telefono ? styles.inputError : ''}`} onInput={soloNumeros} />
+                  {errores.Telefono && <span className={styles.mensajeError}>{errores.Telefono}</span>}
                 </div>
 
               </div>

@@ -145,7 +145,33 @@ export default function OcuparHabitacion() {
 
   // --- API CALLS ---
   const enviarDatos = async (e) => {
-    setHabitaciones([]); e.preventDefault(); setCargando(true);
+    setHabitaciones([]); e.preventDefault(); 
+    // --- INICIO VALIDACIONES DE FECHA ---
+    
+    // 1. Validar que no sean menores a 2024
+    const anioMinimo = 2024;
+    const anioDesde = parseInt(fechaDesde.split('-')[0]); // Extrae el año 'YYYY'
+    const anioHasta = parseInt(fechaHasta.split('-')[0]);
+
+    if (anioDesde < anioMinimo || anioHasta < anioMinimo) {
+      mostrarError(`Las fechas no pueden ser anteriores al año ${anioMinimo}.`);
+      return;
+    }
+
+    // 2. Validar rango máximo de 1 año
+    const dDesde = new Date(fechaDesde);
+    const dHasta = new Date(fechaHasta);
+    
+    // Calculamos la fecha límite (1 año después de la fecha de inicio)
+    const fechaLimite = new Date(dDesde);
+    fechaLimite.setFullYear(fechaLimite.getFullYear() + 1);
+
+    if (dHasta > fechaLimite) {
+      mostrarError("El rango de fechas no puede ser mayor a 1 año.");
+      return;
+    }
+    // --- FIN VALIDACIONES DE FECHA ---
+    setCargando(true);
     setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]); setMostrandoLista(false);
     const formData = new FormData(e.target);
     const datos = { Desde: formData.get('Desde'), Hasta: formData.get('Hasta') };
@@ -165,10 +191,10 @@ export default function OcuparHabitacion() {
     const formData = new FormData(e.target);
     const tipoDoc = formData.get('tipoDocumento');
     const numDoc = formData.get('numeroDocumento').trim();
-    if (buscando === "acompañantes") {
+    if (buscando === "acompañante") {
       const camposObligatorios = ["tipoDocumento","numeroDocumento"];
       const nuevosErrores = {};
-
+      console.log(camposObligatorios);
       camposObligatorios.forEach((campo) => {
         const valor = formData.get(campo);
         if (!valor || valor.toString().trim() === "") {
@@ -177,7 +203,9 @@ export default function OcuparHabitacion() {
       });
 
       if (Object.keys(nuevosErrores).length > 0) {
+        console.log("ERRORES: ", nuevosErrores);
         setErrores(nuevosErrores);
+        setCargando(false);
         return;
       }
       setErrores({});
@@ -224,7 +252,6 @@ export default function OcuparHabitacion() {
   // --- CONFIRMAR OCUPACIÓN (JSON ESTRUCTURADO) ---
   const finalizarOcupacion = async () => {
     // 1. Validación básica
-    console.log(huespedSeleccionado);
     if (!huespedSeleccionado) {
       mostrarError("Error: No hay un huésped titular seleccionado.");
       return;
@@ -240,7 +267,6 @@ export default function OcuparHabitacion() {
       const infoOriginal = habitaciones.find(
         (h) => h.id === idHab && h.fecha === fechaStr
       );
-      console.log(infoOriginal);
       return {
         idHabitacion: idHab,
         fecha: fechaStr,
@@ -262,10 +288,10 @@ export default function OcuparHabitacion() {
     // Debug: Para ver en consola que el JSON está bien formado antes de enviar
     console.log("JSON a enviar:", JSON.stringify(payload, null, 2));
 
-    /* // 4. Envío a la API
+     // 4. Envío a la API
     setCargando(true);
     try {
-      const respuesta = await fetch("http://localhost:8080/api/ocupaciones", {
+      const respuesta = await fetch("http://localhost:8080/api/estadias/ocupar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -310,7 +336,7 @@ export default function OcuparHabitacion() {
       mostrarError("Error de conexión con el servidor.");
     } finally {
       setCargando(false);
-    } */
+    } 
   };
 
   // --- RENDERS ---
@@ -627,11 +653,10 @@ export default function OcuparHabitacion() {
                       <input
                         type="text"
                         name="numeroDocumento"
-                        placeholder="Número"></input>
-                        {/* className={errores.numeroDocumento ? styles.inputError : ''}
-                        onChange={() => setErrores({...errores, numeroDocumento: null})} 
-                      />
-                      {errores.numeroDocumento && <span className={styles.mensajeError}>{errores.numeroDocumento}</span>} */}
+                        placeholder="Número"
+                        className={errores.numeroDocumento ? styles.inputError : ''}
+                        onChange={() => setErrores({...errores, numeroDocumento: null})}/>
+                      {errores.numeroDocumento && <span className={styles.mensajeError}>{errores.numeroDocumento}</span>}
                     </div>
                   </div>
 
@@ -690,6 +715,7 @@ export default function OcuparHabitacion() {
                           if(!acompanantes.some(a => a.id === acompananteEncontrado.id)){
                           setAcompanantes([...acompanantes, acompananteEncontrado]);
                           }
+                          document.getElementById("formBuscarHuesped").reset();
                           setAcompananteEncontrado({});
                       }}
                       disabled={Object.keys(acompananteEncontrado).length === 0}
@@ -715,7 +741,7 @@ export default function OcuparHabitacion() {
                 style={{ marginTop: "30px", marginBottom: "0" }}
               >
                 <h3>{(!huespedSeleccionado && acompananteEncontrado == {}) ? "Seleccione el huésped titular" : ""}</h3>
-                {huespedSeleccionado && (
+                {(huespedSeleccionado && buscando == "huesped")&& (
                   <>
                     <input
                       type="button"
@@ -732,6 +758,7 @@ export default function OcuparHabitacion() {
                           ? styles.desactivado
                           : ""
                       }`}
+                      onClick={() => {finalizarOcupacion()}}
                       disabled={!huespedSeleccionado || cargando}
                       style={{ backgroundColor: "#22c55e" }}
                     />
