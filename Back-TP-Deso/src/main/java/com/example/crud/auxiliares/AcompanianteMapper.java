@@ -20,4 +20,18 @@ public final class AcompanianteMapper {
 
         return a;
     }
+
+    public static AcompanianteDTO toDTO(Acompaniante a) {
+        if (a == null)
+            return null;
+
+        AcompanianteDTO dto = new AcompanianteDTO();
+        dto.setId(a.getId());
+        dto.setNombre(a.getNombre());
+        dto.setApellido(a.getApellido());
+        dto.setTipoDocumento(a.getTipoDocumento());
+        dto.setNumeroDocumento(a.getNumeroDocumento());
+
+        return dto;
+    }
 }

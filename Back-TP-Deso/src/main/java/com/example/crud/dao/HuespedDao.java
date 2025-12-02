@@ -4,7 +4,7 @@ import com.example.crud.model.Huesped;
 
 import java.util.List;
 import java.util.Optional;
-import com.example.crud.model.TipoDocumento;
+import com.example.crud.enums.TipoDocumento;
 
 public interface HuespedDao {
     Huesped save(Huesped h);
