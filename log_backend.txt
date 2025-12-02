@@ -39,47 +39,25 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 
  :: Spring Boot ::                (v3.5.7)
 
-<<<<<<< HEAD
-2025-12-02T08:59:56.564-03:00  INFO 13628 --- [           main] com.example.crud.CrudApplication         : Starting CrudApplication using Java 24.0.2 with PID 13628 (C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes started by Windows in C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso)
-2025-12-02T08:59:56.566-03:00  INFO 13628 --- [           main] com.example.crud.CrudApplication         : No active profile set, falling back to 1 default profile: "default"
-2025-12-02T08:59:57.261-03:00  INFO 13628 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-02T08:59:57.287-03:00  INFO 13628 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 0 JPA repository interfaces.
-2025-12-02T08:59:57.746-03:00  INFO 13628 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-12-02T08:59:57.763-03:00  INFO 13628 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-02T08:59:57.763-03:00  INFO 13628 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-02T08:59:57.815-03:00  INFO 13628 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-02T08:59:57.816-03:00  INFO 13628 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1192 ms
-2025-12-02T08:59:57.971-03:00  INFO 13628 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-02T08:59:58.014-03:00  INFO 13628 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-02T08:59:58.041-03:00  INFO 13628 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-02T08:59:58.291-03:00  INFO 13628 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-02T08:59:58.322-03:00  INFO 13628 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-02T09:00:02.377-03:00  INFO 13628 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2c99c8d
-2025-12-02T09:00:02.378-03:00  INFO 13628 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-02T09:00:02.915-03:00  WARN 13628 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-12-02T09:00:02.916-03:00  WARN 13628 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-12-02T09:00:02.929-03:00  INFO 13628 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-=======
-2025-12-02T13:10:49.731-03:00  INFO 20112 --- [           main] com.example.crud.CrudApplication         : Starting CrudApplication using Java 24.0.2 with PID 20112 (C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes started by Windows in C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso)
-2025-12-02T13:10:49.736-03:00  INFO 20112 --- [           main] com.example.crud.CrudApplication         : No active profile set, falling back to 1 default profile: "default"
-2025-12-02T13:10:51.323-03:00  INFO 20112 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-12-02T13:10:51.364-03:00  INFO 20112 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 0 JPA repository interfaces.
-2025-12-02T13:10:52.149-03:00  INFO 20112 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-12-02T13:10:52.180-03:00  INFO 20112 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-02T13:10:52.181-03:00  INFO 20112 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
-2025-12-02T13:10:52.282-03:00  INFO 20112 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-02T13:10:52.283-03:00  INFO 20112 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2420 ms
-2025-12-02T13:10:52.623-03:00  INFO 20112 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-12-02T13:10:52.771-03:00  INFO 20112 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
-2025-12-02T13:10:52.853-03:00  INFO 20112 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-12-02T13:10:53.579-03:00  INFO 20112 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-12-02T13:10:53.978-03:00  INFO 20112 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-12-02T13:11:00.555-03:00  INFO 20112 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@59d6642a
-2025-12-02T13:11:00.558-03:00  INFO 20112 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-12-02T13:11:01.223-03:00  WARN 20112 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-12-02T13:11:01.224-03:00  WARN 20112 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-12-02T13:11:01.247-03:00  INFO 20112 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
->>>>>>> ocuparHabitacion
+2025-12-02T13:37:39.777-03:00  INFO 24716 --- [           main] com.example.crud.CrudApplication         : Starting CrudApplication using Java 24.0.2 with PID 24716 (C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes started by Windows in C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso)
+2025-12-02T13:37:39.781-03:00  INFO 24716 --- [           main] com.example.crud.CrudApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-12-02T13:37:40.783-03:00  INFO 24716 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-02T13:37:40.821-03:00  INFO 24716 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 0 JPA repository interfaces.
+2025-12-02T13:37:41.379-03:00  INFO 24716 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-12-02T13:37:41.397-03:00  INFO 24716 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-02T13:37:41.397-03:00  INFO 24716 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-02T13:37:41.471-03:00  INFO 24716 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-02T13:37:41.472-03:00  INFO 24716 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1622 ms
+2025-12-02T13:37:41.669-03:00  INFO 24716 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-02T13:37:41.750-03:00  INFO 24716 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-02T13:37:41.794-03:00  INFO 24716 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-02T13:37:42.135-03:00  INFO 24716 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-02T13:37:42.186-03:00  INFO 24716 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-02T13:37:46.393-03:00  INFO 24716 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@45b7c97f
+2025-12-02T13:37:46.395-03:00  INFO 24716 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-02T13:37:46.984-03:00  WARN 24716 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-02T13:37:46.988-03:00  WARN 24716 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-12-02T13:37:47.026-03:00  INFO 24716 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -87,330 +65,166 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-<<<<<<< HEAD
-2025-12-02T09:00:03.869-03:00  INFO 13628 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-02T09:00:05.921-03:00 DEBUG 13628 --- [           main] org.hibernate.SQL                        : 
-=======
-2025-12-02T13:11:03.038-03:00  INFO 20112 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-12-02T13:11:05.046-03:00 DEBUG 20112 --- [           main] org.hibernate.SQL                        : 
->>>>>>> ocuparHabitacion
+2025-12-02T13:37:51.173-03:00  INFO 24716 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-02T13:37:53.138-03:00 DEBUG 24716 --- [           main] org.hibernate.SQL                        : 
+    alter table cheques 
+       modify column tipo_cheque enum ('PROPIO','TERCERO')
+Hibernate: 
+    alter table cheques 
+       modify column tipo_cheque enum ('PROPIO','TERCERO')
+2025-12-02T13:37:54.059-03:00 DEBUG 24716 --- [           main] org.hibernate.SQL                        : 
+    alter table efectivos 
+       modify column moneda enum ('DOLARES','EUROS','PESOS_ARGENTINOS','PESOS_URUGUAYOS','REALES')
+Hibernate: 
+    alter table efectivos 
+       modify column moneda enum ('DOLARES','EUROS','PESOS_ARGENTINOS','PESOS_URUGUAYOS','REALES')
+2025-12-02T13:37:55.123-03:00 DEBUG 24716 --- [           main] org.hibernate.SQL                        : 
+    alter table facturas 
+       modify column tipo enum ('A','B')
+Hibernate: 
+    alter table facturas 
+       modify column tipo enum ('A','B')
+2025-12-02T13:37:56.104-03:00 DEBUG 24716 --- [           main] org.hibernate.SQL                        : 
     alter table habitaciones 
        modify column estado_actual enum ('DISPONIBLE','FUERA_DE_SERVICIO','MANTENIMIENTO','OCUPADA','RESERVADA') not null
 Hibernate: 
     alter table habitaciones 
        modify column estado_actual enum ('DISPONIBLE','FUERA_DE_SERVICIO','MANTENIMIENTO','OCUPADA','RESERVADA') not null
-<<<<<<< HEAD
-2025-12-02T09:00:06.797-03:00 DEBUG 13628 --- [           main] org.hibernate.SQL                        : 
-=======
-2025-12-02T13:11:06.434-03:00 DEBUG 20112 --- [           main] org.hibernate.SQL                        : 
->>>>>>> ocuparHabitacion
+2025-12-02T13:37:57.355-03:00 DEBUG 24716 --- [           main] org.hibernate.SQL                        : 
     alter table huespedes 
        modify column posicion_iva enum ('CONSUMIDOR_FINAL','EXENTO','MONOTRIBUTISTA','NO_RESPONSABLE','RESPONSABLE_INSCRIPTO')
 Hibernate: 
     alter table huespedes 
        modify column posicion_iva enum ('CONSUMIDOR_FINAL','EXENTO','MONOTRIBUTISTA','NO_RESPONSABLE','RESPONSABLE_INSCRIPTO')
-<<<<<<< HEAD
-2025-12-02T09:00:07.683-03:00 DEBUG 13628 --- [           main] org.hibernate.SQL                        : 
-=======
-2025-12-02T13:11:07.944-03:00 DEBUG 20112 --- [           main] org.hibernate.SQL                        : 
->>>>>>> ocuparHabitacion
+2025-12-02T13:37:58.456-03:00 DEBUG 24716 --- [           main] org.hibernate.SQL                        : 
     alter table reserva_habitaciones 
        modify column estado enum ('CANCELADA','CONFIRMADA','PENDIENTE')
 Hibernate: 
     alter table reserva_habitaciones 
        modify column estado enum ('CANCELADA','CONFIRMADA','PENDIENTE')
-<<<<<<< HEAD
-2025-12-02T09:00:20.566-03:00  INFO 13628 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-02T09:00:21.043-03:00  INFO 13628 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-12-02T09:00:21.050-03:00  INFO 13628 --- [           main] com.example.crud.CrudApplication         : Started CrudApplication in 24.943 seconds (process running for 25.283)
-2025-12-02T09:00:21.301-03:00  INFO 13628 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-02T09:00:21.301-03:00  INFO 13628 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-02T09:00:21.302-03:00  INFO 13628 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-12-02T09:00:39.955-03:00 DEBUG 13628 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
-=======
-2025-12-02T13:11:20.172-03:00  INFO 20112 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-12-02T13:11:21.843-03:00  INFO 20112 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-12-02T13:11:21.861-03:00  INFO 20112 --- [           main] com.example.crud.CrudApplication         : Started CrudApplication in 33.278 seconds (process running for 34.211)
-2025-12-02T13:11:22.085-03:00  INFO 20112 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-02T13:11:22.085-03:00  INFO 20112 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-02T13:11:22.086-03:00  INFO 20112 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2025-12-02T13:11:46.572-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
->>>>>>> ocuparHabitacion
-    select
-        h1_0.id_habitacion,
-        h1_0.estado_actual,
-        h1_0.numero,
-        h1_0.piso,
-        h1_0.id_tipo_habitacion,
-        th1_0.id,
-        th1_0.costo,
-        th1_0.descripcion,
-        th1_0.tipo_habitacion 
-    from
-        habitaciones h1_0 
-    join
-        tipos_habitacion th1_0 
-            on th1_0.id=h1_0.id_tipo_habitacion 
-    order by
-        h1_0.numero
+2025-12-02T13:37:59.621-03:00 DEBUG 24716 --- [           main] org.hibernate.SQL                        : 
+    alter table tarjetas 
+       modify column marca_tarjeta enum ('MASTERCARD','VISA')
 Hibernate: 
-    select
-        h1_0.id_habitacion,
-        h1_0.estado_actual,
-        h1_0.numero,
-        h1_0.piso,
-        h1_0.id_tipo_habitacion,
-        th1_0.id,
-        th1_0.costo,
-        th1_0.descripcion,
-        th1_0.tipo_habitacion 
-    from
-        habitaciones h1_0 
-    join
-        tipos_habitacion th1_0 
-            on th1_0.id=h1_0.id_tipo_habitacion 
-    order by
-        h1_0.numero
-<<<<<<< HEAD
-2025-12-02T09:00:41.193-03:00 DEBUG 13628 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
-=======
-2025-12-02T13:11:47.598-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
->>>>>>> ocuparHabitacion
-    select
-        distinct r1_0.id_reserva,
-        r1_0.id_huesped,
-        r1_0.monto,
-        rh1_0.id_reserva,
-        rh1_0.id,
-        rh1_0.estado,
-        rh1_0.fecha,
-        rh1_0.id_habitacion 
-    from
-        reservas r1_0 
-    join
-        reserva_habitaciones rh1_0 
-            on r1_0.id_reserva=rh1_0.id_reserva 
-    where
-        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
-        and rh1_0.fecha between ? and ?
+    alter table tarjetas 
+       modify column marca_tarjeta enum ('MASTERCARD','VISA')
+2025-12-02T13:38:00.811-03:00 DEBUG 24716 --- [           main] org.hibernate.SQL                        : 
+    alter table tarjetas 
+       modify column tipo_tarjeta enum ('CREDITO','DEBITO')
 Hibernate: 
-    select
-        distinct r1_0.id_reserva,
-        r1_0.id_huesped,
-        r1_0.monto,
-        rh1_0.id_reserva,
-        rh1_0.id,
-        rh1_0.estado,
-        rh1_0.fecha,
-        rh1_0.id_habitacion 
-    from
-        reservas r1_0 
-    join
-        reserva_habitaciones rh1_0 
-            on r1_0.id_reserva=rh1_0.id_reserva 
-    where
-        rh1_0.estado in ('PENDIENTE', 'CONFIRMADA') 
-        and rh1_0.fecha between ? and ?
-<<<<<<< HEAD
-2025-12-02T09:00:41.194-03:00 TRACE 13628 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-10-10]
-2025-12-02T09:00:41.194-03:00 TRACE 13628 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-10-15]
-2025-12-02T09:00:41.696-03:00 DEBUG 13628 --- [nio-8080-exec-3] org.hibernate.SQL                        : 
-=======
-2025-12-02T13:11:47.599-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-25]
-2025-12-02T13:11:47.600-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-31]
-2025-12-02T13:11:48.101-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
-    select
-        h1_0.id,
-        h1_0.apellido,
-        h1_0.calle,
-        h1_0.codigo_postal,
-        h1_0.cuit,
-        h1_0.departamento,
-        h1_0.email,
-        h1_0.fecha_nacimiento,
-        h1_0.localidad,
-        h1_0.nacionalidad,
-        h1_0.nombre,
-        h1_0.numero,
-        h1_0.numero_documento,
-        h1_0.ocupacion,
-        h1_0.pais,
-        h1_0.piso,
-        h1_0.posicion_iva,
-        h1_0.provincia,
-        h1_0.telefono,
-        h1_0.tipo_documento 
-    from
-        huespedes h1_0 
-    where
-        h1_0.id=?
-Hibernate: 
-    select
-        h1_0.id,
-        h1_0.apellido,
-        h1_0.calle,
-        h1_0.codigo_postal,
-        h1_0.cuit,
-        h1_0.departamento,
-        h1_0.email,
-        h1_0.fecha_nacimiento,
-        h1_0.localidad,
-        h1_0.nacionalidad,
-        h1_0.nombre,
-        h1_0.numero,
-        h1_0.numero_documento,
-        h1_0.ocupacion,
-        h1_0.pais,
-        h1_0.piso,
-        h1_0.posicion_iva,
-        h1_0.provincia,
-        h1_0.telefono,
-        h1_0.tipo_documento 
-    from
-        huespedes h1_0 
-    where
-        h1_0.id=?
-2025-12-02T13:11:48.101-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [80]
-2025-12-02T13:11:48.671-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
-    select
-        h1_0.id_habitacion,
-        h1_0.estado_actual,
-        h1_0.numero,
-        h1_0.piso,
-        h1_0.id_tipo_habitacion,
-        th1_0.id,
-        th1_0.costo,
-        th1_0.descripcion,
-        th1_0.tipo_habitacion 
-    from
-        habitaciones h1_0 
-    join
-        tipos_habitacion th1_0 
-            on th1_0.id=h1_0.id_tipo_habitacion 
-    where
-        h1_0.id_habitacion=?
-Hibernate: 
-    select
-        h1_0.id_habitacion,
-        h1_0.estado_actual,
-        h1_0.numero,
-        h1_0.piso,
-        h1_0.id_tipo_habitacion,
-        th1_0.id,
-        th1_0.costo,
-        th1_0.descripcion,
-        th1_0.tipo_habitacion 
-    from
-        habitaciones h1_0 
-    join
-        tipos_habitacion th1_0 
-            on th1_0.id=h1_0.id_tipo_habitacion 
-    where
-        h1_0.id_habitacion=?
-2025-12-02T13:11:48.672-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:BIGINT) <- [46]
-2025-12-02T13:11:49.125-03:00 DEBUG 20112 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
->>>>>>> ocuparHabitacion
-    select
-        distinct e1_0.id,
-        e1_0.cant_personas,
-        e1_0.costo_estadia,
-        e1_0.descuento,
-        eh1_0.id_estadia,
-        eh1_0.id,
-        eh1_0.fecha,
-        eh1_0.id_habitacion,
-        e1_0.id_reserva_origen,
-        e1_0.id_huesped_responsable 
-    from
-        estadias e1_0 
-    join
-        estadia_habitaciones eh1_0 
-            on e1_0.id=eh1_0.id_estadia 
-    where
-        eh1_0.fecha>=? 
-        and eh1_0.fecha<=?
-Hibernate: 
-    select
-        distinct e1_0.id,
-        e1_0.cant_personas,
-        e1_0.costo_estadia,
-        e1_0.descuento,
-        eh1_0.id_estadia,
-        eh1_0.id,
-        eh1_0.fecha,
-        eh1_0.id_habitacion,
-        e1_0.id_reserva_origen,
-        e1_0.id_huesped_responsable 
-    from
-        estadias e1_0 
-    join
-        estadia_habitaciones eh1_0 
-            on e1_0.id=eh1_0.id_estadia 
-    where
-        eh1_0.fecha>=? 
-        and eh1_0.fecha<=?
-<<<<<<< HEAD
-2025-12-02T09:00:41.696-03:00 TRACE 13628 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-10-10]
-2025-12-02T09:00:41.696-03:00 TRACE 13628 --- [nio-8080-exec-3] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-10-15]
-=======
-2025-12-02T13:11:49.125-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (1:DATE) <- [2025-12-25]
-2025-12-02T13:11:49.126-03:00 TRACE 20112 --- [nio-8080-exec-4] org.hibernate.orm.jdbc.bind              : binding parameter (2:DATE) <- [2025-12-31]
-2025-12-02T13:23:04.946-03:00 DEBUG 20112 --- [nio-8080-exec-2] org.hibernate.SQL                        : 
-    select
-        h1_0.id,
-        h1_0.apellido,
-        h1_0.calle,
-        h1_0.codigo_postal,
-        h1_0.cuit,
-        h1_0.departamento,
-        h1_0.email,
-        h1_0.fecha_nacimiento,
-        h1_0.localidad,
-        h1_0.nacionalidad,
-        h1_0.nombre,
-        h1_0.numero,
-        h1_0.numero_documento,
-        h1_0.ocupacion,
-        h1_0.pais,
-        h1_0.piso,
-        h1_0.posicion_iva,
-        h1_0.provincia,
-        h1_0.telefono,
-        h1_0.tipo_documento 
-    from
-        huespedes h1_0 
-    where
-        1=1 
-    order by
-        h1_0.apellido,
-        h1_0.nombre
-Hibernate: 
-    select
-        h1_0.id,
-        h1_0.apellido,
-        h1_0.calle,
-        h1_0.codigo_postal,
-        h1_0.cuit,
-        h1_0.departamento,
-        h1_0.email,
-        h1_0.fecha_nacimiento,
-        h1_0.localidad,
-        h1_0.nacionalidad,
-        h1_0.nombre,
-        h1_0.numero,
-        h1_0.numero_documento,
-        h1_0.ocupacion,
-        h1_0.pais,
-        h1_0.piso,
-        h1_0.posicion_iva,
-        h1_0.provincia,
-        h1_0.telefono,
-        h1_0.tipo_documento 
-    from
-        huespedes h1_0 
-    where
-        1=1 
-    order by
-        h1_0.apellido,
-        h1_0.nombre
->>>>>>> ocuparHabitacion
+    alter table tarjetas 
+       modify column tipo_tarjeta enum ('CREDITO','DEBITO')
+2025-12-02T13:38:28.478-03:00  INFO 24716 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-02T13:38:28.606-03:00  WARN 24716 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'estadiaController' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\api\EstadiaController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'gestorHabitaciones' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\service\GestorHabitaciones.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'gestorHuespedes' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\service\GestorHuespedes.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'acompanianteDaoJpa' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\dao\AcompanianteDaoJpa.class]: Failed to instantiate [com.example.crud.dao.AcompanianteDaoJpa]: Constructor threw exception
+2025-12-02T13:38:28.607-03:00  INFO 24716 --- [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-02T13:38:28.610-03:00  INFO 24716 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-02T13:38:28.625-03:00  INFO 24716 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-12-02T13:38:28.627-03:00  INFO 24716 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-12-02T13:38:28.639-03:00  INFO 24716 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-12-02T13:38:28.671-03:00 ERROR 24716 --- [           main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'estadiaController' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\api\EstadiaController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'gestorHabitaciones' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\service\GestorHabitaciones.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'gestorHuespedes' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\service\GestorHuespedes.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'acompanianteDaoJpa' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\dao\AcompanianteDaoJpa.class]: Failed to instantiate [com.example.crud.dao.AcompanianteDaoJpa]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:990) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.12.jar:6.2.12]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
+	at com.example.crud.CrudApplication.main(CrudApplication.java:10) ~[classes/:na]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'gestorHabitaciones' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\service\GestorHabitaciones.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'gestorHuespedes' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\service\GestorHuespedes.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'acompanianteDaoJpa' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\dao\AcompanianteDaoJpa.class]: Failed to instantiate [com.example.crud.dao.AcompanianteDaoJpa]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1708) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 21 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'gestorHuespedes' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\service\GestorHuespedes.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'acompanianteDaoJpa' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\dao\AcompanianteDaoJpa.class]: Failed to instantiate [com.example.crud.dao.AcompanianteDaoJpa]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1708) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 34 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'acompanianteDaoJpa' defined in file [C:\Users\Windows\Desktop\Ing.Sistemas\3°Año(2025)\Diseño de Sistemas\TP\Etapa Final\App-Hotel\Back-TP-Deso\target\classes\com\example\crud\dao\AcompanianteDaoJpa.class]: Failed to instantiate [com.example.crud.dao.AcompanianteDaoJpa]: Constructor threw exception
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1357) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1242) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1770) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1653) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 47 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.example.crud.dao.AcompanianteDaoJpa]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:223) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:123) ~[spring-beans-6.2.12.jar:6.2.12]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1351) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 59 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on tokens, delete these tokens
+	The import com.example.crud.model.TipoDocumento cannot be resolved
+	Syntax error on tokens, delete these tokens
+	Syntax error on tokens, delete these tokens
+	Syntax error, insert "}" to complete MethodBody
+	Syntax error, insert "}" to complete ClassBody
+
+	at com.example.crud.dao.AcompanianteDaoJpa.<init>(AcompanianteDaoJpa.java:4) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483) ~[na:na]
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:197) ~[spring-beans-6.2.12.jar:6.2.12]
+	... 61 common frames omitted
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  52.913 s
+[INFO] Finished at: 2025-12-02T13:38:28-03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.7:run (default-cli) on project crud: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

@@ -4,7 +4,7 @@ import com.example.crud.auxiliares.HuespedMapper;
 import com.example.crud.dto.AcompanianteDTO;
 import com.example.crud.dto.HuespedDTO;
 import com.example.crud.model.Huesped;
-import com.example.crud.model.TipoDocumento;
+import com.example.crud.enums.TipoDocumento;
 import com.example.crud.service.GestorHuespedes;
 import jakarta.validation.Valid;
 import org.springframework.http.*;

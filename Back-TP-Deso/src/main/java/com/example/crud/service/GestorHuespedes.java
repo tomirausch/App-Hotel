@@ -7,7 +7,7 @@ import com.example.crud.exception.RecursoNoEncontradoException;
 import com.example.crud.dao.AcompanianteDao;
 import com.example.crud.model.Acompaniante;
 import com.example.crud.model.Huesped;
-import com.example.crud.model.TipoDocumento;
+import com.example.crud.enums.TipoDocumento;
 import com.example.crud.auxiliares.AcompanianteMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,6 @@
 package com.example.crud.model;
 
+import com.example.crud.modelFacturacion.Factura;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -35,6 +36,14 @@ public class Estadia {
     @ManyToMany
     @JoinTable(name = "estadia_acompanantes", joinColumns = @JoinColumn(name = "id_estadia"), inverseJoinColumns = @JoinColumn(name = "id_acompanante"))
     private List<Acompaniante> acompanantes = new ArrayList<>();
+
+    // Relación 1:N con Factura
+    @OneToMany(mappedBy = "estadia", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Factura> facturas = new ArrayList<>();
+
+    // Relación N:N con Servicio
+    @OneToMany(mappedBy = "estadia", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EstadiaServicio> estadiaServicios = new ArrayList<>();
 
     public Estadia() {
     }
@@ -112,5 +121,21 @@ public class Estadia {
 
     public void setReservaOrigen(Reserva reservaOrigen) {
         this.reservaOrigen = reservaOrigen;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Factura> facturas) {
+        this.facturas = facturas;
+    }
+
+    public List<EstadiaServicio> getEstadiaServicios() {
+        return estadiaServicios;
+    }
+
+    public void setEstadiaServicios(List<EstadiaServicio> estadiaServicios) {
+        this.estadiaServicios = estadiaServicios;
     }
 }

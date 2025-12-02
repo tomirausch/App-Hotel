@@ -1,5 +1,6 @@
 package com.example.crud.model;
 
+import com.example.crud.enums.EstadoHabitacion;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
