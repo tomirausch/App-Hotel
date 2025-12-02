@@ -35,6 +35,15 @@ export default function Home() {
           </div>
         </div>
         </Link>
+
+        <Link href="/ocupar-habitacion" style={{textDecoration: "none"}}>
+        <div className={styles.box}>
+          <h2 className={styles.boxTitle}>Ocupar Habitación</h2>
+          <div  className={styles.boxImage}>
+            <img style={{height: "100px", filter: "invert(1)"}} src="/tarjeta-clave.png" alt="" />
+          </div>
+        </div>
+        </Link>
     </div>
     </>
   );

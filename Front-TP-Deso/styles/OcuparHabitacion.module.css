@@ -1,0 +1,476 @@
+/* --- LAYOUT PRINCIPAL (TU CÓDIGO ORIGINAL) --- */
+.contenedorPrincipal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  font-family: sans-serif;
+}
+
+/* --- FORMULARIO --- */
+.formulario {
+  width: 600px;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid whitesmoke;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.fieldset {
+  border: none;
+  padding: 0px 20px 20px 20px;
+  width: 100%;
+}
+
+.legend {
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+.allInputContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* --- BOTONES --- */
+.btnBase {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btnBase:active {
+  opacity: 0.7;
+}
+
+.btnCancelar {
+  composes: btnBase;
+  background-color: #ef4444;
+  color: white;
+}
+
+.btnSiguiente {
+  composes: btnBase;
+  background-color: #22c55e;
+  color: white;
+}
+
+.desactivado {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.desactivado:active {
+  opacity: 0.5 !important;
+}
+
+.containerNullResponse {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid whitesmoke;
+  width: 1200px;
+  max-width: 95vw;
+  margin-top: 30px;
+}
+
+.containerResponse {
+  width: 1200px;
+  max-width: 95vw; /* Para que no rompa en pantallas chicas */
+  margin-top: 30px;
+}
+
+/* --- TABLA MATRIZ --- */
+.resultadosContainer {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto; /* Scroll horizontal activo */
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: whitesmoke transparent;
+  border-radius: 10px;
+  border: 1px solid whitesmoke;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+/* --- COLUMNA FIJA (IZQUIERDA) --- */
+.columnaEstaticaContainer {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background-color: #1E2448; /* TU AZUL OSCURO */
+  min-width: 120px;
+  border-right: 1px solid whitesmoke;
+  box-shadow: 4px 0 5px rgba(0,0,0,0.3);
+}
+
+.celdaTituloEstatico {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #334155;
+  color: white;
+  font-weight: bold;
+  border-bottom: 1px solid whitesmoke;
+  padding: 0 10px;
+}
+
+.celdaFecha {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-bottom: 1px solid whitesmoke;
+  padding: 0 10px;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+/* --- COLUMNAS DE DATOS (DERECHA) --- */
+.columnaHabitacion {
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f5f9;
+  min-width: 160px;
+  flex-shrink: 0;
+  border-right: 1px solid #cbd5e1;
+}
+
+.celdaHeaderHabitacion {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: bold;
+  border-bottom: 1px solid #60a5fa;
+  padding: 0 5px;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+}
+
+.celdaHeaderNumero {
+  composes: celdaHeaderHabitacion;
+  background-color: #2563eb;
+}
+
+/* Celdas de Estado */
+.celdaEstado {
+  background-color: whitesmoke !important; /* TU FONDO ORIGINAL */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0 5px;
+  color: #000000;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.celdaEstado:hover {
+  background-color: #dbeafe; 
+}
+
+.estado {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: whitesmoke;
+}
+
+/* --- ESTADOS Y COLORES ORIGINALES --- */
+.estadoDISPONIBLE { background-color: #22c55e; }
+.estadoOCUPADA { background-color: #ef4444; }
+.estadoRESERVADA { background-color: #ff8c00; }
+.estadoMANTENIMIENTO { background-color: #6b7280; }
+.estadoFUERA_DE_SERVICIO { background-color: #374151; }
+
+/* TUS COLORES DE SELECCIÓN (Naranjas transparentes) */
+.seleccionInicio {
+  background-color: #ff8c006b !important;
+  color: white !important;
+}
+
+.seleccionFin {
+  background-color: #ff8c006b !important;
+  color: white !important;
+}
+
+.seleccionRango {
+  background-color: #ffa2306b !important;
+  color: #1e40af !important;
+}
+
+.estadoAgregado {
+  background-color: #85009686 !important;
+  color: white !important;
+}
+.estadoAgregado p {
+    color: white !important;
+}
+
+.botonesRespuestaContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+/* --- LISTA RESUMEN (TU GRID ORIGINAL) --- */
+.listaContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+}
+
+.headerLista {
+  display: grid;
+  grid-template-columns: 0.8fr 2.5fr 1fr 1fr;
+  background-color: #1e293b;
+  color: white;
+  padding: 15px 10px;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.tituloHeaderLista {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.tituloHeaderLista h3 {
+  margin: 0;
+  font-weight: bold;
+  font-size: inherit;
+}
+
+.contenidoListaContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.filaListaContainer {
+  display: grid;
+  grid-template-columns: 0.8fr 2.5fr 1fr 1fr;
+  padding: 15px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  align-items: center;
+  transition: background-color 0.2s;
+  color: #334155;
+  font-size: 14px;
+}
+
+.filaListaContainer:last-child {
+  border-bottom: none;
+}
+
+.filaListaContainer:hover {
+  background-color: #f1f5f9;
+}
+
+.pListaContainer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 0 5px;
+}
+
+.pListaContainer p {
+  margin: 0;
+}
+
+.botonesListaContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+/* --- ESTILOS AGREGADOS SOLO PARA EL NUEVO FORMULARIO Y MODAL --- */
+
+.formularioReservaContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  margin-bottom: 60px;
+  width: 100%;
+}
+
+.formReservaInputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Para poner Apellido y Nombre en la misma linea si quieres, o dejarlos en columna */
+.filaInputs {
+    display: flex;
+    gap: 30px; 
+}
+.filaInputs > div {
+    flex: 1;
+}
+
+.cardFormulario {
+    /* Usamos estilos similares a tu .formulario original */
+    width: 800px; 
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid whitesmoke;
+    background-color: transparent;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.tituloSeccion {
+    text-align: center;
+    color: #1e293b;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* Validaciones */
+.inputError {
+  border-bottom: 2px solid red !important;
+  background-color: transparent;
+}
+.mensajeError {
+  font-size: 0.85rem;
+  display: block;
+  color: red;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* --- MODAL UNIFICADO --- */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.2s ease-in-out;
+  backdrop-filter: blur(2px);
+}
+
+.modalContent {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Bordes superiores de colores para el modal */
+.exito { border-top: 6px solid #22c55e; }
+.error { border-top: 6px solid #ef4444; }
+.advertencia { border-top: 6px solid #eab308; }
+
+.modalIcon {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  display: block;
+  line-height: 1;
+}
+
+.modalTitulo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.modalMensaje {
+  color: #4b5563;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.botonesContainer {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
+}
+
+.btnModal {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
+  color: white;
+}
+
+.btnModal:hover {
+  opacity: 0.9;
+}
+
+.cancelar { background-color: #ef4444; }
+.aceptar { background-color: #22c55e; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
