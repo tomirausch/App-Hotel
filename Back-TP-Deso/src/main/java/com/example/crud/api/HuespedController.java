@@ -4,7 +4,7 @@ import com.example.crud.auxiliares.HuespedMapper;
 import com.example.crud.dto.AcompanianteDTO;
 import com.example.crud.dto.HuespedDTO;
 import com.example.crud.model.Huesped;
-import com.example.crud.model.TipoDocumento;
+import com.example.crud.enums.TipoDocumento;
 import com.example.crud.service.GestorHuespedes;
 import jakarta.validation.Valid;
 import org.springframework.http.*;
@@ -88,4 +88,8 @@ public class HuespedController {
                 .created(URI.create("/api/huespedes/acompañantes/buscar/" + encontrado.getId()))
                 .body(encontrado);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9750e49a63e362977753ffc33b0571e870a723c8

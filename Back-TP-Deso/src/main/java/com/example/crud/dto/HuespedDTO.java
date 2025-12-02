@@ -1,7 +1,7 @@
 package com.example.crud.dto;
 
-import com.example.crud.model.PosicionIVA;
-import com.example.crud.model.TipoDocumento;
+import com.example.crud.enums.PosicionIVA;
+import com.example.crud.enums.TipoDocumento;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 

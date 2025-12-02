@@ -1,7 +1,7 @@
 package com.example.crud.dao;
 
 import com.example.crud.model.Huesped;
-import com.example.crud.model.TipoDocumento;
+import com.example.crud.enums.TipoDocumento;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Repository;
 

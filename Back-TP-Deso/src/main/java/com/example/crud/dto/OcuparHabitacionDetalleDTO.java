@@ -1,6 +1,6 @@
 package com.example.crud.dto;
 
-import com.example.crud.model.EstadoHabitacion;
+import com.example.crud.enums.EstadoHabitacion;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 

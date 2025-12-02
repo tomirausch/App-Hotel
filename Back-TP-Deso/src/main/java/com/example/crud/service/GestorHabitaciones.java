@@ -4,6 +4,8 @@ import com.example.crud.auxiliares.HuespedMapper;
 import com.example.crud.auxiliares.ReservaMapper;
 import com.example.crud.dao.*;
 import com.example.crud.dto.*;
+import com.example.crud.enums.EstadoReserva;
+import com.example.crud.enums.EstadoHabitacion;
 import com.example.crud.exception.RecursoNoEncontradoException;
 import com.example.crud.model.*;
 import org.springframework.stereotype.Service;
