@@ -81,11 +81,15 @@ export default function BuscarHuesped() {
       return;
     }
 
-    let query = 'http://localhost:8080/api/huespedes/buscar';
-    datos.Apellido !== "" && (query += `?apellido=${datos.Apellido}&`);
-    datos.Nombre !== "" && (query += `?nombre=${datos.Nombre}&`);
-    datos.TipoDocumento !== "" && (query += `?tipoDocumento=${datos.TipoDocumento}&`);
-    datos.NumeroDocumento !== "" && (query += `?numeroDocumento=${datos.NumeroDocumento}&`);
+    const baseUrl = 'http://localhost:8080/api/huespedes/buscar';
+    const params = new URLSearchParams();
+
+    if (datos.Apellido) params.append("apellido", datos.Apellido);
+    if (datos.Nombre) params.append("nombre", datos.Nombre);
+    if (datos.TipoDocumento) params.append("tipoDocumento", datos.TipoDocumento);
+    if (datos.NumeroDocumento) params.append("numeroDocumento", datos.NumeroDocumento);
+
+    const query = `${baseUrl}?${params.toString()}`;
 
     try{
       const respuesta = await fetch(query, {

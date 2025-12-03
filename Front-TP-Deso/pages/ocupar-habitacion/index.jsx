@@ -57,7 +57,39 @@ export default function OcuparHabitacion() {
     if (!fechaString) return "";
     return fechaString.split('-').reverse().join('-');
   };
+    const obtenerNombreDia = (fechaObj) => {
+      // Obtenemos el nombre del día en español (ej: "lunes")
+      const nombre = fechaObj.toLocaleDateString('es-ES', { weekday: 'long' });
+      // Lo capitalizamos para que quede mejor (ej: "Lunes")
+      return nombre.charAt(0).toUpperCase() + nombre.slice(1);
+    };
 
+    const formatearFechaIngreso = (fechaString) => {
+      if (!fechaString) return "";
+      
+      // Desarmamos el string 'aaaa-mm-dd' para evitar errores de zona horaria
+      const [anio, mes, dia] = fechaString.split('-');
+      
+      // Creamos la fecha (recordar que en JS el mes empieza en 0, por eso restamos 1)
+      const fechaObj = new Date(anio, mes - 1, dia);
+      
+      const nombreDia = obtenerNombreDia(fechaObj);
+      
+      // Retornamos con el formato solicitado y hora fija 12:00hs
+      return `${nombreDia}, ${dia}/${mes}/${anio}, 12:00hs`;
+    };
+
+    const formatearFechaEgreso = (fechaString) => {
+      if (!fechaString) return "";
+      
+      const [anio, mes, dia] = fechaString.split('-');
+      const fechaObj = new Date(anio, mes - 1, dia);
+      
+      const nombreDia = obtenerNombreDia(fechaObj);
+      
+      // Retornamos con el formato solicitado y hora fija 10:00hs
+      return `${nombreDia}, ${dia}/${mes}/${anio}, 10:00hs`;
+    };
   // --- MEMOS ---
   const seleccionadaReserva = useMemo(() => {
     if (seleccionadoInicio.length === 0) return [];
@@ -354,12 +386,12 @@ export default function OcuparHabitacion() {
                   <div
                     key={i}
                     className={styles.filaListaContainer}
-                    style={{ gridTemplateColumns: "0.5fr 2fr 1fr 1fr" }}
+                    style={{ gridTemplateColumns: "0.5fr 2fr 1fr 1fr", backgroundColor: "whitesmoke", color: "black" }}
                   >
                     <div>{fila.Habitacion}</div>
                     <div>{fila.Tipo}</div>
-                    <div>{formatearFecha(fila.Ingreso)}</div>
-                    <div>{formatearFecha(fila.Egreso)}</div>
+                    <div>{formatearFechaIngreso(fila.Ingreso)}</div>
+                    <div>{formatearFechaEgreso(fila.Egreso)}</div>
                   </div>
                 ))}
               </div>

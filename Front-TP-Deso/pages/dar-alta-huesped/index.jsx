@@ -160,6 +160,17 @@ export default function DarAltaHuesped() {
         }
       });
 
+      // --- INICIO DE NUEVA VALIDACIÓN ---
+      const posicionIVA = formData.get('PosicionIVA');
+      const cuit = formData.get('CUIT');
+
+      // Si NO es Consumidor Final, el CUIT es obligatorio
+      if (posicionIVA !== 'ConsumidorFinal') {
+        if (!cuit || cuit.toString().trim() === "") {
+          nuevosErrores['CUIT'] = "El CUIT es obligatorio para esta condición fiscal";
+        }
+      }
+
       const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
       const nombreVal = formData.get('Nombre');
       if (nombreVal && !regexSoloLetras.test(nombreVal.toString())) {
@@ -443,10 +454,21 @@ export default function DarAltaHuesped() {
               />
               {errores.NumeroDocumento && <span className={styles.mensajeError}>{errores.NumeroDocumento}</span>}
             </div>
+
             <div className={styles.formGroup}>
-              <label htmlFor="CUIT">CUIT</label>
-              <input type="text" name="CUIT" placeholder="CUIT" />
+              <label htmlFor="CUIT">CUIT {errores.CUIT && "*"}</label>
+              <input 
+                type="text" 
+                name="CUIT" 
+                placeholder="CUIT" 
+                maxLength="11" // Opcional: limitar largo
+                onInput={soloNumeros} // Recomendado: solo permitir números
+                className={errores.CUIT ? styles.inputError : ''}
+                onChange={() => setErrores({...errores, CUIT: null})} 
+              />
+              {errores.CUIT && <span className={styles.mensajeError}>{errores.CUIT}</span>}
             </div>
+            
             <div className={styles.formGroup}>
               <label htmlFor="PosicionIVA">Posición IVA*</label>
               <select name="PosicionIVA">
