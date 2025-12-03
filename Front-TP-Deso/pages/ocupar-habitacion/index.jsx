@@ -1,40 +1,38 @@
 import styles from "../../styles/OcuparHabitacion.module.css"
 import Head from 'next/head';
 import { useState, useMemo } from "react";
-import { useRouter } from "next/router"; // Agregado para redirecciones si hace falta
+import { useRouter } from "next/router"; 
 
 export default function OcuparHabitacion() {
   const router = useRouter();
-  let endpoint;
-
-  // --- ESTADOS ORIGINALES ---
+  
+  // --- ESTADOS ---
   const [habitaciones, setHabitaciones] = useState([]);
   const [seleccionadoInicio, setSeleccionadoInicio] = useState([]);
   const [seleccionadoFin, setSeleccionadoFin] = useState([]);
   const [reservasAcumuladas, setReservasAcumuladas] = useState([]);
   const [mostrandoLista, setMostrandoLista] = useState(false);
   const [mostrandoFormularioHuesped, setMostrandoFormularioHuesped] = useState(false);
-  const [errores, setErrores] = useState();
+  const [errores, setErrores] = useState({}); 
   const [cargando, setCargando] = useState(false);
+  const [confirmando, setConfirmando] = useState(false); 
   const [fechaDesde, setFechaDesde] = useState("");
   const [fechaHasta, setFechaHasta] = useState("");
   const [modalConfig, setModalConfig] = useState({ 
     visible: false, tipo: "", titulo: "", mensaje: "", acciones: [] 
   });
 
-  // --- NUEVOS ESTADOS PARA BÚSQUEDA DE HUÉSPED ---
+  // --- ESTADOS BÚSQUEDA ---
   const [huespedesEncontrados, setHuespedesEncontrados] = useState([]);
   const [huespedSeleccionado, setHuespedSeleccionado] = useState(null);
   const [busquedaRealizada, setBusquedaRealizada] = useState(false);
   const [columnaHuesped, setColumnaHuesped] = useState("apellido");
   const [ordenHuesped, setOrdenHuesped] = useState("asc");
-
   const [acompananteEncontrado, setAcompananteEncontrado] = useState({});
   const [acompanantes, setAcompanantes] = useState([]);
-
   const [buscando, setBuscando] = useState("huesped");
 
-  // --- HELPERS ORIGINALES ---
+  // --- HELPERS ---
   const cerrarModal = () => setModalConfig(prev => ({ ...prev, visible: false }));
   
   const mostrarError = (mensaje) => {
@@ -60,7 +58,7 @@ export default function OcuparHabitacion() {
     return fechaString.split('-').reverse().join('-');
   };
 
-  // --- LÓGICA DE SELECCIÓN HABITACIONES (Original) ---
+  // --- MEMOS ---
   const seleccionadaReserva = useMemo(() => {
     if (seleccionadoInicio.length === 0) return [];
     if (seleccionadoFin.length === 0) return [seleccionadoInicio];
@@ -83,9 +81,8 @@ export default function OcuparHabitacion() {
     return columnas;
   }, [habitaciones]);
 
-  // --- LÓGICA DE ORDENAMIENTO HUÉSPEDES (Traída de BuscarHuesped) ---
   const manejarOrdenamientoHuesped = (columna) => {
-    if (buscando === "huesped") setHuespedSeleccionado(null); // Deseleccionar al reordenar
+    if (buscando === "huesped") setHuespedSeleccionado(null); 
     if (columnaHuesped !== columna) {
       setColumnaHuesped(columna);
       setOrdenHuesped("asc");
@@ -107,7 +104,7 @@ export default function OcuparHabitacion() {
     return copia;
   }, [huespedesEncontrados, ordenHuesped, columnaHuesped]);
 
-  // --- HANDLERS ACCIONES ---
+  // --- HANDLERS ---
   const handleAtras = () => { setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]);}
 
   const handleAgregarSeleccion = () => {
@@ -143,14 +140,12 @@ export default function OcuparHabitacion() {
     ejecutarAgregar();
   };
 
-  // --- API CALLS ---
+  // --- API: BUSCAR DISPONIBILIDAD ---
   const enviarDatos = async (e) => {
     setHabitaciones([]); e.preventDefault(); 
-    // --- INICIO VALIDACIONES DE FECHA ---
     
-    // 1. Validar que no sean menores a 2024
     const anioMinimo = 2024;
-    const anioDesde = parseInt(fechaDesde.split('-')[0]); // Extrae el año 'YYYY'
+    const anioDesde = parseInt(fechaDesde.split('-')[0]);
     const anioHasta = parseInt(fechaHasta.split('-')[0]);
 
     if (anioDesde < anioMinimo || anioHasta < anioMinimo) {
@@ -158,11 +153,8 @@ export default function OcuparHabitacion() {
       return;
     }
 
-    // 2. Validar rango máximo de 1 año
     const dDesde = new Date(fechaDesde);
     const dHasta = new Date(fechaHasta);
-    
-    // Calculamos la fecha límite (1 año después de la fecha de inicio)
     const fechaLimite = new Date(dDesde);
     fechaLimite.setFullYear(fechaLimite.getFullYear() + 1);
 
@@ -170,7 +162,7 @@ export default function OcuparHabitacion() {
       mostrarError("El rango de fechas no puede ser mayor a 1 año.");
       return;
     }
-    // --- FIN VALIDACIONES DE FECHA ---
+    
     setCargando(true);
     setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]); setMostrandoLista(false);
     const formData = new FormData(e.target);
@@ -181,20 +173,23 @@ export default function OcuparHabitacion() {
     } catch (e) { console.log(e); } finally { setCargando(false); }
   };
 
-  // --- NUEVO: BUSCAR HUÉSPED ---
+  // --- API: BUSCAR HUÉSPED ---
   const buscarHuespedEnBD = async (e) => {
     e.preventDefault();
     setCargando(true);
     if(buscando == "huesped") setHuespedSeleccionado(null);
+    
     setBusquedaRealizada(false);
+    setAcompananteEncontrado({});
+    setHuespedesEncontrados([]);
 
     const formData = new FormData(e.target);
     const tipoDoc = formData.get('tipoDocumento');
     const numDoc = formData.get('numeroDocumento').trim();
+    
     if (buscando === "acompañante") {
       const camposObligatorios = ["tipoDocumento","numeroDocumento"];
       const nuevosErrores = {};
-      console.log(camposObligatorios);
       camposObligatorios.forEach((campo) => {
         const valor = formData.get(campo);
         if (!valor || valor.toString().trim() === "") {
@@ -203,7 +198,6 @@ export default function OcuparHabitacion() {
       });
 
       if (Object.keys(nuevosErrores).length > 0) {
-        console.log("ERRORES: ", nuevosErrores);
         setErrores(nuevosErrores);
         setCargando(false);
         return;
@@ -211,14 +205,11 @@ export default function OcuparHabitacion() {
       setErrores({});
     }
 
-    // Construir Query
     const params = new URLSearchParams();
     let endpoint;
     if (buscando == "huesped") {
       const apellido = formData.get('apellido').trim();
       const nombre = formData.get('nombre').trim();
-
-      // Validaciones simples
       const regexLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/;
       if (!regexLetras.test(apellido) || !regexLetras.test(nombre)) {
           alert("Nombre y Apellido solo letras."); setCargando(false); return;
@@ -238,39 +229,39 @@ export default function OcuparHabitacion() {
     try {
         const res = await fetch(endpoint);
         if(res.ok) {
+            const data = await res.json();
             if(buscando==="huesped"){
-              setHuespedesEncontrados(await res.json());
+              setHuespedesEncontrados(data);
             } else {
-              setAcompananteEncontrado(await res.json());
+              setAcompananteEncontrado(data);
             }
-            setBusquedaRealizada(true);
-        }
-    } catch(err) { console.error(err); } finally { setCargando(false); }
+        } 
+    } catch(err) { 
+        console.error(err); 
+    } finally { 
+        setCargando(false); 
+        setBusquedaRealizada(true); 
+    }
   };
 
-  // --- NUEVO: CONFIRMAR OCUPACIÓN FINAL ---
-  // --- CONFIRMAR OCUPACIÓN (JSON ESTRUCTURADO) ---
+  // --- API: CONFIRMAR OCUPACIÓN ---
   const finalizarOcupacion = async () => {
-    // 1. Validación básica
     if (!huespedSeleccionado) {
       mostrarError("Error: No hay un huésped titular seleccionado.");
       return;
     }
 
-    // 2. Armar la lista de detalles recuperando info del estado 'habitaciones'
-    const detalles = reservasAcumuladas.map((reserva) => {
-      const fechaStr = reserva[0]; // Fecha "YYYY-MM-DD"
-      const idHab = reserva[1]; // ID Habitación
+    setConfirmando(true);
 
-      // Buscamos el objeto original en el array 'habitaciones' para sacar los datos faltantes
-      // (estado, idReserva, idHuespedResponsableReserva)
+    const detalles = reservasAcumuladas.map((reserva) => {
+      const fechaStr = reserva[0]; 
+      const idHab = reserva[1]; 
       const infoOriginal = habitaciones.find(
         (h) => h.id === idHab && h.fecha === fechaStr
       );
       return {
         idHabitacion: idHab,
         fecha: fechaStr,
-        // Usamos el operador ?. y || para manejar posibles nulos de forma segura
         estado: infoOriginal?.estado || "DISPONIBLE",
         idReserva: infoOriginal?.idReserva || null,
         idHuespedResponsableReserva:
@@ -278,18 +269,12 @@ export default function OcuparHabitacion() {
       };
     });
 
-    // 3. Armar el Payload Final
     const payload = {
       idHuespedResponsableEstadia: huespedSeleccionado.id,
-      listaAcompanantes: acompanantes.map((a) => a.id), // Solo enviamos el array de IDs
+      listaAcompanantes: acompanantes.map((a) => a.id),
       detalles: detalles,
     };
 
-    // Debug: Para ver en consola que el JSON está bien formado antes de enviar
-    console.log("JSON a enviar:", JSON.stringify(payload, null, 2));
-
-     // 4. Envío a la API
-    setCargando(true);
     try {
       const respuesta = await fetch("http://localhost:8080/api/estadias/ocupar", {
         method: "POST",
@@ -309,7 +294,6 @@ export default function OcuparHabitacion() {
               estilo: "aceptar",
               onClick: () => {
                 cerrarModal();
-                // Reseteamos todo el flujo a cero
                 setHabitaciones([]);
                 setReservasAcumuladas([]);
                 setMostrandoLista(false);
@@ -335,18 +319,21 @@ export default function OcuparHabitacion() {
     } catch (e) {
       mostrarError("Error de conexión con el servidor.");
     } finally {
-      setCargando(false);
+      setConfirmando(false);
     } 
   };
 
-  // --- RENDERS ---
-  const mostrarLista = () => { /* ...Código original de Resumen Habitación... */
-    const obtenerFormatoCompleto = (f, h) => { /* ... */ return f; }; // Simplificado para ahorrar espacio
-    const generarResumen = (lista) => { /* Lógica original que ya tenías */ 
+  // --- RENDER: MOSTRAR LISTA RESUMEN Y FORMULARIO ---
+  const mostrarLista = () => { 
+    const generarResumen = (lista) => { 
         const agrupado = {}; lista.forEach(i => { if(!agrupado[i[1]]) agrupado[i[1]]=[]; agrupado[i[1]].push(i[0]) });
         return Object.keys(agrupado).map(id => ({Habitacion: ordenarDatos[id].numero, Tipo: ordenarDatos[id].tipo, Ingreso: agrupado[id].sort()[0], Egreso: agrupado[id].sort()[agrupado[id].length-1]}));
     };
     const datosTabla = generarResumen(reservasAcumuladas);
+
+    // Variables de control
+    const deshabilitarBotonesGlobal = cargando || confirmando;
+    const deshabilitarConfirmar = !huespedSeleccionado || cargando || confirmando;
 
     return (
       <div style={{ width: "100%", maxWidth: "1000px", margin: "0 auto" }}>
@@ -381,7 +368,9 @@ export default function OcuparHabitacion() {
               <input
                 type="button"
                 value="Volver"
-                className={styles.btnCancelar}
+                // Añadimos la clase desactivado si confirma
+                className={`${styles.btnCancelar} ${confirmando ? styles.desactivado : ''}`}
+                disabled={confirmando}
                 onClick={() => {
                   setMostrandoLista(false);
                   setBuscando("huesped");
@@ -390,8 +379,9 @@ export default function OcuparHabitacion() {
               <input
                 type="button"
                 value="Continuar al Check-in"
-                className={styles.btnSiguiente}
+                className={`${styles.btnSiguiente} ${confirmando ? styles.desactivado : ''}`}
                 style={{ backgroundColor: "#22c55e" }}
+                disabled={confirmando} 
                 onClick={() => setMostrandoFormularioHuesped(true)}
               />
             </div>
@@ -411,6 +401,7 @@ export default function OcuparHabitacion() {
                         type="text"
                         name="nombre"
                         placeholder="Nombre"
+                        disabled={deshabilitarBotonesGlobal}
                         onInput={(e) =>
                           (e.target.value = e.target.value.toUpperCase())
                         }
@@ -422,6 +413,7 @@ export default function OcuparHabitacion() {
                         type="text"
                         name="apellido"
                         placeholder="Apellido"
+                        disabled={deshabilitarBotonesGlobal}
                         onInput={(e) =>
                           (e.target.value = e.target.value.toUpperCase())
                         }
@@ -431,7 +423,7 @@ export default function OcuparHabitacion() {
                   <div className={styles.filaInputs}>
                     <div className={styles.inputContainer}>
                       <label>Tipo Doc.</label>
-                      <select name="tipoDocumento">
+                      <select name="tipoDocumento" disabled={deshabilitarBotonesGlobal}>
                         <option value="-">-</option>
                         <option value="DNI">DNI</option>
                         <option value="PASAPORTE">Pasaporte</option>
@@ -446,6 +438,7 @@ export default function OcuparHabitacion() {
                         type="text"
                         name="numeroDocumento"
                         placeholder="Número"
+                        disabled={deshabilitarBotonesGlobal}
                       />
                     </div>
                   </div>
@@ -460,7 +453,8 @@ export default function OcuparHabitacion() {
                     <input
                       type="button"
                       value="Atrás"
-                      className={styles.btnCancelar}
+                      className={`${styles.btnCancelar} ${deshabilitarBotonesGlobal ? styles.desactivado : ''}`}
+                      disabled={deshabilitarBotonesGlobal}
                       onClick={() => {
                         setMostrandoFormularioHuesped(false);
                         setHuespedSeleccionado(null);
@@ -471,13 +465,13 @@ export default function OcuparHabitacion() {
                     <input
                       type="submit"
                       value={cargando ? "Buscando..." : "BUSCAR"}
-                      className={styles.btnSiguiente}
-                      disabled={cargando}
+                      className={`${styles.btnSiguiente} ${deshabilitarBotonesGlobal ? styles.desactivado : ''}`}
+                      disabled={deshabilitarBotonesGlobal}
                       style={{ maxWidth: "200px" }}
                     />
                   </div>
                 </div>
-              </form>         
+              </form>        
               {busquedaRealizada && (
                 <div
                   className={styles.listaContainer}
@@ -499,7 +493,7 @@ export default function OcuparHabitacion() {
                         <div
                           className={styles.containerP}
                           style={{ cursor: "pointer" }}
-                          onClick={() => manejarOrdenamientoHuesped("apellido")}
+                          onClick={() => !confirmando && manejarOrdenamientoHuesped("apellido")}
                         >
                           Apellido
                           {columnaHuesped === "apellido" && (
@@ -521,7 +515,7 @@ export default function OcuparHabitacion() {
                         <div
                           className={styles.containerP}
                           style={{ cursor: "pointer" }}
-                          onClick={() => manejarOrdenamientoHuesped("nombre")}
+                          onClick={() => !confirmando && manejarOrdenamientoHuesped("nombre")}
                         >
                           Nombre
                           {columnaHuesped === "nombre" && (
@@ -543,7 +537,7 @@ export default function OcuparHabitacion() {
                         <div
                           className={styles.containerP}
                           style={{ cursor: "pointer" }}
-                          onClick={() =>
+                          onClick={() => !confirmando && 
                             manejarOrdenamientoHuesped("tipoDocumento")
                           }
                         >
@@ -567,7 +561,7 @@ export default function OcuparHabitacion() {
                         <div
                           className={styles.containerP}
                           style={{ cursor: "pointer" }}
-                          onClick={() =>
+                          onClick={() => !confirmando && 
                             manejarOrdenamientoHuesped("numeroDocumento")
                           }
                         >
@@ -599,9 +593,9 @@ export default function OcuparHabitacion() {
                             }`}
                             style={{
                               gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                              cursor: "pointer",
+                              cursor: confirmando ? "not-allowed" : "pointer", 
                             }}
-                            onClick={() => setHuespedSeleccionado(h)}
+                            onClick={() => !confirmando && setHuespedSeleccionado(h)}
                           >
                             <div className={styles.pListaContainer}>
                               <p>{h.apellido.toUpperCase()}</p>
@@ -628,8 +622,8 @@ export default function OcuparHabitacion() {
                 <h3 className={styles.legend}>Buscar Acompañante</h3>
                 <div style={{display: "flex", justifyContent: "center"}}>
                 <div style={{textAlign:'center', color:'whitesmoke', marginBottom:'15px', padding:'10px', borderLeft:'10px solid whitesmoke', width: "30%", borderRadius: "5px"}}>
-                    Titular: <b>{huespedSeleccionado.apellido.toUpperCase()} {huespedSeleccionado.nombre.toUpperCase()}</b> <br/>
-                    <small>{huespedSeleccionado.tipoDocumento}: {huespedSeleccionado.numeroDocumento}</small>
+                    Titular: <b>{huespedSeleccionado?.apellido?.toUpperCase()} {huespedSeleccionado?.nombre?.toUpperCase()}</b> <br/>
+                    <small>{huespedSeleccionado?.tipoDocumento}: {huespedSeleccionado?.numeroDocumento}</small>
                 </div>
                 </div>
 
@@ -640,7 +634,7 @@ export default function OcuparHabitacion() {
                   <div className={styles.filaInputs}>
                     <div className={styles.inputContainer}>
                       <label>Tipo Doc.</label>
-                      <select name="tipoDocumento">
+                      <select name="tipoDocumento" disabled={deshabilitarBotonesGlobal}>
                         <option value="DNI">DNI</option>
                         <option value="PASAPORTE">Pasaporte</option>
                         <option value="LE">LE</option>
@@ -654,6 +648,7 @@ export default function OcuparHabitacion() {
                         type="text"
                         name="numeroDocumento"
                         placeholder="Número"
+                        disabled={deshabilitarBotonesGlobal}
                         className={errores.numeroDocumento ? styles.inputError : ''}
                         onChange={() => setErrores({...errores, numeroDocumento: null})}/>
                       {errores.numeroDocumento && <span className={styles.mensajeError}>{errores.numeroDocumento}</span>}
@@ -671,7 +666,8 @@ export default function OcuparHabitacion() {
                     <input
                       type="button"
                       value="Atrás"
-                      className={styles.btnCancelar}
+                      className={`${styles.btnCancelar} ${deshabilitarBotonesGlobal ? styles.desactivado : ''}`}
+                      disabled={deshabilitarBotonesGlobal}
                       onClick={() => {
                         setMostrandoFormularioHuesped(false);
                         setHuespedSeleccionado(null);
@@ -684,8 +680,8 @@ export default function OcuparHabitacion() {
                     <input
                       type="submit"
                       value={cargando ? "Buscando..." : "BUSCAR"}
-                      className={styles.btnSiguiente}
-                      disabled={cargando}
+                      className={`${styles.btnSiguiente} ${deshabilitarBotonesGlobal ? styles.desactivado : ''}`}
+                      disabled={deshabilitarBotonesGlobal}
                       style={{ maxWidth: "200px" }}
                     />
                   </div>
@@ -693,6 +689,12 @@ export default function OcuparHabitacion() {
                     {Object.keys(acompananteEncontrado).length > 0 && (
                       <div style={{color: "whitesmoke", display: "flex", justifyContent: "center"}}>
                         Encontrado: {acompananteEncontrado.nombre} {acompananteEncontrado.apellido}
+                      </div>
+                    )}
+
+                    {busquedaRealizada && Object.keys(acompananteEncontrado).length === 0 && (
+                      <div style={{color: "red", display: "flex", justifyContent: "center"}}>
+                        Acompañante NO ENCONTRADO
                       </div>
                     )}
 
@@ -709,24 +711,25 @@ export default function OcuparHabitacion() {
                     <input
                       type="button"
                       value="Agregar acompañante"
-                      className={`${styles.btnBase} ${Object.keys(acompananteEncontrado).length === 0 ? styles.desactivado : ''}`}
+                      className={`${styles.btnBase} ${(Object.keys(acompananteEncontrado).length === 0 || deshabilitarBotonesGlobal) ? styles.desactivado : ''}`}
+                      disabled={Object.keys(acompananteEncontrado).length === 0 || deshabilitarBotonesGlobal}
                       style={{backgroundColor: "blue"}}
                       onClick={() => {
                           if(!acompanantes.some(a => a.id === acompananteEncontrado.id)){
-                          setAcompanantes([...acompanantes, acompananteEncontrado]);
+                            setAcompanantes([...acompanantes, acompananteEncontrado]);
                           }
                           document.getElementById("formBuscarHuesped").reset();
                           setAcompananteEncontrado({});
+                          setBusquedaRealizada(false);
                       }}
-                      disabled={Object.keys(acompananteEncontrado).length === 0}
                     />
 
                     <input
                       type="button"
                       value="Confirmar"
-                      className={`${styles.btnSiguiente} ${Object.keys(acompanantes).length === 0 ? styles.desactivado : ''}`}
+                      className={`${styles.btnSiguiente} ${(Object.keys(acompanantes).length === 0 || deshabilitarBotonesGlobal) ? styles.desactivado : ''}`}
+                      disabled={Object.keys(acompanantes).length === 0 || deshabilitarBotonesGlobal}
                       onClick={() => {finalizarOcupacion()}}
-                      disabled={Object.keys(acompanantes).length === 0}
                     />
                     </div>
 
@@ -746,20 +749,24 @@ export default function OcuparHabitacion() {
                     <input
                       type="button"
                       value="Cargar Acompañante"
-                      className={styles.btnBase}
+                      className={`${styles.btnBase} ${deshabilitarBotonesGlobal ? styles.desactivado : ''}`}
                       style={{ backgroundColor: "#3b82f6" }}
-                      onClick={() => {setBuscando("acompañante");}}
+                      disabled={deshabilitarBotonesGlobal}
+                      onClick={() => {
+                        setBuscando("acompañante");
+                        setBusquedaRealizada(false);
+                        setAcompananteEncontrado({});
+                        setErrores({});
+                      }}
                     ></input>
                     <input
                       type="button"
-                      value={cargando ? "Procesando..." : "CONFIRMAR OCUPACIÓN"}
+                      value={confirmando ? "Procesando..." : "CONFIRMAR OCUPACIÓN"}
                       className={`${styles.btnSiguiente} ${
-                        !huespedSeleccionado || cargando
-                          ? styles.desactivado
-                          : ""
+                        deshabilitarConfirmar ? styles.desactivado : ""
                       }`}
                       onClick={() => {finalizarOcupacion()}}
-                      disabled={!huespedSeleccionado || cargando}
+                      disabled={deshabilitarConfirmar}
                       style={{ backgroundColor: "#22c55e" }}
                     />
                   </>
@@ -772,6 +779,7 @@ export default function OcuparHabitacion() {
     );
   };
 
+  // --- RENDER: MOSTRAR RESULTADOS DISPONIBILIDAD ---
   const mostrarResultados = () => {
     const columnas = ordenarDatos;
     const fechas = new Set(); habitaciones.forEach(hab => fechas.add(hab.fecha));
@@ -954,4 +962,4 @@ export default function OcuparHabitacion() {
       )}
     </>
   );
-} 
+}

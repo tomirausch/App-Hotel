@@ -21,8 +21,12 @@
 
 .fieldset {
   border: none;
-  padding: 0px 20px 20px 20px;
+  padding: 0 20px 20px 20px;
   width: 100%;
+  box-sizing: border-box; /* ESTO ES CRUCIAL para que el padding no rompa el ancho */
+  min-width: 0; /* Evita que flexbox rompa el fieldset */
+  display: flex;
+  flex-direction: column;
 }
 
 .legend {
@@ -467,8 +471,25 @@
   margin-bottom: 60px;
 }
 
-.formReservaInputsContainer{
+.formReservaInputsContainer {
   display: flex;
   flex-direction: column;
+  gap: 15px; /* Espacio entre filas */
+  width: 100%;
+}
+
+/* --- AGREGA ESTO QUE FALTABA --- */
+.filaInputs {
+  display: flex;
+  flex-direction: row;
   gap: 20px;
+  width: 100%;
+}
+
+/* Ajuste para móviles: que se pongan en columna si la pantalla es chica */
+@media (max-width: 600px) {
+  .filaInputs {
+    flex-direction: column;
+    gap: 15px;
+  }
 }

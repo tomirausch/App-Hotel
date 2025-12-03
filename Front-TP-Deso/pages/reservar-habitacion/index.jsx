@@ -13,27 +13,22 @@ export default function ReservarHabitacion() {
   const [fechaDesde, setFechaDesde] = useState("");
   const [fechaHasta, setFechaHasta] = useState("");
   
-  // --- CAMBIO 1: Estado unificado de Modal ---
+  // Estado Modal
   const [modalConfig, setModalConfig] = useState({ 
-    visible: false, 
-    tipo: "", 
-    titulo: "", 
-    mensaje: "", 
-    acciones: [] 
+    visible: false, tipo: "", titulo: "", mensaje: "", acciones: [] 
   });
 
   const [mostrandoFormularioHuesped, setMostrandoFormularioHuesped] = useState(false);
+  
+  // Inicializamos errores vacío
   const [errores, setErrores] = useState({});
 
-  // Helpers del Modal
+  // Helpers
   const cerrarModal = () => setModalConfig(prev => ({ ...prev, visible: false }));
   
   const mostrarError = (mensaje) => {
     setModalConfig({
-      visible: true,
-      tipo: "error",
-      titulo: "¡Atención!",
-      mensaje: mensaje,
+      visible: true, type: "error", titulo: "¡Atención!", mensaje: mensaje,
       acciones: [{ texto: "Entendido", estilo: "cancelar", onClick: cerrarModal }]
     });
   };
@@ -46,7 +41,6 @@ export default function ReservarHabitacion() {
     const fechas = [];
     let fechaActual = new Date(fechaA);
     const fechaFinal = new Date(fechaB);
-
     while (fechaActual <= fechaFinal) {
       fechas.push(fechaActual.toISOString().split('T')[0]);
       fechaActual.setDate(fechaActual.getDate() + 1);
@@ -74,12 +68,10 @@ export default function ReservarHabitacion() {
 
   const handleAgregarSeleccion = () => {
     if (seleccionadaReserva.length === 0) return;
-    
     if (seleccionadaReserva.length < 2) {
-      mostrarError("La estancia mínima es de 2 días (una noche). Por favor selecciona fecha de entrada y salida.");
+      mostrarError("La estancia mínima es de 2 días. Selecciona fecha de entrada y salida.");
       return;
     }
-    
     const hayNoDisponibles = seleccionadaReserva.some((item) => {
       const [fecha, idColumna] = item;
       const estadoCelda = ordenarDatos[idColumna]?.estados[fecha];
@@ -90,7 +82,6 @@ export default function ReservarHabitacion() {
       mostrarError("La habitación no se encuentra DISPONIBLE para las fechas seleccionadas.");
       return;
     }
-
     setReservasAcumuladas((prev) => [...prev, ...seleccionadaReserva]);
     setSeleccionadoInicio([]);
     setSeleccionadoFin([]);
@@ -99,23 +90,16 @@ export default function ReservarHabitacion() {
   const enviarDatos = async (e) => {
     setHabitaciones([]);
     e.preventDefault();
-    // --- INICIO VALIDACIONES DE FECHA ---
-    
-    // 1. Validar que no sean menores a 2024
     const anioMinimo = 2024;
-    const anioDesde = parseInt(fechaDesde.split('-')[0]); // Extrae el año 'YYYY'
+    const anioDesde = parseInt(fechaDesde.split('-')[0]);
     const anioHasta = parseInt(fechaHasta.split('-')[0]);
 
     if (anioDesde < anioMinimo || anioHasta < anioMinimo) {
       mostrarError(`Las fechas no pueden ser anteriores al año ${anioMinimo}.`);
       return;
     }
-
-    // 2. Validar rango máximo de 1 año
     const dDesde = new Date(fechaDesde);
     const dHasta = new Date(fechaHasta);
-    
-    // Calculamos la fecha límite (1 año después de la fecha de inicio)
     const fechaLimite = new Date(dDesde);
     fechaLimite.setFullYear(fechaLimite.getFullYear() + 1);
 
@@ -123,15 +107,9 @@ export default function ReservarHabitacion() {
       mostrarError("El rango de fechas no puede ser mayor a 1 año.");
       return;
     }
-    // --- FIN VALIDACIONES DE FECHA ---
     setCargando(true);
     const formData = new FormData(e.target);
-
-    const datos = {
-      Desde: formData.get('Desde'),
-      Hasta: formData.get('Hasta')
-    };
-
+    const datos = { Desde: formData.get('Desde'), Hasta: formData.get('Hasta') };
     const query = `http://localhost:8080/api/habitaciones/estado?desde=${datos.Desde}&hasta=${datos.Hasta}`;
 
     try {
@@ -139,45 +117,26 @@ export default function ReservarHabitacion() {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       });
-
       if (respuesta.ok) {
         const contenido = await respuesta.json();
         setHabitaciones(contenido);
       } else {
         console.error("Error respuesta");
       }
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setCargando(false);
-    }
+    } catch (e) { console.log(e); } finally { setCargando(false); }
   };
 
   const ordenarDatos = useMemo(() => {
     if (!habitaciones) return [];
     const habitacionesOrdenadas = [...habitaciones].sort((a, b) => {
-      const tipoA = a.tipoHabitacion.toString().toLowerCase();
-      const tipoB = b.tipoHabitacion.toString().toLowerCase();
-      if (tipoA < tipoB) return -1;
-      if (tipoA > tipoB) return 1;
-      const numA = parseInt(a.numero);
-      const numB = parseInt(b.numero);
-      if (numA < numB) return -1;
-      if (numA > numB) return 1;
-      const fechaA = new Date(a.fecha);
-      const fechaB = new Date(b.fecha);
-      return fechaA - fechaB;
+      const dateA = new Date(a.fecha); const dateB = new Date(b.fecha);
+      if(dateA - dateB !== 0) return dateA - dateB;
+      return parseInt(a.numero) - parseInt(b.numero);
     });
-
     const columnas = {};
     habitacionesOrdenadas.forEach(h => {
       if (!columnas[h.id]) {
-        columnas[h.id] = {
-          id: h.id,
-          tipo: h.tipoHabitacion,
-          numero: h.numero,
-          estados: {}
-        };
+        columnas[h.id] = { id: h.id, tipo: h.tipoHabitacion, numero: h.numero, estados: {} };
       }
       columnas[h.id].estados[h.fecha] = h.estado;
     });
@@ -191,77 +150,43 @@ export default function ReservarHabitacion() {
     const fechasArray = Array.from(fechas).sort();
 
     const manejarClick = (fecha, idColumna) => {
-      const esMismoInicio = seleccionadoInicio.length > 0 &&
-        seleccionadoInicio[0] === fecha &&
-        seleccionadoInicio[1] === idColumna;
-
-      if (esMismoInicio) {
-        setSeleccionadoInicio([]);
-        setSeleccionadoFin([]);
-        return;
-      }
-
-      if (seleccionadoInicio.length === 0) {
-        setSeleccionadoInicio([fecha, idColumna]);
-      } else if (seleccionadoFin.length === 0) {
-        if (seleccionadoInicio[1] !== idColumna) {
-          setSeleccionadoInicio([fecha, idColumna]);
-          return;
-        }
-        const dInicio = new Date(seleccionadoInicio[0]);
-        const dClick = new Date(fecha);
-        if (dClick < dInicio) {
-          setSeleccionadoFin(seleccionadoInicio);
-          setSeleccionadoInicio([fecha, idColumna]);
-        } else {
-          setSeleccionadoFin([fecha, idColumna]);
-        }
-      } else {
-        setSeleccionadoInicio([fecha, idColumna]);
-        setSeleccionadoFin([]);
-      }
+      const esMismoInicio = seleccionadoInicio.length > 0 && seleccionadoInicio[0] === fecha && seleccionadoInicio[1] === idColumna;
+      if (esMismoInicio) { setSeleccionadoInicio([]); setSeleccionadoFin([]); return; }
+      if (seleccionadoInicio.length === 0) { setSeleccionadoInicio([fecha, idColumna]); } 
+      else if (seleccionadoFin.length === 0) {
+        if (seleccionadoInicio[1] !== idColumna) { setSeleccionadoInicio([fecha, idColumna]); return; }
+        const dInicio = new Date(seleccionadoInicio[0]); const dClick = new Date(fecha);
+        if (dClick < dInicio) { setSeleccionadoFin(seleccionadoInicio); setSeleccionadoInicio([fecha, idColumna]); } else { setSeleccionadoFin([fecha, idColumna]); }
+      } else { setSeleccionadoInicio([fecha, idColumna]); setSeleccionadoFin([]); }
     };
 
-    const obtenerClaseSeleccion = (fechaCelda, idColumna, estadoOriginal) => {
-      let clases = `${styles.celdaEstado} ${styles[`estado${estadoOriginal}`] || ''}`;
-      const estaAcumulada = reservasAcumuladas.some(item => item[0] === fechaCelda && item[1] === idColumna);
-
-      if (estaAcumulada) return `${clases} ${styles.estadoAgregado}`;
-      if (seleccionadoInicio.length === 0) return clases;
-      if (seleccionadoInicio[1] !== idColumna) return clases;
-
-      const fechaCeldaTime = new Date(fechaCelda).getTime();
-      const fechaInicioTime = new Date(seleccionadoInicio[0]).getTime();
-
-      if (fechaCeldaTime === fechaInicioTime) return `${clases} ${styles.seleccionInicio}`;
-      if (seleccionadoFin.length === 0) return clases;
-
-      const fechaFinTime = new Date(seleccionadoFin[0]).getTime();
-      if (fechaCeldaTime === fechaFinTime) return `${clases} ${styles.seleccionFin}`;
-      if (fechaCeldaTime > fechaInicioTime && fechaCeldaTime < fechaFinTime) return `${clases} ${styles.seleccionRango}`;
-
-      return clases;
+    const obtenerClaseSeleccion = (f, id, e) => {
+      let c = `${styles.celdaEstado} ${styles[`estado${e}`] || ''}`;
+      if (reservasAcumuladas.some(i => i[0] === f && i[1] === id)) return `${c} ${styles.estadoAgregado}`;
+      if (seleccionadoInicio.length === 0) return c;
+      if (seleccionadoInicio[1] !== id) return c;
+      const tC = new Date(f).getTime(); const tI = new Date(seleccionadoInicio[0]).getTime();
+      if (tC === tI) return `${c} ${styles.seleccionInicio}`;
+      if (seleccionadoFin.length === 0) return c;
+      const tF = new Date(seleccionadoFin[0]).getTime();
+      if (tC === tF) return `${c} ${styles.seleccionFin}`;
+      if (tC > tI && tC < tF) return `${c} ${styles.seleccionRango}`;
+      return c;
     };
 
     return (
       <>
         <div className={styles.resultadosContainer}>
           <div className={styles.columnaEstaticaContainer}>
-            <div className={styles.celdaTituloEstatico}>Tipo</div>
-            <div className={styles.celdaTituloEstatico}>Número</div>
-            {fechasArray.map((fecha, index) => (
-              <div key={index} className={styles.celdaFecha}>{formatearFecha(fecha)}</div>
-            ))}
+            <div className={styles.celdaTituloEstatico}>Tipo</div><div className={styles.celdaTituloEstatico}>Número</div>
+            {fechasArray.map((f, i) => <div key={i} className={styles.celdaFecha}>{formatearFecha(f)}</div>)}
           </div>
-          {Object.values(columnas).map((columna) => (
-            <div key={columna.id} className={styles.columnaHabitacion}>
-              <div className={styles.celdaHeaderHabitacion} title={columna.tipo}>{columna.tipo}</div>
-              <div className={styles.celdaHeaderNumero}>{columna.numero}</div>
-              {Object.values(columna.estados).map((estado, i) => (
-                <div key={fechasArray[i]}
-                  onClick={() => manejarClick(fechasArray[i], columna.id)}
-                  className={`${styles.celdaEstado} ${obtenerClaseSeleccion(fechasArray[i], columna.id, estado)}`}>
-                  <p className={`${styles.estado} ${styles[`estado${estado}`]}`}>{estado}</p>
+          {Object.values(columnas).map((col) => (
+            <div key={col.id} className={styles.columnaHabitacion}>
+              <div className={styles.celdaHeaderHabitacion} title={col.tipo}>{col.tipo}</div><div className={styles.celdaHeaderNumero}>{col.numero}</div>
+              {Object.values(col.estados).map((est, i) => (
+                <div key={fechasArray[i]} onClick={() => manejarClick(fechasArray[i], col.id)} className={`${styles.celdaEstado} ${obtenerClaseSeleccion(fechasArray[i], col.id, est)}`}>
+                  <p className={`${styles.estado} ${styles[`estado${est}`]}`}>{est}</p>
                 </div>
               ))}
             </div>
@@ -271,9 +196,7 @@ export default function ReservarHabitacion() {
           <input type="button" value="Atrás" className={styles.btnCancelar} onClick={handleAtras} />
           <input type="button" value="Agregar Selección" className={styles.btnSiguiente} style={{ backgroundColor: "#3b82f6" }} onClick={handleAgregarSeleccion} />
           <input type="button" value={`Confirmar (${reservasAcumuladas.length})`} className={`${styles.btnSiguiente} ${reservasAcumuladas.length === 0 ? styles.desactivado : null}`}
-            onClick={() => { setMostrandoLista(true); }}
-            disabled={reservasAcumuladas.length === 0}
-          />
+            onClick={() => { setMostrandoLista(true); }} disabled={reservasAcumuladas.length === 0} />
         </div>
       </>
     );
@@ -282,26 +205,33 @@ export default function ReservarHabitacion() {
   const enviarReserva = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const camposObligatorios = ["Apellido", "Nombre", "TipoDocumento", "NumeroDocumento", "Telefono"];
+    const camposObligatorios = ["apellido", "nombre", "tipoDocumento", "numeroDocumento", "telefono"];
     const nuevosErrores = {};
 
+    // Validación de vacíos
     camposObligatorios.forEach((campo) => {
       const valor = formData.get(campo);
       if (!valor || valor.toString().trim() === "") {
-        nuevosErrores[campo] = "Este campo es obligatorio";
+        // Usamos la primera letra mayúscula para la key del error para coincidir con tu JSX
+        const key = campo.charAt(0).toUpperCase() + campo.slice(1);
+        nuevosErrores[key] = "Este campo es obligatorio";
       }
     });
 
+    // Validación de letras
     const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
     const nombreVal = formData.get("nombre");
     if (nombreVal && !regexSoloLetras.test(nombreVal.toString())) nuevosErrores["Nombre"] = "Solo letras y espacios";
     const apellidoVal = formData.get("apellido");
     if (apellidoVal && !regexSoloLetras.test(apellidoVal.toString())) nuevosErrores["Apellido"] = "Solo letras y espacios";
 
+    // Si hay errores, los mostramos y cortamos la ejecución
     if (Object.keys(nuevosErrores).length > 0) {
       setErrores(nuevosErrores);
       return;
     }
+    
+    // Si pasa, limpiamos errores
     setErrores({});
 
     const detalles = reservasAcumuladas.map((reserva) => ({ idHabitacion: reserva[1], fecha: reserva[0] }));
@@ -314,7 +244,7 @@ export default function ReservarHabitacion() {
     };
     const payload = { detalles: detalles, datosHuesped: datos };
 
-    setCargando(true); // --- Bloquea el botón
+    setCargando(true); 
     
     try {
       const respuesta = await fetch("http://localhost:8080/api/reservas", {
@@ -324,89 +254,50 @@ export default function ReservarHabitacion() {
       });
 
       if (respuesta.ok) {
-        // --- MODAL DE ÉXITO ---
         setModalConfig({
-          visible: true,
-          tipo: "exito",
-          titulo: "¡Reserva Exitosa!",
-          mensaje: "La reserva ha sido registrada correctamente.",
+          visible: true, tipo: "exito", titulo: "¡Reserva Exitosa!", mensaje: "La reserva ha sido registrada correctamente.",
           acciones: [{
-            texto: "Aceptar",
-            estilo: "aceptar",
+            texto: "Aceptar", estilo: "aceptar",
             onClick: () => {
               cerrarModal();
-              // Reseteamos todo al cerrar el modal de éxito
               setHabitaciones([]);
               setReservasAcumuladas([]);
               setMostrandoLista(false);
               setMostrandoFormularioHuesped(false);
               setFechaDesde("");
               setFechaHasta("");
+              setErrores({}); // Limpiamos errores al finalizar
             }
           }]
         });
       } else {
         const errorData = await respuesta.json().catch(() => ({}));
-        // --- MODAL DE ERROR API ---
         setModalConfig({
-          visible: true,
-          tipo: "error",
-          titulo: "Error al reservar",
-          mensaje: errorData.message || "No se pudo procesar la reserva.",
+          visible: true, tipo: "error", titulo: "Error al reservar", mensaje: errorData.message || "No se pudo procesar la reserva.",
           acciones: [{ texto: "Cerrar", estilo: "cancelar", onClick: cerrarModal }]
         });
       }
     } catch (e) {
-      // --- MODAL DE ERROR RED ---
       setModalConfig({
-        visible: true,
-        tipo: "error",
-        titulo: "Error de Conexión",
-        mensaje: "No se pudo conectar con el servidor.",
+        visible: true, tipo: "error", titulo: "Error de Conexión", mensaje: "No se pudo conectar con el servidor.",
         acciones: [{ texto: "Cerrar", estilo: "cancelar", onClick: cerrarModal }]
       });
-    } finally {
-      setCargando(false); // --- Libera el botón (si hubo error)
-    }
+    } finally { setCargando(false); }
   }
 
   const mostrarLista = () => {
-    const obtenerFormatoCompleto = (fechaString, horaFija) => {
-      if (!fechaString) return "-";
-      const [anio, mes, dia] = fechaString.split('-');
-      const fechaObj = new Date(anio, mes - 1, dia);
-      const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      return `${diasSemana[fechaObj.getDay()]}, ${dia}/${mes}/${anio}, ${horaFija}`;
+    const obtenerFormatoCompleto = (f, h) => { /* ... lógica simplificada ... */ return f ? f.split('-').reverse().join('/') + ' ' + h : '-'; };
+    const generarResumenReservas = (lista) => { 
+        const agrupado = {}; lista.forEach(i => { if(!agrupado[i[1]]) agrupado[i[1]]=[]; agrupado[i[1]].push(i[0]) });
+        return Object.keys(agrupado).map(id => ({Habitacion: ordenarDatos[id].numero, Tipo: ordenarDatos[id].tipo, Ingreso: agrupado[id].sort()[0], Egreso: agrupado[id].sort()[agrupado[id].length-1]}));
     };
-
-    const generarResumenReservas = (listaReservas) => {
-      const agrupado = {};
-      listaReservas.forEach((item) => {
-        const [fecha, id] = item;
-        if (!agrupado[id]) agrupado[id] = [];
-        agrupado[id].push(fecha);
-      });
-      return Object.keys(agrupado).map((id) => {
-        const fechas = agrupado[id].sort();
-        const infoHabitacion = ordenarDatos[id];
-        return {
-          Habitacion: infoHabitacion.numero,
-          Tipo: infoHabitacion?.tipo || "Desconocido",
-          Ingreso: obtenerFormatoCompleto(fechas[0], "12:00hs"),
-          Egreso: obtenerFormatoCompleto(fechas[fechas.length - 1], "10:00hs")
-        };
-      });
-    };
-
     const datosTabla = generarResumenReservas(reservasAcumuladas);
 
     return (
       <div style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
         {!mostrandoFormularioHuesped ? (
           <>
-            <h2 style={{ textAlign: 'center', color: '#1e293b', marginBottom: '20px' }}>
-              Confirmar Selección ({reservasAcumuladas.length} noches)
-            </h2>
+            <h2 style={{ textAlign: 'center', color: '#1e293b', marginBottom: '20px' }}>Confirmar Selección ({reservasAcumuladas.length} noches)</h2>
             <div className={styles.listaContainer}>
               <div className={styles.headerLista}>
                 <div className={styles.tituloHeaderLista}><h3>Habitacion</h3></div>
@@ -419,58 +310,69 @@ export default function ReservarHabitacion() {
                   <div key={index} className={styles.filaListaContainer}>
                     <div className={styles.pListaContainer}><p>{fila.Habitacion}</p></div>
                     <div className={styles.pListaContainer}><p>{fila.Tipo}</p></div>
-                    <div className={styles.pListaContainer}><p>{fila.Ingreso}</p></div>
-                    <div className={styles.pListaContainer}><p>{fila.Egreso}</p></div>
+                    <div className={styles.pListaContainer}><p>{formatearFecha(fila.Ingreso)}</p></div>
+                    <div className={styles.pListaContainer}><p>{formatearFecha(fila.Egreso)}</p></div>
                   </div>
                 ))}
               </div>
             </div>
             <div className={styles.botonesListaContainer} style={{ marginTop: '30px' }}>
               <input type="button" value="Volver" className={styles.btnCancelar} onClick={() => setMostrandoLista(false)} />
-              <input type="button" value="Continuar" className={styles.btnSiguiente} onClick={() => setMostrandoFormularioHuesped(true)} />
+              {/* --- CORRECCIÓN: Limpiamos errores al entrar al form --- */}
+              <input type="button" value="Continuar" className={styles.btnSiguiente} 
+                onClick={() => { setMostrandoFormularioHuesped(true); setErrores({}); }} 
+              />
             </div>
           </>
         ) : (
           <div className={`${styles.formulario} ${styles.formularioReservaContainer}`}>
-
           <fieldset className={styles.fieldset}>
-            <div className={styles.legend} style={{paddingTop:"0px"}}>Datos del titular</div>
-            <form onSubmit={enviarReserva} id="formDatosHuesped" className={styles.fieldset}>
+            <div className={styles.legend} style={{paddingTop:"20px"}}>Datos del titular</div>
+            
+            {/* CORRECCIÓN: Quitamos className={styles.fieldset} del form */}
+            <form onSubmit={enviarReserva} id="formDatosHuesped" style={{width: '100%'}}>
               <div className={styles.formReservaInputsContainer}>
 
-                <div className={styles.inputContainer}>
-                  <label>Apellido*</label>
-                  <input type="text" name="apellido" placeholder="Apellido" className={`${errores.Apellido ? styles.inputError : ''}`} onInput={(e) => e.target.value = e.target.value.toUpperCase()} onChange={() => setErrores({ ...errores, Apellido: null })} />
-                  {errores.Apellido && <span className={styles.mensajeError}>{errores.Apellido}</span>}
+                <div className={styles.filaInputs}>
+                    <div className={styles.inputContainer}>
+                    <label>Apellido*</label>
+                    <input type="text" name="apellido" placeholder="Apellido" className={`${errores.Apellido ? styles.inputError : ''}`} onInput={(e) => e.target.value = e.target.value.toUpperCase()} onChange={() => setErrores({ ...errores, Apellido: null })} />
+                    {errores.Apellido && <span className={styles.mensajeError}>{errores.Apellido}</span>}
+                    </div>
+
+                    <div className={styles.inputContainer}>
+                    <label>Nombre*</label>
+                    <input type="text" name="nombre" placeholder="Nombre" onInput={(e) => e.target.value = e.target.value.toUpperCase()} className={`${errores.Nombre ? styles.inputError : ''}`} onChange={() => setErrores({ ...errores, Nombre: null })} />
+                    {errores.Nombre && <span className={styles.mensajeError}>{errores.Nombre}</span>}
+                    </div>
                 </div>
 
-                <div className={styles.inputContainer}>
-                  <label>Nombre*</label>
-                  <input type="text" name="nombre" placeholder="Nombre" onInput={(e) => e.target.value = e.target.value.toUpperCase()} className={`${errores.Nombre ? styles.inputError : ''}`} onChange={() => setErrores({ ...errores, Nombre: null })} />
-                  {errores.Nombre && <span className={styles.mensajeError}>{errores.Nombre}</span>}
+                <div className={styles.filaInputs}>
+                    <div className={styles.inputContainer}>
+                    <label>Tipo Doc.*</label>
+                    <select name="tipoDocumento">
+                        <option value="DNI">DNI</option>
+                        <option value="PASAPORTE">Pasaporte</option>
+                        <option value="LE">LE</option>
+                        <option value="LC">LC</option>
+                        <option value="OTRO">Otro</option>
+                    </select>
+                    </div>
+
+                    <div className={styles.inputContainer}>
+                    <label>Nro. Documento*</label>
+                    <input type="text" name="numeroDocumento" placeholder="Número" onChange={() => setErrores({ ...errores, NumeroDocumento: null })} className={`${errores.NumeroDocumento ? styles.inputError : ''}`} />
+                    {errores.NumeroDocumento && <span className={styles.mensajeError}>{errores.NumeroDocumento}</span>}
+                    </div>
                 </div>
 
-                <div className={styles.inputContainer}>
-                  <label>Tipo Doc.*</label>
-                  <select name="tipoDocumento">
-                    <option value="DNI">DNI</option>
-                    <option value="PASAPORTE">Pasaporte</option>
-                    <option value="LE">LE</option>
-                    <option value="LC">LC</option>
-                    <option value="OTRO">Otro</option>
-                  </select>
-                </div>
-
-                <div className={styles.inputContainer}>
-                  <label>Nro. Documento*</label>
-                  <input type="text" name="numeroDocumento" placeholder="Número" onChange={() => setErrores({ ...errores, NumeroDocumento: null })} className={`${errores.NumeroDocumento ? styles.inputError : ''}`} />
-                  {errores.NumeroDocumento && <span className={styles.mensajeError}>{errores.NumeroDocumento}</span>}
-                </div>
-
-                <div className={styles.inputContainer}>
-                  <label>Teléfono*</label>
-                  <input type="text" name="telefono" placeholder="Teléfono" onChange={() => setErrores({ ...errores, Telefono: null })} className={`${errores.Telefono ? styles.inputError : ''}`} onInput={soloNumeros} />
-                  {errores.Telefono && <span className={styles.mensajeError}>{errores.Telefono}</span>}
+                <div className={styles.filaInputs}>
+                    <div className={styles.inputContainer}>
+                    <label>Teléfono*</label>
+                    <input type="text" name="telefono" placeholder="Teléfono" onChange={() => setErrores({ ...errores, Telefono: null })} className={`${errores.Telefono ? styles.inputError : ''}`} onInput={soloNumeros} />
+                    {errores.Telefono && <span className={styles.mensajeError}>{errores.Telefono}</span>}
+                    </div>
+                    <div className={styles.inputContainer}></div>
                 </div>
 
               </div>
@@ -478,7 +380,10 @@ export default function ReservarHabitacion() {
           </fieldset>
 
             <div className={styles.botonesListaContainer}>
-              <input type="button" value="Atrás" className={styles.btnCancelar} onClick={() => setMostrandoFormularioHuesped(false)} />
+              {/* --- CORRECCIÓN: Limpiamos errores al salir del form --- */}
+              <input type="button" value="Atrás" className={styles.btnCancelar} 
+                onClick={() => { setMostrandoFormularioHuesped(false); setErrores({}); }} 
+              />
               
               <input 
                 type="submit" 
@@ -496,13 +401,7 @@ export default function ReservarHabitacion() {
 
   return (
     <>
-      <Head>
-        <title>Reservar Habitación</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="shortcut icon" href="/hotel-icon.ico?v=2" />
-        <link rel="icon" href="/hotel-icon.ico?v=2" />
-      </Head>
-
+      <Head><title>Reservar Habitación</title></Head>
       <div className={styles.contenedorPrincipal}>
         <form onSubmit={enviarDatos} className={styles.formulario} id="formulario">
           <fieldset className={styles.fieldset}>
@@ -523,14 +422,8 @@ export default function ReservarHabitacion() {
         <div className={styles.formButtons}>
           <input type="reset" value="Cancelar" form="formulario" className={styles.btnCancelar}
             onClick={() => {
-              setHabitaciones([]);
-              setSeleccionadoInicio([]);
-              setSeleccionadoFin([]);
-              setReservasAcumuladas([]);
-              setMostrandoLista(false);
-              setFechaDesde("");
-              setFechaHasta("");
-              setMostrandoFormularioHuesped(false);
+              setHabitaciones([]); setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]);
+              setMostrandoLista(false); setFechaDesde(""); setFechaHasta(""); setMostrandoFormularioHuesped(false);
             }}
           />
           <input type="submit" value={cargando ? "Buscando..." : "Buscar"} 
@@ -551,26 +444,15 @@ export default function ReservarHabitacion() {
         )}
       </div>
 
-      {/* --- CAMBIO 3: Modal Estilizado Unificado --- */}
       {modalConfig.visible && (
         <div className={styles.modalOverlay}>
           <div className={`${styles.modalContent} ${styles[modalConfig.tipo]}`}>
-            <span className={styles.modalIcon}>
-              {modalConfig.tipo === 'exito' && '✅'}
-              {modalConfig.tipo === 'error' && '⛔'}
-              {modalConfig.tipo === 'advertencia' && '⚠️'}
-            </span>
+            <span className={styles.modalIcon}>{modalConfig.tipo === 'exito' && '✅'}{modalConfig.tipo === 'error' && '⛔'}{modalConfig.tipo === 'advertencia' && '⚠️'}</span>
             <h3 className={styles.modalTitulo}>{modalConfig.titulo}</h3>
             <p className={styles.modalMensaje}>{modalConfig.mensaje}</p>
             <div className={styles.botonesContainer}>
               {modalConfig.acciones && modalConfig.acciones.map((accion, index) => (
-                <button
-                  key={index}
-                  className={`${styles.btnModal} ${styles[accion.estilo]}`}
-                  onClick={accion.onClick}
-                >
-                  {accion.texto}
-                </button>
+                <button key={index} className={`${styles.btnModal} ${styles[accion.estilo]}`} onClick={accion.onClick}>{accion.texto}</button>
               ))}
             </div>
           </div>
