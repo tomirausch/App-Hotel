@@ -267,10 +267,12 @@ public class GestorHabitaciones {
     private Huesped obtenerOcrearHuesped(ReservaDTO req) {
         HuespedReservaDTO reservaHuesped = req.getDatosHuesped();
         HuespedDTO huespedDTO = HuespedMapper.toHuespedDTO(reservaHuesped);
-        List<Huesped> encontrados = gestorHuespedes.buscar(huespedDTO);
+        Optional<Huesped> encontrado = gestorHuespedes.buscarPorDocumento(
+                huespedDTO.getTipoDocumento(),
+                huespedDTO.getNumeroDocumento());
 
-        if (!encontrados.isEmpty()) {
-            return encontrados.get(0);
+        if (encontrado.isPresent()) {
+            return encontrado.get();
         }
 
         return gestorHuespedes.crear(huespedDTO);
