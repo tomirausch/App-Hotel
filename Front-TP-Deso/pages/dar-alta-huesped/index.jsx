@@ -2,28 +2,22 @@
 import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import styles from "../../styles/DarAltaHuesped.module.css"
-import Modal from "../../components/Modal";
-import { crearHuesped, actualizarHuesped, buscarHuespedes } from "../../services/huespedService";
-import { cargarPaises } from "../../services/paisService";
+import styles from "@/styles/DarAltaHuesped.module.css"
+import Modal from "@/components/Modal";
+import { crearHuesped, actualizarHuesped, buscarHuespedes } from "@/services/huespedService";
+import { cargarPaises } from "@/services/paisService";
+import { validarHuesped } from '@/utils/validaciones';
+import { mapearHuespedParaApi } from '@/utils/mappers';
 import React from 'react';
 
 export default function DarAltaHuesped() {
-
   const [errores, setErrores] = useState({});
-
   const [listaPaises, setListaPaises] = useState([]);
-
   const [enviando, setEnviando] = useState(false);
-
   const tipoDocRef = useRef(null);
 
-  const aMayusculas = (e) => {
-    e.target.value = e.target.value.toUpperCase();
-  };
-  const soloNumeros = (e) => {
-    e.target.value = e.target.value.replace(/[^0-9]/g, '');
-  };
+  const aMayusculas = (e) => {e.target.value = e.target.value.toUpperCase();};
+  const soloNumeros = (e) => {e.target.value = e.target.value.replace(/[^0-9]/g, '');};
 
   const router = useRouter();
   const refresh = () => router.reload();
@@ -35,25 +29,15 @@ export default function DarAltaHuesped() {
   }, []);
 
   const [modalConfig, setModalConfig] = useState({
-    visible: false,
-    tipo: "",
-    titulo: "",
-    mensaje: "",
-    acciones:[]
+    visible: false, tipo: "", titulo: "", mensaje: "", acciones:[]
   });
 
-  const cerrarModal = () => {
-    setModalConfig((prev) => ({ ...prev, visible: false }));
-  };
-  const abrirModal = () => {
-    setModalConfig((prev) => ({ ...prev, visible: true }));
-  };
+  const cerrarModal = () => {setModalConfig((prev) => ({ ...prev, visible: false }));};
+  const abrirModal = () => {setModalConfig((prev) => ({ ...prev, visible: true }));};
 
   const mostrarErrorGenerico = () => {
     setModalConfig({
-      tipo: "error",
-      titulo: "Error",
-      mensaje: "Ha ocurrido un error inesperado, intente nuevamente",
+      tipo: "error", titulo: "Error", mensaje: "Ha ocurrido un error inesperado, intente nuevamente",
       acciones: [{ texto: "Cerrar", estilo: "cancelar", onClick: cerrarModal }]
     });
     abrirModal();
@@ -63,130 +47,16 @@ export default function DarAltaHuesped() {
       e.preventDefault();
       const formData = new FormData(e.target);
 
-      const camposObligatorios = [
-        "Apellido", "Nombre", "TipoDocumento", "NumeroDocumento", 
-        "PosicionIVA", "FechaNacimiento", "NumeroTelefono", 
-        "Ocupacion", "Nacionalidad", "Calle", "Numero", 
-        "CP", "Pais", "Provincia", "Localidad"
-      ];
-
-      const nuevosErrores = {};
-      camposObligatorios.forEach(campo => {
-        const valor = formData.get(campo);
-        if (!valor || valor.toString().trim() === "") {
-          nuevosErrores[campo] = "Este campo es obligatorio";
-        }
-      });
-
-      const posicionIVA = formData.get('PosicionIVA');
-      const cuit = formData.get('CUIT');
-
-      if (posicionIVA === 'ResponsableInscripto') {
-        if (!cuit || cuit.toString().trim() === "") {
-          nuevosErrores['CUIT'] = "El CUIT es obligatorio para esta condición fiscal";
-        }
-      }
-
-      const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-      const nombreVal = formData.get('Nombre');
-      if (nombreVal && !regexSoloLetras.test(nombreVal.toString())) {
-        nuevosErrores['Nombre'] = "El nombre solo puede contener letras y espacios";
-      }
-
-      const apellidoVal = formData.get('Apellido');
-      if (apellidoVal && !regexSoloLetras.test(apellidoVal.toString())) {
-        nuevosErrores['Apellido'] = "El apellido solo puede contener letras y espacios";
-      }
-
-      const email = formData.get('Email');
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      
-      if (email && !emailRegex.test(email.toString())) {
-        nuevosErrores['Email'] = "Formato de email inválido";
-      }
-
-      if (Object.keys(nuevosErrores).length > 0) {
-        setErrores(nuevosErrores);
+      const validacion = validarHuesped(formData);
+      if (!validacion.esValido) {
+        setErrores(validacion.errores);
         return;
       }
 
       setErrores({});
 
-      const datos = {
-        Nombre: formData.get('Nombre'),
-        Apellido: formData.get('Apellido'),
-        TipoDocumento: formData.get('TipoDocumento'),
-        NumeroDocumento: formData.get('NumeroDocumento'),
-        FechaNacimiento: formData.get('FechaNacimiento'),
-        Email: formData.get('Email'),
-        NumeroTelefono: formData.get('NumeroTelefono'),
-        Ocupacion: formData.get('Ocupacion'),
-        Nacionalidad: formData.get('Nacionalidad'),
+      const datosParaApi = mapearHuespedParaApi(formData);
 
-        Calle: formData.get('Calle'),
-        Numero: formData.get('Numero'),
-        Departamento: formData.get('Departamento'),
-        Piso: formData.get('Piso'),
-        CP: formData.get('CP'),
-        Localidad: formData.get('Localidad'),
-        Provincia: formData.get('Provincia'),
-        Pais: formData.get('Pais'),
-
-        PosicionIVA: formData.get('PosicionIVA'),
-        CUIT: formData.get('CUIT')
-      };
-
-      const mapTipoDocumento = (v) => {
-        if (!v) return null;
-        const t = v.trim().toUpperCase();
-        return ["DNI", "LE", "LC", "PASAPORTE", "OTRO"].includes(t) ? t
-            : (t === "PASAPORTE" || t === "PASAPORTE") ? "PASAPORTE"
-            : "OTRO";
-      };
-
-      const mapPosicionIVA = (v) => {
-        if (!v) return null;
-        const k = v.trim().toUpperCase().replace(/\s+/g, "");
-        switch (k) {
-          case "CONSUMIDORFINAL": return "CONSUMIDOR_FINAL";
-          case "MONOTRIBUTO":     return "MONOTRIBUTISTA";
-          case "RESPONSABLEINSCRIPTO": return "RESPONSABLE_INSCRIPTO";
-          case "EXCENTO":
-          case "EXENTO":          return "EXENTO";
-          case "NORESPONSABLE":   return "NO_RESPONSABLE";
-          default: return null;
-        }
-      };
-
-      function mapearFrontAApi(data) {
-        const isoOrNull = (d) => (d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : null);
-        const numOrNull = (n) => (n === undefined || n === null || n === "" ? null : Number(n));
-
-        return {
-          nombre:          data.Nombre || null,
-          apellido:        data.Apellido || null,
-          tipoDocumento:   mapTipoDocumento(data.TipoDocumento),
-          numeroDocumento: data.NumeroDocumento || null,
-          fechaNacimiento: isoOrNull(data.FechaNacimiento),
-          email:           data.Email || null,
-          telefono:        data.NumeroTelefono || null,
-          ocupacion:       data.Ocupacion || null,
-          nacionalidad:    data.Nacionalidad || null,
-
-          calle:           data.Calle || null,
-          numero:          numOrNull(data.Numero),
-          departamento:    data.Departamento || null,
-          piso:            numOrNull(data.Piso),
-          codigoPostal:    data.CP || null,
-          localidad:       data.Localidad || null,
-          provincia:       data.Provincia || null,
-          pais:            data.Pais || null,
-
-          posicionIVA:     mapPosicionIVA(data.PosicionIVA),
-          cuit:            data.CUIT || null
-        };
-      }
-      const datosParaApi = mapearFrontAApi(datos);
       setEnviando(true); 
       try {
         const listaDuplicados = await buscarHuespedes({
@@ -212,43 +82,30 @@ export default function DarAltaHuesped() {
             mensaje: `Ya existe un huesped con numero ${datos.NumeroDocumento} de ${datos.TipoDocumento}. ¿Desea sobreescribir los datos?`,
             acciones: [
               {
-                texto: "Cancelar",
-                estilo: "cancelar",
+                texto: "Cancelar", estilo: "cancelar",
                 onClick: () => setModalConfig({
-                  tipo: "confirmacion",
-                  titulo: "¿Desea cancelar el alta del huésped?",
-                  mensaje: "",
+                  tipo: "confirmacion", titulo: "¿Desea cancelar el alta del huésped?", mensaje: "",
                   acciones:[
                     {
-                      texto: "No",
-                      estilo: "cancelar",
-                      onClick: cerrarModal
+                      texto: "No", estilo: "cancelar", onClick: cerrarModal
                     },
                     {
-                      texto: "Si",
-                      estilo: "aceptar",
-                      onClick: refresh
+                      texto: "Si", estilo: "aceptar", onClick: refresh
                     }
                   ]
                 })
               },
               {
-                texto: "Corregir",
-                estilo: "corregir",
+                texto: "Corregir", estilo: "corregir",
                 onClick: () => {
-                  cerrarModal();
-                  setTimeout(() => tipoDocRef.current?.focus(), 100);
+                  cerrarModal(); setTimeout(() => tipoDocRef.current?.focus(), 100);
                 }
               },
               {
-                texto: "Aceptar Igualmente",
-                estilo: "aceptar",
+                texto: "Aceptar Igualmente", estilo: "aceptar",
                 onClick: async () => {
                   setModalConfig({
-                    visible: true,
-                    tipo: "confirmacion",
-                    titulo: "Procesando...",
-                    mensaje: "Sobrescribiendo datos, por favor espere...",
+                    visible: true, tipo: "confirmacion", titulo: "Procesando...", mensaje: "Sobrescribiendo datos, por favor espere...",
                     acciones: [
                         { texto: "Cancelar", estilo: "cancelar", disabled: true, onClick: () => {} },
                         { texto: "Corregir", estilo: "corregir", disabled: true, onClick: () => {} },
@@ -258,9 +115,7 @@ export default function DarAltaHuesped() {
                   try {
                     const actualizado = await actualizarHuesped(huespedExistente.id, datosParaApi);
                     setModalConfig({
-                        visible: true,
-                        tipo: "exito",
-                        titulo: "Actualización exitosa",
+                        visible: true, tipo: "exito", titulo: "Actualización exitosa", 
                         mensaje: `Datos de ${actualizado.nombre} actualizados.`,
                         acciones: [{ texto: "Aceptar", estilo: "aceptar", onClick: refresh }]
                     });
@@ -349,8 +204,8 @@ export default function DarAltaHuesped() {
                 type="text" 
                 name="CUIT" 
                 placeholder="CUIT" 
-                maxLength="11" // Opcional: limitar largo
-                onInput={soloNumeros} // Recomendado: solo permitir números
+                maxLength="11"
+                onInput={soloNumeros}
                 className={errores.CUIT ? styles.inputError : ''}
                 onChange={() => setErrores({...errores, CUIT: null})} 
               />
@@ -498,14 +353,10 @@ export default function DarAltaHuesped() {
             mensaje: "",
             acciones:[
               {
-                texto: "No",
-                estilo: "cancelar",
-                onClick: cerrarModal
+                texto: "No", estilo: "cancelar", onClick: cerrarModal
               },
               {
-                texto: "Si",
-                estilo: "aceptar",
-                onClick: refresh
+                texto: "Si", estilo: "aceptar", onClick: refresh
               }
             ]
           });
