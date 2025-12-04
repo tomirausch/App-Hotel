@@ -48,3 +48,23 @@ export const validarHuesped = (formData) => {
     errores,
   };
 };
+
+export const validarBusquedaHuesped = (formData) => {
+  const errores = {};
+  const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/; 
+
+  const nombre = formData.get("Nombre");
+  if (nombre && !regexSoloLetras.test(nombre.toString())) {
+    errores["Nombre"] = "El nombre solo puede contener letras y espacios";
+  }
+
+  const apellido = formData.get("Apellido");
+  if (apellido && !regexSoloLetras.test(apellido.toString())) {
+    errores["Apellido"] = "El apellido solo puede contener letras y espacios";
+  } 
+
+  return {
+    esValido: Object.keys(errores).length === 0,
+    errores,
+  };
+};

@@ -32,7 +32,8 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    position: relative;
 }
 
 .containerAllInputs{
@@ -172,4 +173,22 @@
 
 .desactivado:hover{
   background-color: #4CAF50;
+}
+
+.inputError {
+  border-bottom: 2px solid red !important;
+}
+
+.mensajeError {
+  font-size: 0.85rem;
+  display: block;
+  color: red;
+  margin-top: 4px;
+  font-weight: 500;
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  width: 100%; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
