@@ -1,8 +1,10 @@
 'use client'
 import Head from "next/head";
-import styles from "../../styles/BuscarHuesped.module.css"
+import styles from "@/styles/BuscarHuesped.module.css"
 import { useState, useMemo } from "react";
 import { useRouter } from "next/router";
+import { buscarHuespedes } from "@/services/huespedService";
+import { validarBusquedaHuesped } from "@/utils/validaciones";
 import React from 'react';
 
 export default function BuscarHuesped() {
@@ -13,6 +15,22 @@ export default function BuscarHuesped() {
   const [seleccionado, setSeleccionado] = useState(null);
   const [columnaSeleccionada, setColumnaSeleccionada] = useState("apellido");
   const [orden, setOrden] = useState("asc");
+  const [errores, setErrores] = useState({});
+
+  const [modalConfig, setModalConfig] = useState({
+    visible: false, tipo: "", titulo: "", mensaje: "", acciones:[]
+  });
+
+  const cerrarModal = () => setModalConfig(prev => ({ ...prev, visible: false }));
+  const abrirModal = () => {setModalConfig((prev) => ({ ...prev, visible: true }));};
+
+  const mostrarError = (mensaje) => {
+    setModalConfig({
+      visible: true, type: "error", titulo: "Atención", mensaje: mensaje,
+      acciones: [{ texto: "Entendido", estilo: "cancelar", onClick: cerrarModal }]
+    });
+    abrirModal();
+  };
 
   const manejarOrdenamiento = (columna) => {
     setSeleccionado(null);
@@ -28,99 +46,77 @@ export default function BuscarHuesped() {
     }
   };
 
-    const personasOrdenadas = useMemo(() => {
+  const personasOrdenadas = useMemo(() => {
+    if (!orden || !columnaSeleccionada) {
+      return personas;
+    }
 
-        if (!orden || !columnaSeleccionada) {
-          return personas;
-        }
+    const copia = [...personas];
 
-        const copia = [...personas];
+    copia.sort((a, b) => {
+      const valorA = a[columnaSeleccionada]?.toString().toLowerCase() || "";
+      const valorB = b[columnaSeleccionada]?.toString().toLowerCase() || "";
 
-        copia.sort((a, b) => {
-          const valorA = a[columnaSeleccionada]?.toString().toLowerCase() || "";
-          const valorB = b[columnaSeleccionada]?.toString().toLowerCase() || "";
+      if (valorA < valorB) {
+        return orden === "asc" ? -1 : 1;
+      }
+      if (valorA > valorB) {
+        return orden === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
 
-          if (valorA < valorB) {
-            return orden === "asc" ? -1 : 1;
-          }
-          if (valorA > valorB) {
-            return orden === "asc" ? 1 : -1;
-          }
-          return 0;
-        });
-
-        return copia;
-      }, [personas, orden, columnaSeleccionada]);
+    return copia;
+  }, [personas, orden, columnaSeleccionada]);
 
   const router = useRouter();
+
   const buscar = async (e) => {
 
     e.preventDefault();
-    setCargando(true);
 
     const formData = new FormData(e.target);
     
-    const datos = {
-      Apellido: formData.get('Apellido').trim(),
-      Nombre: formData.get('Nombre').trim(),
-      TipoDocumento: formData.get('TipoDocumento') === "-" ? "" : formData.get('TipoDocumento').trim().toUpperCase(),
-      NumeroDocumento: formData.get('NumeroDocumento').trim()
-    };
-
-    const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/;
-
-    if (!regexSoloLetras.test(datos.Apellido)) {
-      alert("El apellido solo puede contener letras y espacios.");
-      setCargando(false); 
+    const validacion = validarBusquedaHuesped(formData);
+    if (!validacion.esValido) {
+      setErrores(validacion.errores);
       return;
     }
 
-    if (!regexSoloLetras.test(datos.Nombre)) {
-      alert("El nombre solo puede contener letras y espacios.");
-      setCargando(false);
-      return;
-    }
+    setErrores({});
 
-    const baseUrl = 'http://localhost:8080/api/huespedes/buscar';
-    const params = new URLSearchParams();
-
-    if (datos.Apellido) params.append("apellido", datos.Apellido);
-    if (datos.Nombre) params.append("nombre", datos.Nombre);
-    if (datos.TipoDocumento) params.append("tipoDocumento", datos.TipoDocumento);
-    if (datos.NumeroDocumento) params.append("numeroDocumento", datos.NumeroDocumento);
-
-    const query = `${baseUrl}?${params.toString()}`;
-
-    try{
-      const respuesta = await fetch(query, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-
-      if(respuesta.ok){ 
-        const contenido = await respuesta.json();
-        setErrorBusqueda(false);
-        setPersonas(contenido);
-        setBusqueda(true);
-        setOrden("asc"); 
-        setColumnaSeleccionada("apellido");
-      } else {
-        setErrorBusqueda(true);
-        setBusqueda(false);
-      }
-    } catch (e){
-        setErrorBusqueda(true);
-        setBusqueda(false);
-    }finally{
-      setCargando(false);
+    const filtros = {
+      apellido: formData.get('Apellido')?.trim(),
+      nombre: formData.get('Nombre')?.trim(),
+      tipoDocumento: formData.get('TipoDocumento') === "-" ? "" : formData.get('TipoDocumento'),
+      numeroDocumento: formData.get('NumeroDocumento')?.trim()
     };
+
+    setCargando(true);
+    setBusqueda(false);
+
+    try {
+      const resultados = await buscarHuespedes(filtros);
+      setPersonas(resultados);
+      setBusqueda(true);
+      setOrden("asc"); 
+      setColumnaSeleccionada("apellido");
+
+    } catch (error) {
+      console.error(error);
+      mostrarError("Ocurrió un error al realizar la búsqueda. Intente nuevamente.");
+      setPersonas([]);
+    } finally {
+      setCargando(false);
+    }
     
   }
 
   const cancelarBusqueda = () => {
     setBusqueda(false);
+    setPersonas([]);
+    setSeleccionado(null);
+    document.getElementById("formulario").reset();
   }
 
   const mostrarBusqueda = () =>{
@@ -244,12 +240,18 @@ export default function BuscarHuesped() {
           <div className={styles.containerAllInputs}>
             <div className={styles.containerInput}>
               <label htmlFor="Apellido">Apellido</label>
-              <input type="text" name="Apellido" placeholder="Apellido"/>
+              <input type="text" name="Apellido" placeholder="Apellido" className={errores.Apellido ? styles.inputError : ''}
+                onChange={() => setErrores({...errores, Apellido: null})}
+              />
+              {errores.Apellido && <span className={styles.mensajeError}>{errores.Apellido}</span>}
             </div>
 
             <div className={styles.containerInput}>
               <label htmlFor="Nombre">Nombre</label>
-              <input type="text" name="Nombre" placeholder="Nombre"/>
+              <input type="text" name="Nombre" placeholder="Nombre"className={errores.Nombre ? styles.inputError : ''}
+                onChange={() => setErrores({...errores, Nombre: null})}
+              />
+              {errores.Nombre && <span className={styles.mensajeError}>{errores.Nombre}</span>}
             </div>
             
             <div className={styles.containerInput}>
@@ -276,11 +278,11 @@ export default function BuscarHuesped() {
     <div>
       <fieldset className= {`${styles.formButtons} ${styles.fieldset}`} disabled={cargando}>
         <input
-        type="reset"
+        type="button"
         value="Cancelar"
         form ="formulario"
         className={styles.btnCancelar}
-        onClick={cancelarBusqueda}
+        onClick={() => {cancelarBusqueda(); setErrores({})}}
         />
         <input
         type="submit"
