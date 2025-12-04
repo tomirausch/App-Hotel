@@ -58,3 +58,28 @@ export const buscarAcompanante = async (tipoDoc, numeroDoc) => {
   }
   return await response.json();
 };
+
+export const obtenerHuespedPorId = async (id) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al obtener el huésped");
+  }
+  return await response.json();
+};
+
+export const eliminarHuesped = async (id) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || "Error al eliminar el huésped");
+  }
+  return true;
+};

@@ -16,6 +16,7 @@ export default function BuscarHuesped() {
   const [columnaSeleccionada, setColumnaSeleccionada] = useState("apellido");
   const [orden, setOrden] = useState("asc");
   const [errores, setErrores] = useState({});
+  const [idHuesped, setIdHuesped] = useState(null);
 
   const [modalConfig, setModalConfig] = useState({
     visible: false, tipo: "", titulo: "", mensaje: "", acciones:[]
@@ -180,10 +181,10 @@ export default function BuscarHuesped() {
 
         {personasOrdenadas.map((persona, index) =>(
           <div
-            key={index} 
+            key={index}
             onClick={
               () => {
-                seleccionado === index ? setSeleccionado(null) : setSeleccionado(index);
+                seleccionado === index ? (setSeleccionado(null), setIdHuesped(null)) : (setSeleccionado(index), setIdHuesped(persona.id))
               }
             }
             className={`
@@ -201,7 +202,18 @@ export default function BuscarHuesped() {
           <input type="button" value="Siguiente" className={styles.btnSiguiente} style={{marginTop: "10px", marginBottom: "10px"}}
           onClick={
             () => {
-              seleccionado !== null ? router.push('/modificar-huesped') : router.push('/dar-alta-huesped')
+              if (seleccionado !== null) {
+                // 1. Obtenemos el objeto completo del array usando el índice seleccionado
+                const huespedAEditar = personasOrdenadas[seleccionado];
+                
+                // 2. Lo guardamos en sessionStorage (se borra al cerrar la pestaña, ideal para esto)
+                sessionStorage.setItem('huespedParaEditar', JSON.stringify(huespedAEditar));
+                
+                // 3. Navegamos a la pantalla de modificación (sin ID en la URL si no quieres)
+                router.push(`/modificar-huesped?id=${idHuesped}`); 
+              } else {
+                router.push('/dar-alta-huesped');
+              }
               }
             }
             />

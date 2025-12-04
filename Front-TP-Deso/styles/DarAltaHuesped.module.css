@@ -149,3 +149,16 @@
 .formulario input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.desactivado{
+  opacity: 0.5;
+  cursor:default;
+}
+
+.desactivado:active{
+  opacity: 0.5 !important;
+}
+
+.desactivado:hover{
+  background-color: #4CAF50;
+}
