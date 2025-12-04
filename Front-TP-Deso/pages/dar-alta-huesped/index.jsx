@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import styles from "../../styles/DarAltaHuesped.module.css"
 import Modal from "../../components/Modal";
+import { crearHuesped, actualizarHuesped, buscarHuespedes } from "../../services/huespedService";
 import React from 'react';
 
 export default function DarAltaHuesped() {
@@ -67,71 +68,6 @@ export default function DarAltaHuesped() {
     setModalConfig((prev) => ({ ...prev, visible: true }));
   };
 
-  const crearHuesped = async (datosApi) => {
-    try {
-      const respuesta = await fetch('http://localhost:8080/api/huespedes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(datosApi),
-      });
-
-      if (respuesta.ok) {
-        const nuevoHuesped = await respuesta.json();
-        cerrarModal();
-        setModalConfig({
-          tipo: "exito",
-          titulo: "¡Huésped registrado!",
-          mensaje: `Se dio de alta a ${nuevoHuesped.nombre} ${nuevoHuesped.apellido}.`,
-          acciones: [
-            { texto: "Aceptar", estilo: "aceptar", onClick: refresh }
-          ]
-        });
-        abrirModal();
-      } else {
-        throw new Error("Error al crear");
-      }
-    } catch (error) {
-      mostrarErrorGenerico();
-    } finally {
-      setEnviando(false);
-    }
-  };
-  const actualizarHuesped = async (id, datosApi) => {
-    setModalConfig({
-      tipo: "confirmacion", 
-      titulo: "Actualizando...",
-      mensaje: "Sobrescribiendo los datos del huésped existente...",
-      acciones: []
-    });
-    
-    try {
-      const respuesta = await fetch(`http://localhost:8080/api/huespedes/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(datosApi),
-      });
-
-      if (respuesta.ok) {
-        const actualizado = await respuesta.json();
-        setModalConfig({
-          tipo: "exito",
-          titulo: "¡Actualización exitosa!",
-          mensaje: `Se actualizaron los datos de ${actualizado.nombre} ${actualizado.apellido}.`,
-          acciones: [
-            { texto: "Aceptar", estilo: "aceptar", onClick: refresh }
-          ]
-        });
-        abrirModal();
-      } else {
-        throw new Error("Error al actualizar");
-      }
-    } catch (error) {
-      mostrarErrorGenerico();
-    } finally {
-      setEnviando(false);
-    }
-  };
-
   const mostrarErrorGenerico = () => {
     setModalConfig({
       tipo: "error",
@@ -164,7 +100,7 @@ export default function DarAltaHuesped() {
       const posicionIVA = formData.get('PosicionIVA');
       const cuit = formData.get('CUIT');
 
-      if (posicionIVA !== 'ConsumidorFinal') {
+      if (posicionIVA === 'ResponsableInscripto') {
         if (!cuit || cuit.toString().trim() === "") {
           nuevosErrores['CUIT'] = "El CUIT es obligatorio para esta condición fiscal";
         }
@@ -272,24 +208,23 @@ export default function DarAltaHuesped() {
       const datosParaApi = mapearFrontAApi(datos);
       setEnviando(true); 
       try {
-        const tipoDoc = datosParaApi.tipoDocumento;
-        const numDoc = datosParaApi.numeroDocumento;
-
-        const queryParams = new URLSearchParams({
-          tipoDocumento: tipoDoc,
-          numeroDocumento: numDoc
+        const listaDuplicados = await buscarHuespedes({
+          tipoDocumento: datosParaApi.tipoDocumento,
+          numeroDocumento: datosParaApi.numeroDocumento
         });
 
-        const responseCheck = await fetch(`http://localhost:8080/api/huespedes/buscar?${queryParams}`);
-        
-        if (!responseCheck.ok) throw new Error("Error en la verificación");
-        
-        const listaDuplicados = await responseCheck.json();
-
         if (listaDuplicados.length === 0) {
-          await crearHuesped(datosParaApi);
+          const nuevoHuesped = await crearHuesped(datosParaApi);
+          setModalConfig({
+            visible: true,
+            tipo: "exito",
+            titulo: "¡Huésped registrado!",
+            mensaje: `Se dio de alta a ${nuevoHuesped.nombre} ${nuevoHuesped.apellido}.`,
+            acciones: [{ texto: "Aceptar", estilo: "aceptar", onClick: refresh }]
+          });
         } else {
           const huespedExistente = listaDuplicados[0];
+
           setModalConfig({
             tipo: "documento_duplicado",
             titulo: "Numero y tipo de documento duplicado",
@@ -321,9 +256,7 @@ export default function DarAltaHuesped() {
                 estilo: "corregir",
                 onClick: () => {
                   cerrarModal();
-                  setTimeout(() => {
-                    if(tipoDocRef.current) tipoDocRef.current.focus();
-                  }, 100);
+                  setTimeout(() => tipoDocRef.current?.focus(), 100);
                 }
               },
               {
@@ -331,7 +264,8 @@ export default function DarAltaHuesped() {
                 estilo: "aceptar",
                 onClick: async () => {
                   setModalConfig({
-                    tipo: "documento_duplicado",
+                    visible: true,
+                    tipo: "confirmacion",
                     titulo: "Procesando...",
                     mensaje: "Sobrescribiendo datos, por favor espere...",
                     acciones: [
@@ -340,8 +274,18 @@ export default function DarAltaHuesped() {
                         { texto: "Procesando...", estilo: "aceptar", disabled: true, onClick: () => {} } 
                     ]
                   });
-                  actualizarHuesped(huespedExistente.id, datosParaApi);
-                  abrirModal();
+                  try {
+                    const actualizado = await actualizarHuesped(huespedExistente.id, datosParaApi);
+                    setModalConfig({
+                        visible: true,
+                        tipo: "exito",
+                        titulo: "Actualización exitosa",
+                        mensaje: `Datos de ${actualizado.nombre} actualizados.`,
+                        acciones: [{ texto: "Aceptar", estilo: "aceptar", onClick: refresh }]
+                    });
+                  } catch (err) {
+                      mostrarErrorGenerico();
+                  }
                 }
               }
             ]
@@ -350,19 +294,8 @@ export default function DarAltaHuesped() {
         }
 
       } catch (error) {
-        setModalConfig({
-          tipo: "error",
-          titulo: "Error",
-          mensaje: "Ha ocurrido un error inesperado, intente nuevamente",
-          acciones:[
-            {
-              texto: "Cerrar",
-              estilo: "cancelar",
-              onClick: cerrarModal
-            }
-          ]
-        })
-        abrirModal();
+        console.error(error);
+        mostrarErrorGenerico();
       } finally{
         setEnviando(false);
       }
