@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import styles from "../../styles/DarAltaHuesped.module.css"
 import Modal from "../../components/Modal";
 import { crearHuesped, actualizarHuesped, buscarHuespedes } from "../../services/huespedService";
+import { cargarPaises } from "../../services/paisService";
 import React from 'react';
 
 export default function DarAltaHuesped() {
@@ -28,29 +29,9 @@ export default function DarAltaHuesped() {
   const refresh = () => router.reload();
 
   useEffect(() => {
-    const cargarPaises = async () => {
-      try {
-        const response = await fetch("https://restcountries.com/v3.1/all?fields=translations,cca2");
-        if (!response.ok) throw new Error("Error al obtener países");
-
-        const countries = await response.json();
-
-        const listaOrdenada = countries
-          .map(c => ({
-            codigo: c.cca2,
-            nombre: c.translations?.spa?.common || c.translations?.eng?.common || "Desconocido"
-          }))
-          .sort((a, b) => a.nombre.localeCompare(b.nombre));
-
-        setListaPaises(listaOrdenada);
-        console.log(`✅ ${listaOrdenada.length} países cargados`);
-
-      } catch (error) {
-        console.error("❌ Error al cargar países:", error);
-      }
-    };
-
-    cargarPaises();
+    cargarPaises()
+      .then(data => setListaPaises(data))
+      .catch(err => console.error(err));
   }, []);
 
   const [modalConfig, setModalConfig] = useState({
