@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useState, useMemo } from "react";
 import { obtenerEstadoHabitaciones, crearReserva } from "@/services/reservaService";
 import { fechasEntreFechas, formatearFecha, obtenerNombreDia, formatearFechaHora } from "@/utils/dates";
+import Modal from "@/components/Modal";
 
 export default function ReservarHabitacion() {
 
@@ -389,21 +390,7 @@ export default function ReservarHabitacion() {
           </div>
         )}
       </div>
-
-      {modalConfig.visible && (
-        <div className={styles.modalOverlay}>
-          <div className={`${styles.modalContent} ${styles[modalConfig.tipo]}`}>
-            <span className={styles.modalIcon}>{modalConfig.tipo === 'exito' && '✅'}{modalConfig.tipo === 'error' && '⛔'}{modalConfig.tipo === 'advertencia' && '⚠️'}</span>
-            <h3 className={styles.modalTitulo}>{modalConfig.titulo}</h3>
-            <p className={styles.modalMensaje}>{modalConfig.mensaje}</p>
-            <div className={styles.botonesContainer}>
-              {modalConfig.acciones && modalConfig.acciones.map((accion, index) => (
-                <button key={index} className={`${styles.btnModal} ${styles[accion.estilo]}`} onClick={accion.onClick}>{accion.texto}</button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal {...modalConfig} />
     </>
   )
 }

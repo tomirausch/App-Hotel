@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { obtenerEstadoHabitaciones, crearOcupacion } from "@/services/estadiaService";
 import { buscarHuespedes, buscarAcompanante } from "@/services/huespedService";
 import { fechasEntreFechas, formatearFecha, formatearFechaHora } from "@/utils/dates";
+import Modal from "@/components/Modal";
 
 export default function OcuparHabitacion() {
   const router = useRouter();
@@ -865,31 +866,7 @@ export default function OcuparHabitacion() {
         )}
       </div>
 
-      {modalConfig.visible && (
-        <div className={styles.modalOverlay}>
-          <div className={`${styles.modalContent} ${styles[modalConfig.tipo]}`}>
-            <span className={styles.modalIcon}>
-              {modalConfig.tipo === "exito" && "✅"}
-              {modalConfig.tipo === "error" && "⛔"}
-              {modalConfig.tipo === "advertencia" && "⚠️"}
-            </span>
-            <h3 className={styles.modalTitulo}>{modalConfig.titulo}</h3>
-            <p className={styles.modalMensaje}>{modalConfig.mensaje}</p>
-            <div className={styles.botonesContainer}>
-              {modalConfig.acciones &&
-                modalConfig.acciones.map((accion, index) => (
-                  <button
-                    key={index}
-                    className={`${styles.btnModal} ${styles[accion.estilo]}`}
-                    onClick={accion.onClick}
-                  >
-                    {accion.texto}
-                  </button>
-                ))}
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal {...modalConfig} />
     </>
   );
 }
