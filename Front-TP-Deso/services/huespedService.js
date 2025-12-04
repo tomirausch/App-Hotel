@@ -45,3 +45,16 @@ export const actualizarHuesped = async (id, datosHuesped) => {
   }
   return await response.json();
 };
+
+export const buscarAcompanante = async (tipoDoc, numeroDoc) => {
+  const params = new URLSearchParams({ tipoDoc, numeroDoc });
+  const response = await fetch(`${API_URL}/acompanantes/buscar?${params.toString()}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al buscar huéspedes");
+  }
+  return await response.json();
+};

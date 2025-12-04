@@ -2,11 +2,13 @@ import styles from "../../styles/OcuparHabitacion.module.css"
 import Head from 'next/head';
 import { useState, useMemo } from "react";
 import { useRouter } from "next/router"; 
+import { obtenerEstadoHabitaciones, crearOcupacion } from "@/services/estadiaService";
+import { buscarHuespedes, buscarAcompanante } from "@/services/huespedService";
+import { fechasEntreFechas, formatearFecha, formatearFechaHora } from "@/utils/dates";
 
 export default function OcuparHabitacion() {
   const router = useRouter();
   
-  // --- ESTADOS ---
   const [habitaciones, setHabitaciones] = useState([]);
   const [seleccionadoInicio, setSeleccionadoInicio] = useState([]);
   const [seleccionadoFin, setSeleccionadoFin] = useState([]);
@@ -22,7 +24,6 @@ export default function OcuparHabitacion() {
     visible: false, tipo: "", titulo: "", mensaje: "", acciones: [] 
   });
 
-  // --- ESTADOS BÚSQUEDA ---
   const [huespedesEncontrados, setHuespedesEncontrados] = useState([]);
   const [huespedSeleccionado, setHuespedSeleccionado] = useState(null);
   const [busquedaRealizada, setBusquedaRealizada] = useState(false);
@@ -32,7 +33,6 @@ export default function OcuparHabitacion() {
   const [acompanantes, setAcompanantes] = useState([]);
   const [buscando, setBuscando] = useState("huesped");
 
-  // --- HELPERS ---
   const cerrarModal = () => setModalConfig(prev => ({ ...prev, visible: false }));
   
   const mostrarError = (mensaje) => {
@@ -42,55 +42,6 @@ export default function OcuparHabitacion() {
     });
   };
 
-  const fechasEntreFechas = (fechaA, fechaB) => {
-    const fechas = [];
-    let fechaActual = new Date(fechaA);
-    const fechaFinal = new Date(fechaB);
-    while (fechaActual <= fechaFinal) {
-      fechas.push(fechaActual.toISOString().split('T')[0]);
-      fechaActual.setDate(fechaActual.getDate() + 1);
-    }
-    return fechas;
-  }
-
-  const formatearFecha = (fechaString) => {
-    if (!fechaString) return "";
-    return fechaString.split('-').reverse().join('-');
-  };
-    const obtenerNombreDia = (fechaObj) => {
-      // Obtenemos el nombre del día en español (ej: "lunes")
-      const nombre = fechaObj.toLocaleDateString('es-ES', { weekday: 'long' });
-      // Lo capitalizamos para que quede mejor (ej: "Lunes")
-      return nombre.charAt(0).toUpperCase() + nombre.slice(1);
-    };
-
-    const formatearFechaIngreso = (fechaString) => {
-      if (!fechaString) return "";
-      
-      // Desarmamos el string 'aaaa-mm-dd' para evitar errores de zona horaria
-      const [anio, mes, dia] = fechaString.split('-');
-      
-      // Creamos la fecha (recordar que en JS el mes empieza en 0, por eso restamos 1)
-      const fechaObj = new Date(anio, mes - 1, dia);
-      
-      const nombreDia = obtenerNombreDia(fechaObj);
-      
-      // Retornamos con el formato solicitado y hora fija 12:00hs
-      return `${nombreDia}, ${dia}/${mes}/${anio}, 12:00hs`;
-    };
-
-    const formatearFechaEgreso = (fechaString) => {
-      if (!fechaString) return "";
-      
-      const [anio, mes, dia] = fechaString.split('-');
-      const fechaObj = new Date(anio, mes - 1, dia);
-      
-      const nombreDia = obtenerNombreDia(fechaObj);
-      
-      // Retornamos con el formato solicitado y hora fija 10:00hs
-      return `${nombreDia}, ${dia}/${mes}/${anio}, 10:00hs`;
-    };
-  // --- MEMOS ---
   const seleccionadaReserva = useMemo(() => {
     if (seleccionadoInicio.length === 0) return [];
     if (seleccionadoFin.length === 0) return [seleccionadoInicio];
@@ -136,7 +87,6 @@ export default function OcuparHabitacion() {
     return copia;
   }, [huespedesEncontrados, ordenHuesped, columnaHuesped]);
 
-  // --- HANDLERS ---
   const handleAtras = () => { setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]);}
 
   const handleAgregarSeleccion = () => {
@@ -172,7 +122,6 @@ export default function OcuparHabitacion() {
     ejecutarAgregar();
   };
 
-  // --- API: BUSCAR DISPONIBILIDAD ---
   const enviarDatos = async (e) => {
     setHabitaciones([]); e.preventDefault(); 
     
@@ -196,17 +145,19 @@ export default function OcuparHabitacion() {
     }
     
     setCargando(true);
-    setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]); setMostrandoLista(false);
-    const formData = new FormData(e.target);
-    const datos = { Desde: formData.get('Desde'), Hasta: formData.get('Hasta') };
     try {
-      const respuesta = await fetch(`http://localhost:8080/api/habitaciones/estado?desde=${datos.Desde}&hasta=${datos.Hasta}`);
-      if (respuesta.ok) setHabitaciones(await respuesta.json());
-    } catch (e) { console.log(e); } finally { setCargando(false); }
+      const data = await obtenerEstadoHabitaciones(fechaDesde, fechaHasta);
+      setHabitaciones(data);
+      setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]); setMostrandoLista(false);
+    } catch (e) { 
+        console.error(e);
+        mostrarError("Error al obtener la disponibilidad.");
+    } finally { 
+        setCargando(false); 
+    }
   };
 
-  // --- API: BUSCAR HUÉSPED ---
-  const buscarHuespedEnBD = async (e) => {
+  const buscarPersonaEnBD = async (e) => {
     e.preventDefault();
     setCargando(true);
     if(buscando == "huesped") setHuespedSeleccionado(null);
@@ -220,63 +171,40 @@ export default function OcuparHabitacion() {
     const numDoc = formData.get('numeroDocumento').trim();
     
     if (buscando === "acompañante") {
-      const camposObligatorios = ["tipoDocumento","numeroDocumento"];
-      const nuevosErrores = {};
-      camposObligatorios.forEach((campo) => {
-        const valor = formData.get(campo);
-        if (!valor || valor.toString().trim() === "") {
-          nuevosErrores[campo] = "Este campo es obligatorio";
-        }
-      });
-
-      if (Object.keys(nuevosErrores).length > 0) {
-        setErrores(nuevosErrores);
-        setCargando(false);
-        return;
+      if (!numDoc) {
+        setErrores({ numeroDocumento: "Este campo es obligatorio" });
+        setCargando(false); return;
       }
       setErrores({});
     }
 
-    const params = new URLSearchParams();
-    let endpoint;
-    if (buscando == "huesped") {
-      const apellido = formData.get('apellido').trim();
-      const nombre = formData.get('nombre').trim();
-      const regexLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/;
-      if (!regexLetras.test(apellido) || !regexLetras.test(nombre)) {
-          alert("Nombre y Apellido solo letras."); setCargando(false); return;
-      }
-
-      if (apellido) params.append("apellido", apellido);
-      if (nombre) params.append("nombre", nombre);
-      if (tipoDoc && tipoDoc !== "-") params.append("tipoDocumento", tipoDoc);
-      if (numDoc) params.append("numeroDocumento", numDoc);
-      endpoint = `http://localhost:8080/api/huespedes/buscar?${params.toString()}`;
-    } else {
-      if (tipoDoc && tipoDoc !== "-") params.append("tipoDoc", tipoDoc);
-      if (numDoc) params.append("numeroDoc", numDoc);
-      endpoint = `http://localhost:8080/api/huespedes/acompanantes/buscar?${params.toString()}`;
-    }
-
     try {
-        const res = await fetch(endpoint);
-        if(res.ok) {
-            const data = await res.json();
-            if(buscando==="huesped"){
-              setHuespedesEncontrados(data);
+        if (buscando === "huesped") {
+            const filtros = {
+                apellido: formData.get('apellido')?.trim(),
+                nombre: formData.get('nombre')?.trim(),
+                tipoDocumento: tipoDoc !== "-" ? tipoDoc : "",
+                numeroDocumento: numDoc
+            };
+            const data = await buscarHuespedes(filtros);
+            setHuespedesEncontrados(data);
+        } else {
+            const data = await buscarAcompanante(tipoDoc, numDoc);
+            if (data) {
+                setAcompananteEncontrado(data);
             } else {
-              setAcompananteEncontrado(data);
+                setAcompananteEncontrado({});
             }
-        } 
+        }
+        setBusquedaRealizada(true);
     } catch(err) { 
         console.error(err); 
+        mostrarError("Error al realizar la búsqueda.");
     } finally { 
         setCargando(false); 
-        setBusquedaRealizada(true); 
     }
   };
 
-  // --- API: CONFIRMAR OCUPACIÓN ---
   const finalizarOcupacion = async () => {
     if (!huespedSeleccionado) {
       mostrarError("Error: No hay un huésped titular seleccionado.");
@@ -296,8 +224,7 @@ export default function OcuparHabitacion() {
         fecha: fechaStr,
         estado: infoOriginal?.estado || "DISPONIBLE",
         idReserva: infoOriginal?.idReserva || null,
-        idHuespedResponsableReserva:
-          infoOriginal?.idHuespedResponsable || null,
+        idHuespedResponsableReserva: infoOriginal?.idHuespedResponsable || null,
       };
     });
 
@@ -308,46 +235,22 @@ export default function OcuparHabitacion() {
     };
 
     try {
-      const respuesta = await fetch("http://localhost:8080/api/estadias/ocupar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+      await crearOcupacion(payload);
+      setModalConfig({
+        visible: true, tipo: "exito", titulo: "¡Check-in Exitoso!",
+        mensaje: "La ocupación ha sido registrada correctamente.",
+        acciones: [{
+          texto: "Aceptar", estilo: "aceptar",
+          onClick: () => {
+            cerrarModal();
+            setHabitaciones([]); setReservasAcumuladas([]); setMostrandoLista(false);
+            setMostrandoFormularioHuesped(false); setFechaDesde(""); setFechaHasta("");
+            setSeleccionadoInicio([]); setSeleccionadoFin([]); setHuespedSeleccionado(null);
+            setBusquedaRealizada(false); setAcompanantes([]); setAcompananteEncontrado({});
+            setBuscando("huesped");
+          },
+        }],
       });
-
-      if (respuesta.ok) {
-        setModalConfig({
-          visible: true,
-          tipo: "exito",
-          titulo: "¡Check-in Exitoso!",
-          mensaje: "La ocupación ha sido registrada correctamente.",
-          acciones: [
-            {
-              texto: "Aceptar",
-              estilo: "aceptar",
-              onClick: () => {
-                cerrarModal();
-                setHabitaciones([]);
-                setReservasAcumuladas([]);
-                setMostrandoLista(false);
-                setMostrandoFormularioHuesped(false);
-                setFechaDesde("");
-                setFechaHasta("");
-                setSeleccionadoInicio([]);
-                setSeleccionadoFin([]);
-                setHuespedesEncontrados([]);
-                setHuespedSeleccionado(null);
-                setBusquedaRealizada(false);
-                setAcompanantes([]);
-                setAcompananteEncontrado({});
-                setBuscando("huesped");
-              },
-            },
-          ],
-        });
-      } else {
-        const errorData = await respuesta.json().catch(() => ({}));
-        mostrarError(errorData.message || "Error al procesar la ocupación.");
-      }
     } catch (e) {
       mostrarError("Error de conexión con el servidor.");
     } finally {
@@ -355,7 +258,6 @@ export default function OcuparHabitacion() {
     } 
   };
 
-  // --- RENDER: MOSTRAR LISTA RESUMEN Y FORMULARIO ---
   const mostrarLista = () => { 
     const generarResumen = (lista) => { 
         const agrupado = {}; lista.forEach(i => { if(!agrupado[i[1]]) agrupado[i[1]]=[]; agrupado[i[1]].push(i[0]) });
@@ -363,7 +265,6 @@ export default function OcuparHabitacion() {
     };
     const datosTabla = generarResumen(reservasAcumuladas);
 
-    // Variables de control
     const deshabilitarBotonesGlobal = cargando || confirmando;
     const deshabilitarConfirmar = !huespedSeleccionado || cargando || confirmando;
 
@@ -390,8 +291,8 @@ export default function OcuparHabitacion() {
                   >
                     <div>{fila.Habitacion}</div>
                     <div>{fila.Tipo}</div>
-                    <div>{formatearFechaIngreso(fila.Ingreso)}</div>
-                    <div>{formatearFechaEgreso(fila.Egreso)}</div>
+                    <div>{formatearFechaHora(fila.Ingreso, "12:00")}</div>
+                    <div>{formatearFechaHora(fila.Egreso, "10:00")}</div>
                   </div>
                 ))}
               </div>
@@ -424,7 +325,7 @@ export default function OcuparHabitacion() {
               {buscando === "huesped" ? (
                 <>
               <h3 className={styles.legend}>Buscar Huésped Titular</h3>
-              <form onSubmit={buscarHuespedEnBD} id="formBuscarHuesped">
+              <form onSubmit={buscarPersonaEnBD} id="formBuscarHuesped">
                 <div className={styles.formReservaInputsContainer}>
                   <div className={styles.filaInputs}>
                     <div className={styles.inputContainer}>
@@ -659,7 +560,7 @@ export default function OcuparHabitacion() {
                 </div>
                 </div>
 
-              <form onSubmit={buscarHuespedEnBD} id="formBuscarHuesped">
+              <form onSubmit={buscarPersonaEnBD} id="formBuscarHuesped">
                 <div className={styles.formReservaInputsContainer}>
                   <div className={styles.filaInputs}>
                   </div>
@@ -770,7 +671,6 @@ export default function OcuparHabitacion() {
                 </>
               )}
 
-              {/* 3. BOTONERA FINAL (Confirmar Ocupación) */}
               <div
                 className={styles.botonesListaContainer}
                 style={{ marginTop: "30px", marginBottom: "0" }}
@@ -810,8 +710,6 @@ export default function OcuparHabitacion() {
       </div>
     );
   };
-
-  // --- RENDER: MOSTRAR RESULTADOS DISPONIBILIDAD ---
   const mostrarResultados = () => {
     const columnas = ordenarDatos;
     const fechas = new Set(); habitaciones.forEach(hab => fechas.add(hab.fecha));

@@ -88,18 +88,21 @@ export default function ReservarHabitacion() {
   const enviarDatos = async (e) => {
     setHabitaciones([]);
     e.preventDefault();
+
     const anioMinimo = 2024;
-    const dDesde = new Date(fechaDesde);
-    const dHasta = new Date(fechaHasta);
-    console.log(dDesde, anioMinimo)
-    
-    if (dDesde.getFullYear() < anioMinimo || dHasta.getFullYear() < anioMinimo) {
+    const anioDesde = parseInt(fechaDesde.split('-')[0]);
+    const anioHasta = parseInt(fechaHasta.split('-')[0]);
+
+    if (anioDesde < anioMinimo || anioHasta < anioMinimo) {
       mostrarError(`Las fechas no pueden ser anteriores al año ${anioMinimo}.`);
       return;
     }
 
+    const dDesde = new Date(fechaDesde);
+    const dHasta = new Date(fechaHasta);
     const fechaLimite = new Date(dDesde);
     fechaLimite.setFullYear(fechaLimite.getFullYear() + 1);
+
     if (dHasta > fechaLimite) {
       mostrarError("El rango de fechas no puede ser mayor a 1 año.");
       return;
