@@ -1,4 +1,4 @@
-package com.example.crud.modelFacturacion;
+/*package com.example.crud.modelFacturacion;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -33,3 +33,4 @@ public class Pago {
     @OneToMany(mappedBy = "pago", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MetodoPago> metodosPago = new ArrayList<>();
 }
+*/
