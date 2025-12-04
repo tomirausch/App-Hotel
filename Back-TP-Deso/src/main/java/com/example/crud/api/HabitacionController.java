@@ -2,6 +2,8 @@ package com.example.crud.api;
 
 import com.example.crud.service.GestorHabitaciones;
 import com.example.crud.dto.HabitacionDTO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +14,10 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/habitaciones")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HabitacionController {
 
     private final GestorHabitaciones service;
-
-    public HabitacionController(GestorHabitaciones service) {
-        this.service = service;
-    }
 
     // ===========================================================
     // CU05 – Mostrar estado de habitaciones en un rango de fechas

@@ -1,37 +1,35 @@
 package com.example.crud.dao;
 
 import com.example.crud.model.Usuario;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import com.example.crud.repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UsuarioDaoJpa implements UsuarioDao {
 
-    @PersistenceContext
-    private EntityManager em;
+    private final UsuarioRepository repository;
 
     @Override
     public Usuario save(Usuario usuario) {
-        // TODO: Implementar
-        return null;
+        return repository.save(usuario);
     }
 
     @Override
     public void delete(String nombre) {
-        // TODO: Implementar
+        repository.findByNombre(nombre).ifPresent(repository::delete);
     }
 
     @Override
     public Usuario modificar(Usuario usuario) {
-        // TODO: Implementar
-        return null;
+        return repository.save(usuario);
     }
 
     @Override
     public Optional<Usuario> findByNombre(String nombre) {
-        // TODO: Implementar
-        return Optional.empty();
+        return repository.findByNombre(nombre);
     }
 }

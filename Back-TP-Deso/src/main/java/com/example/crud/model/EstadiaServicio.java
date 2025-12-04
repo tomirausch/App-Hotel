@@ -1,10 +1,18 @@
 package com.example.crud.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "estadia_servicio")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EstadiaServicio {
 
     @Id
@@ -23,46 +31,9 @@ public class EstadiaServicio {
     @Column(name = "fecha")
     private LocalDate fecha;
 
-    // Constructores
-    public EstadiaServicio() {
-    }
-
     public EstadiaServicio(Estadia estadia, Servicio servicio, LocalDate fecha) {
         this.estadia = estadia;
         this.servicio = servicio;
-        this.fecha = fecha;
-    }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Estadia getEstadia() {
-        return estadia;
-    }
-
-    public void setEstadia(Estadia estadia) {
-        this.estadia = estadia;
-    }
-
-    public Servicio getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(Servicio servicio) {
-        this.servicio = servicio;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 }

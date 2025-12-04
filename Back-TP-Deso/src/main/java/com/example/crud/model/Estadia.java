@@ -2,12 +2,20 @@ package com.example.crud.model;
 
 import com.example.crud.modelFacturacion.Factura;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "estadias")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Estadia {
 
     @Id
@@ -45,26 +53,6 @@ public class Estadia {
     @OneToMany(mappedBy = "estadia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EstadiaServicio> estadiaServicios = new ArrayList<>();
 
-    public Estadia() {
-    }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<EstadiaHabitacion> getEstadiaHabitaciones() {
-        return estadiaHabitaciones;
-    }
-
-    public void setEstadiaHabitaciones(List<EstadiaHabitacion> estadiaHabitaciones) {
-        this.estadiaHabitaciones = estadiaHabitaciones;
-    }
-
     public void addEstadiaHabitacion(EstadiaHabitacion estadiaHabitacion) {
         estadiaHabitaciones.add(estadiaHabitacion);
         estadiaHabitacion.setEstadia(this);
@@ -73,69 +61,5 @@ public class Estadia {
     public void removeEstadiaHabitacion(EstadiaHabitacion estadiaHabitacion) {
         estadiaHabitaciones.remove(estadiaHabitacion);
         estadiaHabitacion.setEstadia(null);
-    }
-
-    public BigDecimal getCostoEstadia() {
-        return costoEstadia;
-    }
-
-    public void setCostoEstadia(BigDecimal costoEstadia) {
-        this.costoEstadia = costoEstadia;
-    }
-
-    public Double getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(Double descuento) {
-        this.descuento = descuento;
-    }
-
-    public Integer getCantPersonas() {
-        return cantPersonas;
-    }
-
-    public void setCantPersonas(Integer cantPersonas) {
-        this.cantPersonas = cantPersonas;
-    }
-
-    public Huesped getResponsable() {
-        return responsable;
-    }
-
-    public void setResponsable(Huesped responsable) {
-        this.responsable = responsable;
-    }
-
-    public List<Acompaniante> getAcompanantes() {
-        return acompanantes;
-    }
-
-    public void setAcompanantes(List<Acompaniante> acompanantes) {
-        this.acompanantes = acompanantes;
-    }
-
-    public Reserva getReservaOrigen() {
-        return reservaOrigen;
-    }
-
-    public void setReservaOrigen(Reserva reservaOrigen) {
-        this.reservaOrigen = reservaOrigen;
-    }
-
-    public List<Factura> getFacturas() {
-        return facturas;
-    }
-
-    public void setFacturas(List<Factura> facturas) {
-        this.facturas = facturas;
-    }
-
-    public List<EstadiaServicio> getEstadiaServicios() {
-        return estadiaServicios;
-    }
-
-    public void setEstadiaServicios(List<EstadiaServicio> estadiaServicios) {
-        this.estadiaServicios = estadiaServicios;
     }
 }

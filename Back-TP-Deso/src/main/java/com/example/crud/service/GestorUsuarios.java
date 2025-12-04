@@ -1,20 +1,31 @@
 package com.example.crud.service;
 
+import com.example.crud.auxiliares.UsuarioMapper;
+import com.example.crud.dao.UsuarioDao;
+import com.example.crud.dto.UsuarioDTO;
+import com.example.crud.model.Usuario;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GestorUsuarios {
 
-    // Métodos sin implementar - solo estructura para el diagrama de clases
+    private final UsuarioDao usuarioDao;
 
     public boolean autenticarUsuario(String nombre, String contrasena) {
-        // TODO: Implementar
-        return false;
+        return usuarioDao.findByNombre(nombre)
+                .map(u -> u.getContrasena().equals(contrasena))
+                .orElse(false);
     }
 
-    public boolean crearUsuario(String nombre, String contrasena, String email) {
-        // TODO: Implementar
-        return false;
+    @Transactional
+    public UsuarioDTO crearUsuario(UsuarioDTO dto) {
+        Usuario usuario = UsuarioMapper.toEntity(dto);
+        Usuario guardado = usuarioDao.save(usuario);
+        return UsuarioMapper.toDTO(guardado);
     }
 
     public boolean modificarUsuario(String email) {

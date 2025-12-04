@@ -14,18 +14,17 @@ public final class HabitacionEstadoMapper {
         if (h == null)
             return null;
 
-        HabitacionDTO dto = new HabitacionDTO();
-        dto.setId(h.getId());
-        dto.setNumero(h.getNumero());
-        dto.setPiso(h.getPiso());
+        HabitacionDTO.HabitacionDTOBuilder builder = HabitacionDTO.builder()
+                .id(h.getId())
+                .numero(h.getNumero())
+                .piso(h.getPiso())
+                .estado(estadoEnRango);
 
         if (h.getTipoHabitacion() != null) {
-            dto.setTipoHabitacion(h.getTipoHabitacion().getNombre());
-            dto.setCosto(h.getTipoHabitacion().getCosto());
+            builder.tipoHabitacion(h.getTipoHabitacion().getNombre())
+                    .costo(h.getTipoHabitacion().getCosto());
         }
 
-        dto.setEstado(estadoEnRango);
-
-        return dto;
+        return builder.build();
     }
 }

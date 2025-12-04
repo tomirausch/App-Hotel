@@ -13,4 +13,6 @@ public interface AcompanianteDao {
     List<Acompaniante> findAllById(List<Long> ids);
 
     Optional<Acompaniante> findByDocumento(TipoDocumento tipoDoc, String numeroDoc);
+
+    void delete(Acompaniante a);
 }

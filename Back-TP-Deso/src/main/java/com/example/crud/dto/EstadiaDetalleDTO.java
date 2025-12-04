@@ -1,8 +1,16 @@
 package com.example.crud.dto;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class EstadiaDetalleDTO {
 
     @NotNull(message = "El ID de la habitación es obligatorio")
@@ -10,29 +18,4 @@ public class EstadiaDetalleDTO {
 
     @NotNull(message = "La fecha es obligatoria")
     private LocalDate fecha;
-
-    public EstadiaDetalleDTO() {
-    }
-
-    public EstadiaDetalleDTO(Long idHabitacion, LocalDate fecha) {
-        this.idHabitacion = idHabitacion;
-        this.fecha = fecha;
-    }
-
-    // Getters y Setters
-    public Long getIdHabitacion() {
-        return idHabitacion;
-    }
-
-    public void setIdHabitacion(Long idHabitacion) {
-        this.idHabitacion = idHabitacion;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
 }

@@ -50,34 +50,28 @@ public final class HuespedMapper {
         if (h == null)
             return null;
 
-        HuespedDTO dto = new HuespedDTO();
-
-        dto.setId(h.getId());
-
-        // Datos propios
-        dto.setNombre(h.getNombre());
-        dto.setApellido(h.getApellido());
-        dto.setTipoDocumento(h.getTipoDocumento());
-        dto.setNumeroDocumento(h.getNumeroDocumento());
-        dto.setFechaNacimiento(h.getFechaNacimiento());
-        dto.setOcupacion(h.getOcupacion());
-        dto.setCodigoPostal(h.getCodigoPostal());
-        dto.setLocalidad(h.getLocalidad());
-        dto.setProvincia(h.getProvincia());
-        dto.setPais(h.getPais());
-        dto.setEmail(h.getEmail());
-        dto.setNacionalidad(h.getNacionalidad());
-        dto.setPosicionIVA(h.getPosicionIVA());
-
-        // Datos heredados de Persona
-        dto.setCuit(h.getCuit());
-        dto.setTelefono(h.getTelefono());
-        dto.setCalle(h.getCalle());
-        dto.setNumero(h.getNumero());
-        dto.setDepartamento(h.getDepartamento());
-        dto.setPiso(h.getPiso());
-
-        return dto;
+        return HuespedDTO.builder()
+                .id(h.getId())
+                .nombre(h.getNombre())
+                .apellido(h.getApellido())
+                .tipoDocumento(h.getTipoDocumento())
+                .numeroDocumento(h.getNumeroDocumento())
+                .fechaNacimiento(h.getFechaNacimiento())
+                .ocupacion(h.getOcupacion())
+                .codigoPostal(h.getCodigoPostal())
+                .localidad(h.getLocalidad())
+                .provincia(h.getProvincia())
+                .pais(h.getPais())
+                .email(h.getEmail())
+                .nacionalidad(h.getNacionalidad())
+                .posicionIVA(h.getPosicionIVA())
+                .cuit(h.getCuit())
+                .telefono(h.getTelefono())
+                .calle(h.getCalle())
+                .numero(h.getNumero())
+                .departamento(h.getDepartamento())
+                .piso(h.getPiso())
+                .build();
     }
 
     // ============================
@@ -116,12 +110,12 @@ public final class HuespedMapper {
         if (source == null)
             return null;
 
-        HuespedDTO target = new HuespedDTO();
-        target.setNombre(source.getNombre());
-        target.setApellido(source.getApellido());
-        target.setTipoDocumento(source.getTipoDocumento());
-        target.setNumeroDocumento(source.getNumeroDocumento());
-        target.setTelefono(source.getTelefono());
-        return target;
+        return HuespedDTO.builder()
+                .nombre(source.getNombre())
+                .apellido(source.getApellido())
+                .tipoDocumento(source.getTipoDocumento())
+                .numeroDocumento(source.getNumeroDocumento())
+                .telefono(source.getTelefono())
+                .build();
     }
 }

@@ -3,8 +3,16 @@ package com.example.crud.dto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.util.List;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class EstadiaDTO {
 
     private Long id;
@@ -18,37 +26,4 @@ public class EstadiaDTO {
 
     @Valid
     private List<AcompanianteDTO> acompanantes;
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getIdHuespedResponsable() {
-        return idHuespedResponsable;
-    }
-
-    public void setIdHuespedResponsable(Long idHuespedResponsable) {
-        this.idHuespedResponsable = idHuespedResponsable;
-    }
-
-    public List<EstadiaDetalleDTO> getDetalles() {
-        return detalles;
-    }
-
-    public void setDetalles(List<EstadiaDetalleDTO> detalles) {
-        this.detalles = detalles;
-    }
-
-    public List<AcompanianteDTO> getAcompanantes() {
-        return acompanantes;
-    }
-
-    public void setAcompanantes(List<AcompanianteDTO> acompanantes) {
-        this.acompanantes = acompanantes;
-    }
 }

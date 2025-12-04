@@ -2,52 +2,42 @@ package com.example.crud.dao;
 
 import com.example.crud.model.Acompaniante;
 import com.example.crud.enums.TipoDocumento;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import com.example.crud.repository.AcompanianteRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AcompanianteDaoJpa implements AcompanianteDao {
 
-    @PersistenceContext
-    private EntityManager em;
+    private final AcompanianteRepository repository;
 
     @Override
     public Acompaniante save(Acompaniante a) {
-        if (a.getId() == null) {
-            em.persist(a);
-            return a;
-        }
-        return em.merge(a);
+        return repository.save(a);
+    }
+
+    @Override
+    public List<Acompaniante> findAllById(java.util.List<Long> ids) {
+        return repository.findAllById(ids);
+    }
+
+    @Override
+    public void delete(Acompaniante a) {
+        repository.delete(a);
+    }
+
+    @Override
+    public Optional<Acompaniante> findByDocumento(TipoDocumento tipo, String numero) {
+        return repository.findByTipoDocumentoAndNumeroDocumento(tipo, numero);
     }
 
     @Override
     public Optional<Acompaniante> findById(Long id) {
-        return Optional.ofNullable(em.find(Acompaniante.class, id));
-    }
-
-    @Override
-    public List<Acompaniante> findAllById(List<Long> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return List.of();
-        }
-        return em.createQuery("SELECT a FROM Acompaniante a WHERE a.id IN :ids", Acompaniante.class)
-                .setParameter("ids", ids)
-                .getResultList();
-    }
-
-    @Override
-    public Optional<Acompaniante> findByDocumento(TipoDocumento tipoDoc, String numeroDoc) {
-        return em.createQuery(
-                "SELECT a FROM Acompaniante a WHERE a.tipoDocumento = :tipoDoc AND a.numeroDocumento = :numeroDoc",
-                Acompaniante.class)
-                .setParameter("tipoDoc", tipoDoc)
-                .setParameter("numeroDoc", numeroDoc)
-                .getResultList()
-                .stream()
-                .findFirst();
+        return repository.findById(id);
     }
 }

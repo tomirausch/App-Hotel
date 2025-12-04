@@ -8,6 +8,8 @@ import com.example.crud.enums.EstadoReserva;
 import com.example.crud.enums.EstadoHabitacion;
 import com.example.crud.exception.RecursoNoEncontradoException;
 import com.example.crud.model.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GestorHabitaciones {
 
     private final HabitacionDao habitacionDao;
@@ -25,20 +28,6 @@ public class GestorHabitaciones {
     private final EstadiaDao estadiaDao;
     private final AcompanianteDao acompanianteDao;
     private final HuespedDao huespedDao;
-
-    public GestorHabitaciones(HabitacionDao habitacionDao,
-            ReservaDao reservaDao,
-            GestorHuespedes gestorHuespedes,
-            EstadiaDao estadiaDao,
-            AcompanianteDao acompanianteDao,
-            HuespedDao huespedDao) {
-        this.habitacionDao = habitacionDao;
-        this.reservaDao = reservaDao;
-        this.gestorHuespedes = gestorHuespedes;
-        this.estadiaDao = estadiaDao;
-        this.acompanianteDao = acompanianteDao;
-        this.huespedDao = huespedDao;
-    }
 
     public List<Habitacion> listarTodas() {
         return habitacionDao.findAllOrdenadas();

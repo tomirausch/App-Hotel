@@ -2,11 +2,19 @@ package com.example.crud.modelFacturacion;
 
 import com.example.crud.enums.TipoCheque;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "cheques")
 @PrimaryKeyJoinColumn(name = "id_metodo_pago")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cheque extends MetodoPago {
 
     @Column(name = "numero_cheque", length = 50)
@@ -24,49 +32,4 @@ public class Cheque extends MetodoPago {
 
     @Column(name = "banco", length = 100)
     private String banco;
-
-    // Constructores
-    public Cheque() {
-    }
-
-    // Getters y Setters
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public TipoCheque getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoCheque tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getPlaza() {
-        return plaza;
-    }
-
-    public void setPlaza(String plaza) {
-        this.plaza = plaza;
-    }
-
-    public LocalDate getFechaCobro() {
-        return fechaCobro;
-    }
-
-    public void setFechaCobro(LocalDate fechaCobro) {
-        this.fechaCobro = fechaCobro;
-    }
-
-    public String getBanco() {
-        return banco;
-    }
-
-    public void setBanco(String banco) {
-        this.banco = banco;
-    }
 }

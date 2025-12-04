@@ -2,8 +2,16 @@ package com.example.crud.dto;
 
 import com.example.crud.enums.EstadoHabitacion;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OcuparHabitacionDetalleDTO {
 
     @NotNull(message = "El ID de la habitación es obligatorio")
@@ -20,48 +28,4 @@ public class OcuparHabitacionDetalleDTO {
 
     // Null si estado es DISPONIBLE
     private Long idHuespedResponsableReserva;
-
-    public OcuparHabitacionDetalleDTO() {
-    }
-
-    // Getters y Setters
-    public Long getIdHabitacion() {
-        return idHabitacion;
-    }
-
-    public void setIdHabitacion(Long idHabitacion) {
-        this.idHabitacion = idHabitacion;
-    }
-
-    public EstadoHabitacion getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoHabitacion estado) {
-        this.estado = estado;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public Long getIdReserva() {
-        return idReserva;
-    }
-
-    public void setIdReserva(Long idReserva) {
-        this.idReserva = idReserva;
-    }
-
-    public Long getIdHuespedResponsableReserva() {
-        return idHuespedResponsableReserva;
-    }
-
-    public void setIdHuespedResponsableReserva(Long idHuespedResponsableReserva) {
-        this.idHuespedResponsableReserva = idHuespedResponsableReserva;
-    }
 }

@@ -1,37 +1,35 @@
 package com.example.crud.dao;
 
 import com.example.crud.modelFacturacion.PersonaJuridica;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import com.example.crud.repository.PersonaJuridicaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonaJuridicaDaoJpa implements PersonaJuridicaDao {
 
-    @PersistenceContext
-    private EntityManager em;
+    private final PersonaJuridicaRepository repository;
 
     @Override
     public PersonaJuridica save(PersonaJuridica personaJuridica) {
-        // TODO: Implementar
-        return null;
+        return repository.save(personaJuridica);
     }
 
     @Override
     public void delete(String cuit) {
-        // TODO: Implementar
+        repository.findByCuit(cuit).ifPresent(repository::delete);
     }
 
     @Override
     public PersonaJuridica modificar(PersonaJuridica personaJuridica) {
-        // TODO: Implementar
-        return null;
+        return repository.save(personaJuridica);
     }
 
     @Override
     public Optional<PersonaJuridica> findByCuit(String cuit) {
-        // TODO: Implementar
-        return Optional.empty();
+        return repository.findByCuit(cuit);
     }
 }

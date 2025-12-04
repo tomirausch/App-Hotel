@@ -25,13 +25,12 @@ public final class AcompanianteMapper {
         if (a == null)
             return null;
 
-        AcompanianteDTO dto = new AcompanianteDTO();
-        dto.setId(a.getId());
-        dto.setNombre(a.getNombre());
-        dto.setApellido(a.getApellido());
-        dto.setTipoDocumento(a.getTipoDocumento());
-        dto.setNumeroDocumento(a.getNumeroDocumento());
-
-        return dto;
+        return AcompanianteDTO.builder()
+                .id(a.getId())
+                .nombre(a.getNombre())
+                .apellido(a.getApellido())
+                .tipoDocumento(a.getTipoDocumento())
+                .numeroDocumento(a.getNumeroDocumento())
+                .build();
     }
 }

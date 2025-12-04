@@ -1,11 +1,19 @@
 package com.example.crud.modelFacturacion;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 @Table(name = "notas_credito")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class NotaCredito {
 
     @Id
@@ -23,41 +31,4 @@ public class NotaCredito {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_factura", nullable = false)
     private Factura factura;
-
-    // Constructores
-    public NotaCredito() {
-    }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getFechaEmision() {
-        return fechaEmision;
-    }
-
-    public void setFechaEmision(LocalDate fechaEmision) {
-        this.fechaEmision = fechaEmision;
-    }
-
-    public LocalTime getHoraEmision() {
-        return horaEmision;
-    }
-
-    public void setHoraEmision(LocalTime horaEmision) {
-        this.horaEmision = horaEmision;
-    }
-
-    public Factura getFactura() {
-        return factura;
-    }
-
-    public void setFactura(Factura factura) {
-        this.factura = factura;
-    }
 }
