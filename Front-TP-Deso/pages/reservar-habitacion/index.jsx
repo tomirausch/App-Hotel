@@ -1,6 +1,8 @@
 import styles from "../../styles/ReservarHabitacion.module.css"
 import Head from 'next/head';
 import { useState, useMemo } from "react";
+import { obtenerEstadoHabitaciones, crearReserva } from "@/services/reservaService";
+import { fechasEntreFechas, formatearFecha, obtenerNombreDia, formatearFechaHora } from "@/utils/dates";
 
 export default function ReservarHabitacion() {
 
@@ -12,18 +14,13 @@ export default function ReservarHabitacion() {
   const [cargando, setCargando] = useState(false);
   const [fechaDesde, setFechaDesde] = useState("");
   const [fechaHasta, setFechaHasta] = useState("");
+  const [mostrandoFormularioHuesped, setMostrandoFormularioHuesped] = useState(false);
+  const [errores, setErrores] = useState({});
   
-  // Estado Modal
   const [modalConfig, setModalConfig] = useState({ 
     visible: false, tipo: "", titulo: "", mensaje: "", acciones: [] 
   });
 
-  const [mostrandoFormularioHuesped, setMostrandoFormularioHuesped] = useState(false);
-  
-  // Inicializamos errores vacío
-  const [errores, setErrores] = useState({});
-
-  // Helpers
   const cerrarModal = () => setModalConfig(prev => ({ ...prev, visible: false }));
   
   const mostrarError = (mensaje) => {
@@ -37,62 +34,29 @@ export default function ReservarHabitacion() {
     e.target.value = e.target.value.replace(/[^0-9]/g, '');
   };
 
-  const fechasEntreFechas = (fechaA, fechaB) => {
-    const fechas = [];
-    let fechaActual = new Date(fechaA);
-    const fechaFinal = new Date(fechaB);
-    while (fechaActual <= fechaFinal) {
-      fechas.push(fechaActual.toISOString().split('T')[0]);
-      fechaActual.setDate(fechaActual.getDate() + 1);
-    }
-    return fechas;
-  }
-
-  const formatearFecha = (fechaString) => {
-    if (!fechaString) return "";
-    return fechaString.split('-').reverse().join('-');
-  };
-
-    const obtenerNombreDia = (fechaObj) => {
-      // Obtenemos el nombre del día en español (ej: "lunes")
-      const nombre = fechaObj.toLocaleDateString('es-ES', { weekday: 'long' });
-      // Lo capitalizamos para que quede mejor (ej: "Lunes")
-      return nombre.charAt(0).toUpperCase() + nombre.slice(1);
-    };
-
-    const formatearFechaIngreso = (fechaString) => {
-      if (!fechaString) return "";
-      
-      // Desarmamos el string 'aaaa-mm-dd' para evitar errores de zona horaria
-      const [anio, mes, dia] = fechaString.split('-');
-      
-      // Creamos la fecha (recordar que en JS el mes empieza en 0, por eso restamos 1)
-      const fechaObj = new Date(anio, mes - 1, dia);
-      
-      const nombreDia = obtenerNombreDia(fechaObj);
-      
-      // Retornamos con el formato solicitado y hora fija 12:00hs
-      return `${nombreDia}, ${dia}/${mes}/${anio}, 12:00hs`;
-    };
-
-    const formatearFechaEgreso = (fechaString) => {
-      if (!fechaString) return "";
-      
-      const [anio, mes, dia] = fechaString.split('-');
-      const fechaObj = new Date(anio, mes - 1, dia);
-      
-      const nombreDia = obtenerNombreDia(fechaObj);
-      
-      // Retornamos con el formato solicitado y hora fija 10:00hs
-      return `${nombreDia}, ${dia}/${mes}/${anio}, 10:00hs`;
-    };
-
   const seleccionadaReserva = useMemo(() => {
     if (seleccionadoInicio.length === 0) return [];
     if (seleccionadoFin.length === 0) return [seleccionadoInicio];
     const dias = fechasEntreFechas(seleccionadoInicio[0], seleccionadoFin[0]);
     return dias.map(fecha => [fecha, seleccionadoInicio[1]]);
   }, [seleccionadoInicio, seleccionadoFin]);
+
+  const ordenarDatos = useMemo(() => {
+    if (!habitaciones) return [];
+    const habitacionesOrdenadas = [...habitaciones].sort((a, b) => {
+      const dateA = new Date(a.fecha); const dateB = new Date(b.fecha);
+      if(dateA - dateB !== 0) return dateA - dateB;
+      return parseInt(a.numero) - parseInt(b.numero);
+    });
+    const columnas = {};
+    habitacionesOrdenadas.forEach(h => {
+      if (!columnas[h.id]) {
+        columnas[h.id] = { id: h.id, tipo: h.tipoHabitacion, numero: h.numero, estados: {} };
+      }
+      columnas[h.id].estados[h.fecha] = h.estado;
+    });
+    return columnas;
+  }, [habitaciones]);
 
   const handleAtras = () => {
     setSeleccionadoInicio([]);
@@ -125,57 +89,33 @@ export default function ReservarHabitacion() {
     setHabitaciones([]);
     e.preventDefault();
     const anioMinimo = 2024;
-    const anioDesde = parseInt(fechaDesde.split('-')[0]);
-    const anioHasta = parseInt(fechaHasta.split('-')[0]);
-
-    if (anioDesde < anioMinimo || anioHasta < anioMinimo) {
+    const dDesde = new Date(fechaDesde);
+    const dHasta = new Date(fechaHasta);
+    console.log(dDesde, anioMinimo)
+    
+    if (dDesde.getFullYear() < anioMinimo || dHasta.getFullYear() < anioMinimo) {
       mostrarError(`Las fechas no pueden ser anteriores al año ${anioMinimo}.`);
       return;
     }
-    const dDesde = new Date(fechaDesde);
-    const dHasta = new Date(fechaHasta);
+
     const fechaLimite = new Date(dDesde);
     fechaLimite.setFullYear(fechaLimite.getFullYear() + 1);
-
     if (dHasta > fechaLimite) {
       mostrarError("El rango de fechas no puede ser mayor a 1 año.");
       return;
     }
+
     setCargando(true);
-    const formData = new FormData(e.target);
-    const datos = { Desde: formData.get('Desde'), Hasta: formData.get('Hasta') };
-    const query = `http://localhost:8080/api/habitaciones/estado?desde=${datos.Desde}&hasta=${datos.Hasta}`;
-
     try {
-      const respuesta = await fetch(query, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-      });
-      if (respuesta.ok) {
-        const contenido = await respuesta.json();
-        setHabitaciones(contenido);
-      } else {
-        console.error("Error respuesta");
-      }
-    } catch (e) { console.log(e); } finally { setCargando(false); }
+      const data = await obtenerEstadoHabitaciones(fechaDesde, fechaHasta);
+      setHabitaciones(data);
+    } catch (e) { 
+      console.error(e);
+      mostrarError("Error al conectar con el servidor.");
+    } finally { 
+      setCargando(false); 
+    }
   };
-
-  const ordenarDatos = useMemo(() => {
-    if (!habitaciones) return [];
-    const habitacionesOrdenadas = [...habitaciones].sort((a, b) => {
-      const dateA = new Date(a.fecha); const dateB = new Date(b.fecha);
-      if(dateA - dateB !== 0) return dateA - dateB;
-      return parseInt(a.numero) - parseInt(b.numero);
-    });
-    const columnas = {};
-    habitacionesOrdenadas.forEach(h => {
-      if (!columnas[h.id]) {
-        columnas[h.id] = { id: h.id, tipo: h.tipoHabitacion, numero: h.numero, estados: {} };
-      }
-      columnas[h.id].estados[h.fecha] = h.estado;
-    });
-    return columnas;
-  }, [habitaciones]);
 
   const mostrarResultados = () => {
     const columnas = ordenarDatos;
@@ -242,85 +182,57 @@ export default function ReservarHabitacion() {
     const camposObligatorios = ["apellido", "nombre", "tipoDocumento", "numeroDocumento", "telefono"];
     const nuevosErrores = {};
 
-    // Validación de vacíos
     camposObligatorios.forEach((campo) => {
       const valor = formData.get(campo);
       if (!valor || valor.toString().trim() === "") {
-        // Usamos la primera letra mayúscula para la key del error para coincidir con tu JSX
         const key = campo.charAt(0).toUpperCase() + campo.slice(1);
         nuevosErrores[key] = "Este campo es obligatorio";
       }
     });
-
-    // Validación de letras
-    const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-    const nombreVal = formData.get("nombre");
-    if (nombreVal && !regexSoloLetras.test(nombreVal.toString())) nuevosErrores["Nombre"] = "Solo letras y espacios";
-    const apellidoVal = formData.get("apellido");
-    if (apellidoVal && !regexSoloLetras.test(apellidoVal.toString())) nuevosErrores["Apellido"] = "Solo letras y espacios";
-
-    // Si hay errores, los mostramos y cortamos la ejecución
     if (Object.keys(nuevosErrores).length > 0) {
       setErrores(nuevosErrores);
       return;
     }
-    
-    // Si pasa, limpiamos errores
     setErrores({});
 
     const detalles = reservasAcumuladas.map((reserva) => ({ idHabitacion: reserva[1], fecha: reserva[0] }));
-    const datos = {
+    const datosHuesped = {
       nombre: formData.get("nombre"),
       apellido: formData.get("apellido"),
       tipoDocumento: formData.get("tipoDocumento"),
       numeroDocumento: formData.get("numeroDocumento"),
       telefono: formData.get("telefono"),
     };
-    const payload = { detalles: detalles, datosHuesped: datos };
+    const payload = { detalles: detalles, datosHuesped: datosHuesped };
 
     setCargando(true); 
     
     try {
-      const respuesta = await fetch("http://localhost:8080/api/reservas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (respuesta.ok) {
-        setModalConfig({
-          visible: true, tipo: "exito", titulo: "¡Reserva Exitosa!", mensaje: "La reserva ha sido registrada correctamente.",
+      const respuesta = await crearReserva({ detalles, datosHuesped });
+      
+      setModalConfig({
+          visible: true, tipo: "exito", titulo: "¡Reserva Exitosa!", 
+          mensaje: `La reserva se ha creado exitosamente.`,
           acciones: [{
             texto: "Aceptar", estilo: "aceptar",
             onClick: () => {
               cerrarModal();
-              setHabitaciones([]);
-              setReservasAcumuladas([]);
-              setMostrandoLista(false);
-              setMostrandoFormularioHuesped(false);
-              setFechaDesde("");
-              setFechaHasta("");
-              setErrores({}); // Limpiamos errores al finalizar
+              setHabitaciones([]); setReservasAcumuladas([]);
+              setMostrandoLista(false); setMostrandoFormularioHuesped(false);
+              setFechaDesde(""); setFechaHasta(""); setErrores({});
             }
           }]
         });
-      } else {
-        const errorData = await respuesta.json().catch(() => ({}));
-        setModalConfig({
-          visible: true, tipo: "error", titulo: "Error al reservar", mensaje: errorData.message || "No se pudo procesar la reserva.",
-          acciones: [{ texto: "Cerrar", estilo: "cancelar", onClick: cerrarModal }]
-        });
-      }
+
     } catch (e) {
       setModalConfig({
-        visible: true, tipo: "error", titulo: "Error de Conexión", mensaje: "No se pudo conectar con el servidor.",
+        visible: true, tipo: "error", titulo: "Error al reservar", mensaje: e.message,
         acciones: [{ texto: "Cerrar", estilo: "cancelar", onClick: cerrarModal }]
       });
     } finally { setCargando(false); }
   }
 
   const mostrarLista = () => {
-    const obtenerFormatoCompleto = (f, h) => { /* ... lógica simplificada ... */ return f ? f.split('-').reverse().join('/') + ' ' + h : '-'; };
     const generarResumenReservas = (lista) => { 
         const agrupado = {}; lista.forEach(i => { if(!agrupado[i[1]]) agrupado[i[1]]=[]; agrupado[i[1]].push(i[0]) });
         return Object.keys(agrupado).map(id => ({Habitacion: ordenarDatos[id].numero, Tipo: ordenarDatos[id].tipo, Ingreso: agrupado[id].sort()[0], Egreso: agrupado[id].sort()[agrupado[id].length-1]}));
@@ -344,15 +256,14 @@ export default function ReservarHabitacion() {
                   <div key={index} className={styles.filaListaContainer}>
                     <div className={styles.pListaContainer}><p>{fila.Habitacion}</p></div>
                     <div className={styles.pListaContainer}><p>{fila.Tipo}</p></div>
-                    <div className={styles.pListaContainer}><p>{formatearFechaIngreso(fila.Ingreso)}</p></div>
-                    <div className={styles.pListaContainer}><p>{formatearFechaEgreso(fila.Egreso)}</p></div>
+                    <div className={styles.pListaContainer}><p>{formatearFechaHora(fila.Ingreso, "12:00")}</p></div>
+                    <div className={styles.pListaContainer}><p>{formatearFechaHora(fila.Egreso, "10:00")}</p></div>
                   </div>
                 ))}
               </div>
             </div>
             <div className={styles.botonesListaContainer} style={{ marginTop: '30px' }}>
               <input type="button" value="Volver" className={styles.btnCancelar} onClick={() => setMostrandoLista(false)} />
-              {/* --- CORRECCIÓN: Limpiamos errores al entrar al form --- */}
               <input type="button" value="Continuar" className={styles.btnSiguiente} 
                 onClick={() => { setMostrandoFormularioHuesped(true); setErrores({}); }} 
               />
@@ -363,7 +274,6 @@ export default function ReservarHabitacion() {
           <fieldset className={styles.fieldset}>
             <div className={styles.legend} style={{paddingTop:"20px"}}>Datos del titular</div>
             
-            {/* CORRECCIÓN: Quitamos className={styles.fieldset} del form */}
             <form onSubmit={enviarReserva} id="formDatosHuesped" style={{width: '100%'}}>
               <div className={styles.formReservaInputsContainer}>
 
@@ -414,7 +324,6 @@ export default function ReservarHabitacion() {
           </fieldset>
 
             <div className={styles.botonesListaContainer}>
-              {/* --- CORRECCIÓN: Limpiamos errores al salir del form --- */}
               <input type="button" value="Atrás" className={styles.btnCancelar} 
                 onClick={() => { setMostrandoFormularioHuesped(false); setErrores({}); }} 
               />
