@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import styles from "../../styles/DarAltaHuesped.module.css"
+import Modal from "../../components/Modal";
 import React from 'react';
 
 export default function DarAltaHuesped() {
@@ -160,11 +161,9 @@ export default function DarAltaHuesped() {
         }
       });
 
-      // --- INICIO DE NUEVA VALIDACIÓN ---
       const posicionIVA = formData.get('PosicionIVA');
       const cuit = formData.get('CUIT');
 
-      // Si NO es Consumidor Final, el CUIT es obligatorio
       if (posicionIVA !== 'ConsumidorFinal') {
         if (!cuit || cuit.toString().trim() === "") {
           nuevosErrores['CUIT'] = "El CUIT es obligatorio para esta condición fiscal";
@@ -377,39 +376,14 @@ export default function DarAltaHuesped() {
       <link rel="icon" href="/hotel-icon.ico?v=2" />
     </Head>
 
-    {/* --- NUEVO MODAL ESTILO OVERLAY --- */}
-    {modalConfig.visible && (
-      <div className={styles.modalOverlay}>
-        {/* Agregamos la clase del tipo dinámicamente para el borde superior de color */}
-        <div className={`${styles.modalContent} ${styles[modalConfig.tipo]}`}>
-          
-          <span className={styles.modalIcon}>
-            {modalConfig.tipo === 'exito' && '✅'}
-            {modalConfig.tipo === 'error' && '⛔'}
-            {modalConfig.tipo === 'documento_duplicado' && '⚠️'}
-            {modalConfig.tipo === 'confirmacion' && '❓'}
-          </span>
+      <Modal 
+        visible={modalConfig.visible}
+        tipo={modalConfig.tipo}
+        titulo={modalConfig.titulo}
+        mensaje={modalConfig.mensaje}
+        acciones={modalConfig.acciones}
+      />
 
-          <h2 className={styles.modalTitulo}>{modalConfig.titulo}</h2>
-          
-          <p className={styles.modalMensaje}>{modalConfig.mensaje}</p>
-
-          <div className={styles.botonesContainer}>
-            {modalConfig.acciones && modalConfig.acciones.map((accion, index) => (
-              <button 
-                key={index}
-                onClick={accion.onClick}
-                className={`${styles.btnModal} ${styles[accion.estilo]}`}
-                disabled={accion.disabled}
-              >
-                {accion.texto}
-              </button>
-            ))}
-          </div>
-
-        </div>
-      </div>
-    )}
       <form
         onSubmit={enviarDatos}
         id="formulario" 

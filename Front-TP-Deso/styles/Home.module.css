@@ -47,6 +47,16 @@
     align-items: center;
     height: 150px;
 }
+
+.styleImage{
+    height: 100px;
+    filter: invert(1);
+}
+
 .container::selection {
-  background-color: var(--primary);
+    background-color: var(--primary);
+}
+
+.link{
+    text-decoration: none;
 }

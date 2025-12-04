@@ -7,39 +7,39 @@ export default function Home() {
 
       <div className={styles.container}>
 
-        <Link href="/dar-alta-huesped" style={{textDecoration: "none"}}>
+        <Link href="/dar-alta-huesped" className={styles.link}>
         <div className={styles.box}>
           <h2 className={styles.boxTitle}>Dar Alta Huésped</h2>
           <div className={styles.boxImage}>
-            <img style={{height: "100px", filter: "invert(1)"}} src="/agregar-usuario.png" alt=""/>
+            <img className={styles.styleImage} src="/agregar-usuario.png" alt=""/>
           </div>
         </div>
         </Link>
         
-        <Link href="/buscar-huesped" style={{textDecoration: "none"}}>
+        <Link href="/buscar-huesped" className={styles.link}>
         <div className={styles.box}>
           <h2 className={styles.boxTitle}>Buscar Huésped</h2>
           <div className={styles.boxImage}>
-            <img style={{height: "100px", filter: "invert(1)"}} src="/lupa.png" alt=""/>
+            <img className={styles.styleImage} src="/lupa.png" alt=""/>
           </div>
         </div>
         </Link>
 
 
-        <Link href="/reservar-habitacion" style={{textDecoration: "none"}}>
+        <Link href="/reservar-habitacion" className={styles.link}>
         <div className={styles.box}>
           <h2 className={styles.boxTitle}>Reservar Habitación</h2>
           <div  className={styles.boxImage}>
-            <img style={{height: "100px", filter: "invert(1)"}} src="/reserva.png" alt="" />
+            <img className={styles.styleImage} src="/reserva.png" alt="" />
           </div>
         </div>
         </Link>
 
-        <Link href="/ocupar-habitacion" style={{textDecoration: "none"}}>
+        <Link href="/ocupar-habitacion" className={styles.link}>
         <div className={styles.box}>
           <h2 className={styles.boxTitle}>Ocupar Habitación</h2>
           <div  className={styles.boxImage}>
-            <img style={{height: "100px", filter: "invert(1)"}} src="/tarjeta-clave.png" alt="" />
+            <img className={styles.styleImage} src="/tarjeta-clave.png" alt="" />
           </div>
         </div>
         </Link>
