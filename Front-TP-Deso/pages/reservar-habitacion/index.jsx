@@ -112,6 +112,7 @@ export default function ReservarHabitacion() {
     setCargando(true);
     try {
       const data = await obtenerEstadoHabitaciones(fechaDesde, fechaHasta);
+      console.log(data);
       setHabitaciones(data);
     } catch (e) { 
       console.error(e);
@@ -199,7 +200,60 @@ export default function ReservarHabitacion() {
     }
     setErrores({});
 
-    const detalles = reservasAcumuladas.map((reserva) => ({ idHabitacion: reserva[1], fecha: reserva[0] }));
+    // 2. TRANSFORMACIÓN DE DATOS (Agrupar fechas en rangos)
+    
+    // A. Agrupar fechas por ID de habitación
+    const reservasPorHabitacion = {};
+    reservasAcumuladas.forEach(([fecha, idHabitacion]) => {
+        if (!reservasPorHabitacion[idHabitacion]) {
+            reservasPorHabitacion[idHabitacion] = [];
+        }
+        reservasPorHabitacion[idHabitacion].push(fecha);
+    });
+
+    // B. Construir los rangos consecutivos
+    const detalles = [];
+
+    Object.keys(reservasPorHabitacion).forEach((idHabStr) => {
+        const idHabitacion = Number(idHabStr);
+        // Ordenar las fechas cronológicamente para detectar consecutivos
+        const fechas = reservasPorHabitacion[idHabitacion].sort();
+
+        if (fechas.length === 0) return;
+
+        let inicioRango = fechas[0];
+        let finRango = fechas[0];
+
+        for (let i = 1; i < fechas.length; i++) {
+            const fechaActual = new Date(fechas[i]);
+            const fechaAnterior = new Date(finRango);
+            
+            // Verificamos si hay 1 día de diferencia
+            const diffTime = Math.abs(fechaActual - fechaAnterior);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+            if (diffDays === 1) {
+                // Es consecutivo, extendemos la fecha hasta
+                finRango = fechas[i];
+            } else {
+                // No es consecutivo (hay un hueco), guardamos el rango anterior
+                detalles.push({
+                    idHabitacion: idHabitacion,
+                    fecha_desde: inicioRango,
+                    fecha_hasta: finRango
+                });
+                // Iniciamos un nuevo rango
+                inicioRango = fechas[i];
+                finRango = fechas[i];
+            }
+        }
+        // Guardamos el último rango procesado
+        detalles.push({
+            idHabitacion: idHabitacion,
+            fechaDesde: inicioRango,
+            fechaHasta: finRango
+        });
+    });
     const datosHuesped = {
       nombre: formData.get("nombre"),
       apellido: formData.get("apellido"),
@@ -208,7 +262,7 @@ export default function ReservarHabitacion() {
       telefono: formData.get("telefono"),
     };
     const payload = { detalles: detalles, datosHuesped: datosHuesped };
-
+    console.log(JSON.stringify(payload));
     setCargando(true); 
     
     try {

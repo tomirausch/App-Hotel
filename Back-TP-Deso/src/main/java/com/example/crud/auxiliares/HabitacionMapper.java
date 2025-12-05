@@ -1,6 +1,7 @@
 package com.example.crud.auxiliares;
 
 import com.example.crud.dto.HabitacionDTO;
+import com.example.crud.enums.EstadoHabitacion;
 import com.example.crud.model.Habitacion;
 
 public final class HabitacionMapper {
@@ -16,7 +17,8 @@ public final class HabitacionMapper {
                 .id(h.getId())
                 .numero(h.getNumero())
                 .piso(h.getPiso())
-                .estado(h.getEstadoActual());
+                .estado(Boolean.TRUE.equals(h.getFueraDeServicio()) ? EstadoHabitacion.FUERA_DE_SERVICIO
+                        : EstadoHabitacion.DISPONIBLE);
 
         if (h.getTipoHabitacion() != null) {
             builder.tipoHabitacion(h.getTipoHabitacion().getNombre())
@@ -25,4 +27,5 @@ public final class HabitacionMapper {
 
         return builder.build();
     }
+
 }

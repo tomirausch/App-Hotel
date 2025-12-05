@@ -90,37 +90,55 @@ export default function OcuparHabitacion() {
 
   const handleAtras = () => { setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]);}
 
-  const handleAgregarSeleccion = () => {
+  const handleContinuar = () => {
+    // Validar que haya selección
     if (seleccionadaReserva.length === 0) return;
-    if (seleccionadaReserva.length < 2) { mostrarError("La estancia mínima es de 2 días (una noche)."); return; }
-    
-    let hayBloqueo = false; let hayReserva = false;
+    if (seleccionadaReserva.length < 2) {
+      mostrarError("La estancia mínima es de 2 días (una noche).");
+      return;
+    }
+
+    // Validar bloqueos
+    let hayBloqueo = false;
+    let hayReserva = false;
     seleccionadaReserva.forEach((item) => {
       const [fecha, idColumna] = item;
       const estadoCelda = ordenarDatos[idColumna]?.estados[fecha];
-      if (['OCUPADA', 'MANTENIMIENTO', 'FUERA_DE_SERVICIO'].includes(estadoCelda)) hayBloqueo = true;
-      if (estadoCelda === 'RESERVADA') hayReserva = true;
+      if (["OCUPADA", "MANTENIMIENTO", "FUERA_DE_SERVICIO"].includes(estadoCelda))
+        hayBloqueo = true;
+      if (estadoCelda === "RESERVADA") hayReserva = true;
     });
 
-    if (hayBloqueo) { mostrarError("Seleccionaste fechas no disponibles."); return; }
+    if (hayBloqueo) {
+      mostrarError("Seleccionaste fechas no disponibles.");
+      return;
+    }
 
-    const ejecutarAgregar = () => {
-        setReservasAcumuladas((prev) => [...prev, ...seleccionadaReserva]);
-        setSeleccionadoInicio([]); setSeleccionadoFin([]); cerrarModal();
+    // Función para avanzar
+    const avanzar = () => {
+      setReservasAcumuladas(seleccionadaReserva); // Sobrescribe, no acumula
+      setMostrandoLista(true); // Pasa a la siguiente pantalla
+      // Opcional: Limpiar selección visual si quieres, aunque dejarla ayuda si vuelven atrás
+      // setSeleccionadoInicio([]); setSeleccionadoFin([]);
+      cerrarModal();
     };
 
+    // Si hay reserva previa, advertir
     if (hayReserva) {
-        setModalConfig({
-            visible: true, tipo: "advertencia", titulo: "Habitación Reservada",
-            mensaje: "¿Desea realizar la ocupación sobre una reserva existente?",
-            acciones: [
-                { texto: "Cancelar", estilo: "cancelar", onClick: cerrarModal },
-                { texto: "Ocupar Igual", estilo: "aceptar", onClick: ejecutarAgregar }
-            ]
-        });
-        return;
+      setModalConfig({
+        visible: true,
+        tipo: "advertencia",
+        titulo: "Habitación Reservada",
+        mensaje: "¿Desea realizar la ocupación sobre una reserva existente?",
+        acciones: [
+          { texto: "Cancelar", estilo: "cancelar", onClick: cerrarModal },
+          { texto: "Ocupar Igual", estilo: "aceptar", onClick: avanzar },
+        ],
+      });
+      return;
     }
-    ejecutarAgregar();
+
+    avanzar();
   };
 
   const enviarDatos = async (e) => {
@@ -213,30 +231,19 @@ export default function OcuparHabitacion() {
     }
 
     setConfirmando(true);
-
-    const detalles = reservasAcumuladas.map((reserva) => {
-      const fechaStr = reserva[0]; 
-      const idHab = reserva[1]; 
-      const infoOriginal = habitaciones.find(
-        (h) => h.id === idHab && h.fecha === fechaStr
-      );
-      return {
-        idHabitacion: idHab,
-        fecha: fechaStr,
-        estado: infoOriginal?.estado || "DISPONIBLE",
-        idReserva: infoOriginal?.idReserva || null,
-        idHuespedResponsableReserva: infoOriginal?.idHuespedResponsable || null,
-      };
-    });
-
     const payload = {
-      idHuespedResponsableEstadia: huespedSeleccionado.id,
+      idHuespedResponsable: huespedSeleccionado.id,
       listaAcompanantes: acompanantes.map((a) => a.id),
-      detalles: detalles,
+      idHabitacion: reservasAcumuladas[0][1],
+      fechaDesde: fechaDesde,
+      fechaHasta: fechaHasta,
     };
+
+    console.log("Enviando Payload:", JSON.stringify(payload, null, 2)); // Para debug
 
     try {
       await crearOcupacion(payload);
+      
       setModalConfig({
         visible: true, tipo: "exito", titulo: "¡Check-in Exitoso!",
         mensaje: "La ocupación ha sido registrada correctamente.",
@@ -253,7 +260,8 @@ export default function OcuparHabitacion() {
         }],
       });
     } catch (e) {
-      mostrarError("Error de conexión con el servidor.");
+      console.log(e.message);
+      mostrarError(e.message || "Error de conexión con el servidor.");
     } finally {
       setConfirmando(false);
     } 
@@ -757,9 +765,14 @@ export default function OcuparHabitacion() {
         </div>
         <div className={styles.botonesRespuestaContainer}>
           <input type="button" value="Atrás" className={styles.btnCancelar} onClick={handleAtras} />
-          <input type="button" value="Agregar Selección" className={styles.btnSiguiente} style={{ backgroundColor: "#3b82f6" }} onClick={handleAgregarSeleccion} />
-          <input type="button" value={`Confirmar Ocupación (${reservasAcumuladas.length})`} className={`${styles.btnSiguiente} ${reservasAcumuladas.length === 0 ? styles.desactivado : null}`}
-            style={{backgroundColor: '#22c55e'}} onClick={() => { setMostrandoLista(true); }} disabled={reservasAcumuladas.length === 0} />
+          <input 
+            type="button" 
+            value="Siguiente" 
+            className={`${styles.btnSiguiente} ${seleccionadaReserva.length === 0 ? styles.desactivado : ''}`} 
+            style={{ backgroundColor: "#22c55e" }} 
+            onClick={handleContinuar}
+            disabled={seleccionadaReserva.length === 0}
+          />
         </div>
       </>
     );
