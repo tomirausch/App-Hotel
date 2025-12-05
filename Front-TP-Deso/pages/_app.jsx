@@ -2,11 +2,12 @@ import "@/styles/globals.css";
 import LayoutHeader from "@/components/LayoutHeader";
 import LoginModal from "@/components/LoginModal";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const router = useRouter();
 
-  // (Opcional) Verificar si ya estaba logueado al recargar
   useEffect(() => {
     const estaLogueado = sessionStorage.getItem("usuarioLogueado");
     if (estaLogueado === "true") {
@@ -14,18 +15,22 @@ export default function App({ Component, pageProps }) {
     }
   }, []);
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("usuarioLogueado");
+    setIsAuthenticated(false); 
+    router.push('/');
+  };
+
   return (
     <>
+      {/* Si no está autenticado, mostramos el Modal */}
       {!isAuthenticated && (
         <LoginModal onLoginSuccess={() => setIsAuthenticated(true)} />
       )}
 
-      {/* Mientras no esté autenticado, el contenido de abajo se renderiza pero 
-          el LoginModal con z-index alto lo tapa completamente.
-          Si prefieres que NO se renderice nada, envuelve lo de abajo en {isAuthenticated && ...} */}
-      
+      {/* Si está autenticado, mostramos la App y pasamos la función de Logout */}
       <div style={{ display: isAuthenticated ? 'block' : 'none' }}>
-          <LayoutHeader>
+          <LayoutHeader onLogout={handleLogout}>
             <Component {...pageProps} />
           </LayoutHeader>
       </div>
