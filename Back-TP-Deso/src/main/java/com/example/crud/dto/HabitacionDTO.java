@@ -21,17 +21,16 @@ public class HabitacionDTO {
     private String tipoHabitacion;
     private BigDecimal costo;
     private EstadoHabitacion estado;
-    private LocalDate fecha; // Opcional: usado solo en consultas de estado diario
-
-    // Campos opcionales: solo cuando está reservada
-    private Long idReserva;
-    private Long idHuespedResponsable;
+    private LocalDate fecha;
 
     // Constructor para estado diario (con fecha)
-    public HabitacionDTO(Long id, Integer numero, String tipoHabitacion, LocalDate fecha, EstadoHabitacion estado) {
+    public HabitacionDTO(Long id, Integer numero, Integer piso, String tipoHabitacion, BigDecimal costo,
+            LocalDate fecha, EstadoHabitacion estado) {
         this.id = id;
         this.numero = numero;
+        this.piso = piso;
         this.tipoHabitacion = tipoHabitacion;
+        this.costo = costo;
         this.fecha = fecha;
         this.estado = estado;
     }

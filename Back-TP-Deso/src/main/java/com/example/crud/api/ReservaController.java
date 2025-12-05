@@ -21,10 +21,14 @@ public class ReservaController {
 
     @PostMapping
     public ResponseEntity<?> crearReserva(@Valid @RequestBody ReservaDTO request) {
-        Reserva nuevaReserva = gestorHabitaciones.confirmarReserva(request);
+        java.util.List<Reserva> nuevasReservas = gestorHabitaciones.confirmarReserva(request);
+
+        java.util.List<Long> ids = nuevasReservas.stream()
+                .map(Reserva::getId)
+                .toList();
 
         return ResponseEntity
-                .created(URI.create("/api/reservas/" + nuevaReserva.getId()))
-                .body("Reserva confirmada con éxito. ID: " + nuevaReserva.getId());
+                .created(URI.create("/api/reservas/" + ids.get(0))) // Point to the first one or a summary endpoint
+                .body("Reservas confirmadas con éxito. IDs: " + ids);
     }
 }

@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -22,12 +20,18 @@ public class EstadiaDaoJpa implements EstadiaDao {
     }
 
     @Override
-    public Optional<Estadia> findById(Long id) {
-        return repository.findById(id);
+    public java.util.List<Estadia> findConflictingEstadias(Long habitacionId, java.time.LocalDate fechaDesde,
+            java.time.LocalDate fechaHasta) {
+        return repository.findConflictingEstadias(habitacionId, fechaDesde, fechaHasta);
     }
 
     @Override
-    public List<Estadia> buscarEstadiasEntre(LocalDate desde, LocalDate hasta) {
-        return repository.buscarEstadiasEntre(desde, hasta);
+    public java.util.List<Estadia> findAllInDateRange(java.time.LocalDate fechaDesde, java.time.LocalDate fechaHasta) {
+        return repository.findAllInDateRange(fechaDesde, fechaHasta);
+    }
+
+    @Override
+    public Optional<Estadia> findById(Long id) {
+        return repository.findById(id);
     }
 }

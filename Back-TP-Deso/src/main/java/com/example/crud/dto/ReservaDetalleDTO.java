@@ -19,5 +19,9 @@ public class ReservaDetalleDTO {
 
     @NotNull
     @FutureOrPresent
-    private LocalDate fecha;
+    private LocalDate fechaDesde;
+
+    @NotNull
+    @FutureOrPresent
+    private LocalDate fechaHasta;
 }

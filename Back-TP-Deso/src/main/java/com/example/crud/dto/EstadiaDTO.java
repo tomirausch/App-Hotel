@@ -1,13 +1,12 @@
 package com.example.crud.dto;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -20,10 +19,14 @@ public class EstadiaDTO {
     @NotNull(message = "El ID del huésped responsable es obligatorio")
     private Long idHuespedResponsable;
 
-    @Valid
-    @NotEmpty(message = "Debe incluir al menos un detalle de habitación y fecha")
-    private List<EstadiaDetalleDTO> detalles;
+    @NotNull(message = "El ID de la habitación es obligatorio")
+    private Long idHabitacion;
 
-    @Valid
-    private List<AcompanianteDTO> acompanantes;
+    @NotNull(message = "La fecha desde es obligatoria")
+    private LocalDate fechaDesde;
+
+    @NotNull(message = "La fecha hasta es obligatoria")
+    private LocalDate fechaHasta;
+
+    private List<Long> listaAcompanantes;
 }

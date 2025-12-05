@@ -2,12 +2,11 @@ package com.example.crud.auxiliares;
 
 import com.example.crud.dto.ReservaDTO;
 import com.example.crud.dto.ReservaDetalleDTO;
-import com.example.crud.enums.EstadoReserva;
 import com.example.crud.model.Habitacion;
+
 import com.example.crud.model.Huesped;
 import com.example.crud.model.Reserva;
-import com.example.crud.model.ReservaHabitacion;
-
+import com.example.crud.enums.EstadoReserva;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -19,40 +18,45 @@ public final class ReservaMapper {
     /**
      * Construye una entidad Reserva lista para guardar.
      */
-    public static Reserva toEntity(ReservaDTO request,
+    public static java.util.List<Reserva> toEntity(ReservaDTO request,
             Huesped huesped,
-            List<Habitacion> habitaciones,
-            BigDecimal montoTotal) {
-        if (request == null)
-            return null;
+            List<Habitacion> habitaciones) {
 
-        Reserva r = new Reserva();
+        if (request == null || request.getDetalles() == null)
+            return new java.util.ArrayList<>();
 
-        // Datos calculados/buscados
-        r.setHuesped(huesped);
+        java.util.List<Reserva> reservas = new java.util.ArrayList<>();
 
-        // Crear ReservaHabitacion para cada detalle
-        if (request.getDetalles() != null && habitaciones != null) {
-            for (ReservaDetalleDTO detalle : request.getDetalles()) {
-                // Buscar la habitación correspondiente en la lista de entidades
-                Habitacion habitacion = habitaciones.stream()
-                        .filter(h -> h.getId().equals(detalle.getIdHabitacion()))
-                        .findFirst()
-                        .orElse(null);
+        for (ReservaDetalleDTO detalle : request.getDetalles()) {
+            Habitacion habitacion = habitaciones.stream()
+                    .filter(h -> h.getId().equals(detalle.getIdHabitacion()))
+                    .findFirst()
+                    .orElse(null);
 
-                if (habitacion != null) {
-                    ReservaHabitacion rh = new ReservaHabitacion();
-                    rh.setHabitacion(habitacion);
-                    rh.setReserva(r);
-                    rh.setFecha(detalle.getFecha());
-                    rh.setEstado(EstadoReserva.PENDIENTE); // Estado inicial por día
-                    r.addReservaHabitacion(rh);
+            if (habitacion != null) {
+                Reserva r = new Reserva();
+                r.setHuesped(huesped);
+                r.setHabitacion(habitacion);
+                r.setEstado(EstadoReserva.PENDIENTE);
+                r.setFechaDesde(detalle.getFechaDesde());
+                r.setFechaHasta(detalle.getFechaHasta());
+
+                BigDecimal montoReserva = BigDecimal.ZERO;
+                if (habitacion.getTipoHabitacion() != null && detalle.getFechaDesde() != null
+                        && detalle.getFechaHasta() != null) {
+                    long dias = java.time.temporal.ChronoUnit.DAYS.between(detalle.getFechaDesde(),
+                            detalle.getFechaHasta()) + 1;
+                    if (dias > 0) {
+                        BigDecimal costoDiario = habitacion.getTipoHabitacion().getCosto();
+                        montoReserva = costoDiario.multiply(new BigDecimal(dias));
+                    }
                 }
+                r.setMonto(montoReserva);
+
+                reservas.add(r);
             }
         }
 
-        r.setMonto(montoTotal);
-
-        return r;
+        return reservas;
     }
 }

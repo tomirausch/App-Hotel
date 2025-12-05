@@ -22,8 +22,11 @@ public class Estadia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "estadia", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EstadiaHabitacion> estadiaHabitaciones = new ArrayList<>();
+    @Column(name = "fecha_desde", nullable = false)
+    private java.time.LocalDate fechaDesde;
+
+    @Column(name = "fecha_hasta", nullable = false)
+    private java.time.LocalDate fechaHasta;
 
     @Column(name = "costo_estadia", precision = 10, scale = 2)
     private BigDecimal costoEstadia;
@@ -41,7 +44,11 @@ public class Estadia {
     @JoinColumn(name = "id_reserva_origen", nullable = true)
     private Reserva reservaOrigen;
 
-    @ManyToMany
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_habitacion", nullable = false)
+    private Habitacion habitacion;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "estadia_acompanantes", joinColumns = @JoinColumn(name = "id_estadia"), inverseJoinColumns = @JoinColumn(name = "id_acompanante"))
     private List<Acompaniante> acompanantes = new ArrayList<>();
 
@@ -52,14 +59,4 @@ public class Estadia {
     // Relación N:N con Servicio
     @OneToMany(mappedBy = "estadia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EstadiaServicio> estadiaServicios = new ArrayList<>();
-
-    public void addEstadiaHabitacion(EstadiaHabitacion estadiaHabitacion) {
-        estadiaHabitaciones.add(estadiaHabitacion);
-        estadiaHabitacion.setEstadia(this);
-    }
-
-    public void removeEstadiaHabitacion(EstadiaHabitacion estadiaHabitacion) {
-        estadiaHabitaciones.remove(estadiaHabitacion);
-        estadiaHabitacion.setEstadia(null);
-    }
 }

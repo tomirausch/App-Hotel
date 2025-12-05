@@ -1,6 +1,5 @@
 package com.example.crud.model;
 
-import com.example.crud.enums.EstadoHabitacion;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -33,9 +32,8 @@ public class Habitacion {
     @JoinColumn(name = "id_tipo_habitacion", nullable = false)
     private TipoHabitacion tipoHabitacion;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "estado_actual", nullable = false, length = 20)
-    private EstadoHabitacion estadoActual;
+    @Column(name = "fuera_de_servicio")
+    private Boolean fueraDeServicio = false;
 
     @Override
     public boolean equals(Object o) {
