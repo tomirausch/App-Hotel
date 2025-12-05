@@ -222,6 +222,7 @@ export default function ModificarHuesped() {
                             acciones: [{ texto: "Aceptar", estilo: "aceptar", onClick: () => router.push('/buscar-huesped') }]
                         });
                     } catch (error) {
+                        console.log(error);
                         mostrarErrorGenerico("No se pudo eliminar. Verifique que no tenga reservas activas.");
                         setBorrando(false); // Reactiva botones si falla
                     }

@@ -1,4 +1,4 @@
-package com.example.crud.dao;
+/*  package com.example.crud.dao;
 
 import com.example.crud.modelFacturacion.Pago;
 import com.example.crud.modelFacturacion.Factura;
@@ -17,3 +17,5 @@ public interface PagoDao {
 
     List<Pago> listarEntreFechas(LocalDate desde, LocalDate hasta);
 }
+
+*/

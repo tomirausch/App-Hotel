@@ -4,6 +4,10 @@ import com.example.crud.enums.TipoFactura;
 import com.example.crud.model.Estadia;
 import com.example.crud.model.Huesped;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -11,6 +15,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "facturas")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Factura {
 
     @Id
@@ -60,105 +68,4 @@ public class Factura {
     @ManyToOne
     @JoinColumn(name = "id_persona_juridica")
     private PersonaJuridica personaJuridica;
-
-    // Constructores
-    public Factura() {
-    }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getFechaEmision() {
-        return fechaEmision;
-    }
-
-    public void setFechaEmision(LocalDate fechaEmision) {
-        this.fechaEmision = fechaEmision;
-    }
-
-    public LocalTime getHoraEmision() {
-        return horaEmision;
-    }
-
-    public void setHoraEmision(LocalTime horaEmision) {
-        this.horaEmision = horaEmision;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getIva() {
-        return iva;
-    }
-
-    public void setIva(String iva) {
-        this.iva = iva;
-    }
-
-    public TipoFactura getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoFactura tipo) {
-        this.tipo = tipo;
-    }
-
-    public List<LineaFactura> getLineasFactura() {
-        return lineasFactura;
-    }
-
-    public void setLineasFactura(List<LineaFactura> lineasFactura) {
-        this.lineasFactura = lineasFactura;
-    }
-
-    public List<NotaCredito> getNotasCredito() {
-        return notasCredito;
-    }
-
-    public void setNotasCredito(List<NotaCredito> notasCredito) {
-        this.notasCredito = notasCredito;
-    }
-
-    public List<Pago> getPagos() {
-        return pagos;
-    }
-
-    public void setPagos(List<Pago> pagos) {
-        this.pagos = pagos;
-    }
-
-    public Estadia getEstadia() {
-        return estadia;
-    }
-
-    public void setEstadia(Estadia estadia) {
-        this.estadia = estadia;
-    }
-
-    public Huesped getHuesped() {
-        return huesped;
-    }
-
-    public void setHuesped(Huesped huesped) {
-        this.huesped = huesped;
-    }
-
-    public PersonaJuridica getPersonaJuridica() {
-        return personaJuridica;
-    }
-
-    public void setPersonaJuridica(PersonaJuridica personaJuridica) {
-        this.personaJuridica = personaJuridica;
-    }
 }

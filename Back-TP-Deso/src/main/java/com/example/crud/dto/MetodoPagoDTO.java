@@ -1,5 +1,14 @@
 package com.example.crud.dto;
 
+import lombok.Data;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MetodoPagoDTO {
 
     private Long id;
@@ -8,32 +17,19 @@ public class MetodoPagoDTO {
 
     private Long idPago;
 
-    // Constructores
-    public MetodoPagoDTO() {
-    }
+    // Campos para Tarjeta
+    private String tipoTarjeta; // Enum TipoTarjeta
+    private String marcaTarjeta; // Enum MarcaTarjeta
+    private String numeroTarjeta;
 
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
+    // Campos para Cheque
+    private String numeroCheque;
+    private String tipoCheque; // Enum TipoCheque
+    private String plaza;
+    private java.time.LocalDate fechaCobro;
+    private String banco;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTipoMetodo() {
-        return tipoMetodo;
-    }
-
-    public void setTipoMetodo(String tipoMetodo) {
-        this.tipoMetodo = tipoMetodo;
-    }
-
-    public Long getIdPago() {
-        return idPago;
-    }
-
-    public void setIdPago(Long idPago) {
-        this.idPago = idPago;
-    }
+    // Campos para Efectivo
+    private String moneda; // Enum TipoMoneda
+    private String cotizacion;
 }

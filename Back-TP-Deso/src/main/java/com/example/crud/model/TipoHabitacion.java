@@ -4,10 +4,18 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "tipos_habitacion")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TipoHabitacion {
 
     @Id
@@ -26,17 +34,4 @@ public class TipoHabitacion {
     @Size(max = 255)
     @Column(name = "descripcion", length = 255)
     private String descripcion;
-
-    // Getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public BigDecimal getCosto() { return costo; }
-    public void setCosto(BigDecimal costo) { this.costo = costo; }
-
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 }

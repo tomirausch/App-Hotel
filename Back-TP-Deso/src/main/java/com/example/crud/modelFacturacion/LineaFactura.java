@@ -1,10 +1,18 @@
 package com.example.crud.modelFacturacion;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "lineas_factura")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LineaFactura {
 
     @Id
@@ -31,65 +39,4 @@ public class LineaFactura {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_factura", nullable = false)
     private Factura factura;
-
-    // Constructores
-    public LineaFactura() {
-    }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public BigDecimal getImporte() {
-        return importe;
-    }
-
-    public void setImporte(BigDecimal importe) {
-        this.importe = importe;
-    }
-
-    public BigDecimal getPrecioUnitario() {
-        return precioUnitario;
-    }
-
-    public void setPrecioUnitario(BigDecimal precioUnitario) {
-        this.precioUnitario = precioUnitario;
-    }
-
-    public String getIva() {
-        return iva;
-    }
-
-    public void setIva(String iva) {
-        this.iva = iva;
-    }
-
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public Factura getFactura() {
-        return factura;
-    }
-
-    public void setFactura(Factura factura) {
-        this.factura = factura;
-    }
 }

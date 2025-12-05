@@ -7,6 +7,8 @@ import com.example.crud.model.Huesped;
 import com.example.crud.enums.TipoDocumento;
 import com.example.crud.service.GestorHuespedes;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +18,10 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/huespedes")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HuespedController {
 
     private final GestorHuespedes service;
-
-    public HuespedController(GestorHuespedes service) {
-        this.service = service;
-    }
 
     // ===========================================================
     // CU09 – Alta de huésped

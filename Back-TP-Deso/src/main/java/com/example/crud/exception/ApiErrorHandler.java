@@ -74,7 +74,7 @@ public class ApiErrorHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(body);
     }
-
+   
     // 3) Violaciones de unicidad u otras integridades -> 409 (nivel BD)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Map<String, Object>> handleDataIntegrity(DataIntegrityViolationException ex,
@@ -89,7 +89,7 @@ public class ApiErrorHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(body);
-    }
+    } 
 
     // 3.b) Documento duplicado desde la lógica de negocio (GestorHuespedes)
     @ExceptionHandler(DocumentoDuplicadoException.class)

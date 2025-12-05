@@ -1,11 +1,19 @@
 package com.example.crud.modelFacturacion;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "pagos")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pago {
 
     @Id
@@ -24,41 +32,4 @@ public class Pago {
     // Relación 1:N con MetodoPago
     @OneToMany(mappedBy = "pago", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MetodoPago> metodosPago = new ArrayList<>();
-
-    // Constructores
-    public Pago() {
-    }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Float getImporte() {
-        return importe;
-    }
-
-    public void setImporte(Float importe) {
-        this.importe = importe;
-    }
-
-    public Factura getFactura() {
-        return factura;
-    }
-
-    public void setFactura(Factura factura) {
-        this.factura = factura;
-    }
-
-    public List<MetodoPago> getMetodosPago() {
-        return metodosPago;
-    }
-
-    public void setMetodosPago(List<MetodoPago> metodosPago) {
-        this.metodosPago = metodosPago;
-    }
 }

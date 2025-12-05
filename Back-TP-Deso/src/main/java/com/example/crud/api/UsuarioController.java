@@ -1,26 +1,35 @@
 package com.example.crud.api;
 
-// import com.example.crud.dto.UsuarioDTO;
-// import com.example.crud.service.GestorUsuarios;
-// import jakarta.validation.Valid;
-// import org.springframework.http.*;
+import com.example.crud.dto.UsuarioDTO;
+import com.example.crud.service.GestorUsuarios;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/usuario")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UsuarioController {
 
-    // private final GestorUsuarios service;
+    private final GestorUsuarios service;
 
-    // public UsuarioController(GestorUsuarios service) {
-    // this.service = service;
-    // }
+    @PostMapping
+    public ResponseEntity<UsuarioDTO> crearUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+        UsuarioDTO nuevoUsuario = service.crearUsuario(usuarioDTO);
+        return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
+    }
 
-    // TODO: Implementar endpoints según sea necesario
-    // Ejemplos de endpoints que podrían agregarse:
-    // - POST /api/usuario (crear usuario)
-    // - POST /api/usuario/login (autenticar usuario)
-    // - PUT /api/usuario/{id} (modificar usuario)
-    // - DELETE /api/usuario/{id} (eliminar usuario)
+    @PostMapping("/login")
+    public ResponseEntity<Boolean> autenticarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        boolean autenticado = service.autenticarUsuario(usuarioDTO.getNombre(), usuarioDTO.getContrasena());
+        if (autenticado) {
+            return ResponseEntity.ok(true);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        }
+    }
 
 }

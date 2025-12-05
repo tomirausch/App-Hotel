@@ -1,12 +1,18 @@
 package com.example.crud.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "reservas")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Reserva {
 
     @Id
@@ -18,52 +24,20 @@ public class Reserva {
     @JoinColumn(name = "id_huesped", nullable = false)
     private Huesped huesped;
 
-    @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReservaHabitacion> reservaHabitaciones = new ArrayList<>();
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_habitacion", nullable = false)
+    private Habitacion habitacion;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private com.example.crud.enums.EstadoReserva estado;
+
+    @Column(name = "fecha_desde", nullable = false)
+    private java.time.LocalDate fechaDesde;
+
+    @Column(name = "fecha_hasta", nullable = false)
+    private java.time.LocalDate fechaHasta;
 
     @Column(name = "monto", precision = 10, scale = 2)
     private BigDecimal monto;
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Huesped getHuesped() {
-        return huesped;
-    }
-
-    public void setHuesped(Huesped huesped) {
-        this.huesped = huesped;
-    }
-
-    public List<ReservaHabitacion> getReservaHabitaciones() {
-        return reservaHabitaciones;
-    }
-
-    public void setReservaHabitaciones(List<ReservaHabitacion> reservaHabitaciones) {
-        this.reservaHabitaciones = reservaHabitaciones;
-    }
-
-    public void addReservaHabitacion(ReservaHabitacion reservaHabitacion) {
-        reservaHabitaciones.add(reservaHabitacion);
-        reservaHabitacion.setReserva(this);
-    }
-
-    public void removeReservaHabitacion(ReservaHabitacion reservaHabitacion) {
-        reservaHabitaciones.remove(reservaHabitacion);
-        reservaHabitacion.setReserva(null);
-    }
-
-    public BigDecimal getMonto() {
-        return monto;
-    }
-
-    public void setMonto(BigDecimal monto) {
-        this.monto = monto;
-    }
 }

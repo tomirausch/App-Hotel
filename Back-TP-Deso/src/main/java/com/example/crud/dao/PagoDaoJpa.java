@@ -1,46 +1,46 @@
-package com.example.crud.dao;
-
-import com.example.crud.modelFacturacion.Pago;
-import com.example.crud.modelFacturacion.Factura;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
-@Repository
-public class PagoDaoJpa implements PagoDao {
-
-    @PersistenceContext
-    private EntityManager em;
-
-    @Override
-    public Pago save(Pago pago) {
-        // TODO: Implementar
-        return null;
-    }
-
-    @Override
-    public void delete(Long id) {
-        // TODO: Implementar
-    }
-
-    @Override
-    public Pago modificar(Pago pago) {
-        // TODO: Implementar
-        return null;
-    }
-
-    @Override
-    public Optional<Pago> findByFactura(Factura factura) {
-        // TODO: Implementar
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Pago> listarEntreFechas(LocalDate desde, LocalDate hasta) {
-        // TODO: Implementar
-        return null;
-    }
-}
+/*
+ * package com.example.crud.dao;
+ * 
+ * import com.example.crud.modelFacturacion.Pago;
+ * import com.example.crud.modelFacturacion.Factura;
+ * import com.example.crud.repository.PagoRepository;
+ * import lombok.RequiredArgsConstructor;
+ * import org.springframework.beans.factory.annotation.Autowired;
+ * import org.springframework.stereotype.Repository;
+ * import java.time.LocalDate;
+ * import java.util.List;
+ * import java.util.Optional;
+ * 
+ * @Repository
+ * 
+ * @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+ * public class PagoDaoJpa implements PagoDao {
+ * 
+ * private final PagoRepository repository;
+ * 
+ * @Override
+ * public Pago save(Pago pago) {
+ * return repository.save(pago);
+ * }
+ * 
+ * @Override
+ * public void delete(Long id) {
+ * repository.deleteById(id);
+ * }
+ * 
+ * @Override
+ * public Pago modificar(Pago pago) {
+ * return repository.save(pago);
+ * }
+ * 
+ * @Override
+ * public Optional<Pago> findByFactura(Factura factura) {
+ * return repository.findByFactura(factura);
+ * }
+ * 
+ * @Override
+ * public List<Pago> listarEntreFechas(LocalDate desde, LocalDate hasta) {
+ * return repository.findByFechaBetween(desde, hasta);
+ * }
+ * }
+ */
