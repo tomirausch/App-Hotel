@@ -1,0 +1,60 @@
+.mainContainer{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.userBoxContainer{
+	height: 20vh;
+	width: 25vw;
+	min-width: 300px;
+	border-radius: 10px;
+	border: 2px solid whitesmoke;
+	display: flex;
+	flex-direction: column;
+  justify-content: space-evenly; 
+  align-items: center;
+	background-color: whitesmoke;
+}
+
+.avatarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userNameContainer{
+	text-align: center;
+	align-items: center;
+	color: #1E2448;
+}
+
+.avatarImage {
+  height: 70px; 
+  width: auto;
+	object-fit: cover;
+  border: 3px solid #10142a;
+	background-color: #1E2448;
+  border-radius: 50%;
+}
+
+.btnBase {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.botonCerrar {
+  composes: btnBase;
+  background-color: #f44336;
+  color: white;
+}
+
+.botonCerrar:hover {
+  background-color: #a82f27;
+}

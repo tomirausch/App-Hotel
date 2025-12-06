@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '@/styles/LoginModal.module.css';
+import styles from "./LoginModal.module.css";
 import { validarPassword } from '@/utils/validaciones';
 import { login } from '@/services/authService';
 
@@ -44,6 +44,7 @@ export default function LoginModal({ onLoginSuccess }) {
       await login(form.nombre, form.contrasena);
       sessionStorage.setItem("usuarioLogueado", "true");
       onLoginSuccess();
+      sessionStorage.setItem('nombreUsuario', form.nombre);
     } catch (err) {
       setErrores({ general: err.message || "Usuario o contraseña incorrectos" });
     } finally {
@@ -92,10 +93,13 @@ export default function LoginModal({ onLoginSuccess }) {
                 <button 
                   type="button" 
                   className={styles.toggleBtn}
+                  style={{display: 'flex', justifyContent: "center"}}
                   onClick={() => setMostrarPassword(!mostrarPassword)}
                   tabIndex="-1" 
                 >
-                  {mostrarPassword ? "🙈" : "👁️"} 
+                  {mostrarPassword ?
+                   <img style={{height: "25px"}} src="mostrar.png" alt="mostrar" /> :
+                    <img style={{height: "25px"}} src="esconder.png" alt="esconder" />} 
                 </button>
             </div>
             {errores.contrasena && <span className={styles.mensajeError}>{errores.contrasena}</span>}

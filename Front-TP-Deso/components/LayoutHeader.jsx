@@ -61,18 +61,6 @@ function LayoutHeader({ children, onLogout }) {
               <img className={styles.iconOption} src="/tarjeta-clave.png" alt="Icon" />
               <Link onClick={botonMenu} className={styles.liMenu} href="/ocupar-habitacion">Ocupar Habitación</Link>
             </li>
-            <li 
-                className={styles.opcionMenu} 
-                style={{cursor: 'pointer', marginTop: '20px', borderTop: '1px solid #ffffff50'}}
-                onClick={() => {
-                    botonMenu();
-                    onLogout();
-                }}
-            >
-              <img className={styles.iconOption} src="/cancelar.png" alt="Logout" style={{filter: 'invert(0)'}} /> 
-              {/* Nota: Si cancelar.png ya es blanco o de color, ajusta el filter. Si es negro y el fondo oscuro, usa invert(1) */}
-              <span className={styles.liMenu} style={{color: '#ef4444'}}>Cerrar Sesión</span>
-            </li>
           </div>
         </ul>
       </div>

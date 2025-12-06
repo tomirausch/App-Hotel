@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/Modal.module.css'; 
+import styles from './Modal.module.css'; 
 
 export default function FeedbackModal({ visible, tipo, titulo, mensaje, acciones }) {
   if (!visible) return null;

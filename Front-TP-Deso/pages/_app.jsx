@@ -15,11 +15,12 @@ export default function App({ Component, pageProps }) {
     }
   }, []);
 
-  const handleLogout = () => {
+const handleLogout = () => {
     sessionStorage.removeItem("usuarioLogueado");
-    setIsAuthenticated(false); 
+    sessionStorage.removeItem("nombreUsuario"); // Añadimos esto para ser completos
+    setIsAuthenticated(false); // <--- ESTO ES CLAVE
     router.push('/');
-  };
+};
 
   return (
     <>
@@ -30,9 +31,9 @@ export default function App({ Component, pageProps }) {
 
       {/* Si está autenticado, mostramos la App y pasamos la función de Logout */}
       <div style={{ display: isAuthenticated ? 'block' : 'none' }}>
-          <LayoutHeader onLogout={handleLogout}>
-            <Component {...pageProps} />
-          </LayoutHeader>
+        <LayoutHeader onLogout={handleLogout}>
+          <Component {...pageProps} onLogout={handleLogout} /> {/* 👈 PASAMOS LA FUNCIÓN AL COMPONENTE HIJO */}
+        </LayoutHeader>
       </div>
     </>
   );

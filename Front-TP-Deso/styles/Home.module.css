@@ -50,7 +50,6 @@
 
 .styleImage{
     height: 100px;
-    filter: invert(1);
 }
 
 .container::selection {

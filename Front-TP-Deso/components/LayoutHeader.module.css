@@ -30,7 +30,6 @@
 
 .icons{
     height: 30px;
-    filter: invert(1);
 }
 
 .titulo{
@@ -147,7 +146,6 @@
 
 .iconOption{
     height: 20px;
-    filter: invert(1);
 }
 
 .opcionesContainer{
