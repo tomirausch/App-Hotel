@@ -15,6 +15,8 @@ function LayoutHeader({ children, onLogout }) {
     "/buscar-huesped": "Buscar Huésped",
     "/reservar-habitacion": "Reservar Habitación",
     "/ocupar-habitacion": "Ocupar Habitación",
+    "/facturar": "Facturar",
+    "/cancelar-reserva": "Cancelar Reserva"
   };
   const tituloActual = titulos[router.pathname];
   return (
@@ -60,6 +62,14 @@ function LayoutHeader({ children, onLogout }) {
             <li className={styles.opcionMenu}>
               <img className={styles.iconOption} src="/tarjeta-clave.png" alt="Icon" />
               <Link onClick={botonMenu} className={styles.liMenu} href="/ocupar-habitacion">Ocupar Habitación</Link>
+            </li>
+            <li className={styles.opcionMenu}>
+              <img className={styles.iconOption} src="/cancelar-reserva.png" alt="Icon" />
+              <Link onClick={botonMenu} className={styles.liMenu} href="/cancelar-reserva">Cancelar Reserva</Link>
+            </li>
+            <li className={styles.opcionMenu}>
+              <img className={styles.iconOption} src="/facturas-de-papel.png" alt="Icon" />
+              <Link onClick={botonMenu} className={styles.liMenu} href="/facturar">Facturar</Link>
             </li>
           </div>
         </ul>
