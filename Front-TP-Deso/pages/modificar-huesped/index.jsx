@@ -435,21 +435,21 @@ export default function ModificarHuesped() {
           onClick={() => router.push('/buscar-huesped')}
           disabled={enviando || borrando}
         />
-        
-        <input
-          type="button"
-          value={borrando ? "Borrando..." : "Borrar"}
-          className={`${styles.btnCancelar} ${(enviando || borrando) ? styles.desactivado : ''}`}
-          style={{backgroundColor: '#b91c1c', marginLeft: '20px', marginRight: '20px'}}
-          onClick={confirmarBaja}
-          disabled={enviando || borrando}
-        />
 
         <input 
           type="submit" 
           form="formulario" 
           value={enviando ? "Guardando..." : "Guardar Cambios"} 
           className={`${styles.btnSiguiente} ${(enviando || borrando) ? styles.desactivado : ''}`} 
+          disabled={enviando || borrando}
+        />
+
+        <input
+          type="button"
+          value={borrando ? "Borrando..." : "Borrar Huesped"}
+          className={`${styles.btnCancelar} ${(enviando || borrando) ? styles.desactivado : ''}`}
+          style={{backgroundColor: '#b91c1c'}}
+          onClick={confirmarBaja}
           disabled={enviando || borrando}
         />
       </div>
