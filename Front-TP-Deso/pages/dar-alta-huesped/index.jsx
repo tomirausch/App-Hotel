@@ -80,7 +80,7 @@ export default function DarAltaHuesped() {
           setModalConfig({
             tipo: "documento_duplicado",
             titulo: "Numero y tipo de documento duplicado",
-            mensaje: `Ya existe un huesped con numero ${datos.NumeroDocumento} de ${datos.TipoDocumento}. ¿Desea sobreescribir los datos?`,
+            mensaje: `Ya existe un huesped con numero ${huespedExistente.numeroDocumento} de ${huespedExistente.tipoDocumento}. ¿Desea sobreescribir los datos?`,
             acciones: [
               {
                 texto: "Cancelar", estilo: "cancelar",
