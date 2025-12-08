@@ -8,7 +8,10 @@ import com.example.crud.dao.*;
 import com.example.crud.dto.*;
 import com.example.crud.enums.EstadoHabitacion;
 import com.example.crud.enums.EstadoReserva;
+import com.example.crud.enums.EstadoEstadia;
 import com.example.crud.exception.RecursoNoEncontradoException;
+import com.example.crud.dto.EstadiaDetalleDTO;
+
 import com.example.crud.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,6 @@ public class GestorHabitaciones {
     private final ReservaDao reservaDao;
     private final GestorHuespedes gestorHuespedes;
     private final EstadiaDao estadiaDao;
-    private final AcompanianteDao acompanianteDao;
     private final HuespedDao huespedDao;
 
     public List<Habitacion> listarTodas() {
@@ -91,10 +93,10 @@ public class GestorHabitaciones {
                 .orElseThrow(() -> new RecursoNoEncontradoException(
                         "No se encontró huésped con ID: " + request.getIdHuespedResponsable()));
 
-        // 2. Obtener acompañantes
-        List<Acompaniante> acompanantes = new ArrayList<>();
+        // 2. Obtener acompañantes (ahora son Huéspedes)
+        List<Huesped> acompanantes = new ArrayList<>();
         if (request.getListaAcompanantes() != null && !request.getListaAcompanantes().isEmpty()) {
-            acompanantes = acompanianteDao.findAllById(request.getListaAcompanantes());
+            acompanantes = huespedDao.findAllById(request.getListaAcompanantes());
         }
 
         // 3. Procesar detalle (única habitación)
@@ -124,7 +126,7 @@ public class GestorHabitaciones {
         }
         // 6. Crear Estadia
         Estadia nuevaEstadia = EstadiaMapper.toEntity(responsable, acompanantes, habitacion,
-                fechaDesde, fechaHasta, reservaOrigen);
+                fechaDesde, fechaHasta, reservaOrigen, EstadoEstadia.ACTIVA);
 
         return estadiaDao.save(nuevaEstadia);
     }
@@ -181,5 +183,65 @@ public class GestorHabitaciones {
         return reservas.stream()
                 .anyMatch(r -> !r.getFechaDesde().isAfter(fecha)
                         && !r.getFechaHasta().isBefore(fecha));
+    }
+
+    @Transactional
+    public EstadiaDetalleDTO obtenerDetallesEstadia(Integer numeroHabitacion) {
+        Estadia estadia = estadiaDao.findActiveByHabitacionNumero(numeroHabitacion)
+                .orElseThrow(() -> new RecursoNoEncontradoException(
+                        "No hay estadía activa para la habitación " + numeroHabitacion));
+
+        // Mapear ocupantes (Responsable + Acompañantes)
+        List<HuespedDTO> ocupantes = new ArrayList<>();
+
+        // Responsable como HuespedDTO
+        Huesped responsable = estadia.getResponsable();
+        ocupantes.add(HuespedMapper.toHuespedDTO(responsable));
+
+        // Acompañantes
+        if (estadia.getAcompanantes() != null) {
+            ocupantes.addAll(estadia.getAcompanantes().stream()
+                    .map(HuespedMapper::toHuespedDTO)
+                    .collect(Collectors.toList()));
+        }
+
+        // Mapear servicios consumidos
+        List<ServicioDTO> servicios = estadia.getEstadiaServicios().stream()
+                .map(es -> ServicioDTO.builder()
+                        .id(es.getServicio().getId())
+                        .nombre(es.getServicio().getNombre())
+                        .precioUnidad(es.getServicio().getPrecioUnidad())
+                        .detalle(es.getServicio().getDetalle())
+                        .build())
+                .collect(Collectors.toList());
+
+        return EstadiaDetalleDTO.builder()
+                .idEstadia(estadia.getId())
+                .costoBaseEstadia(estadia.getCostoEstadia())
+                .ocupantes(ocupantes)
+                .serviciosConsumidos(servicios)
+                .build();
+    }
+
+    public List<ReservaPendienteDTO> buscarReservasPendientes(String nombre, String apellido) {
+        List<Reserva> reservas = reservaDao.findPendingByGuestName(nombre, apellido);
+        return reservas.stream()
+                .map(r -> ReservaPendienteDTO.builder()
+                        .id(r.getId())
+                        .apellidoHuesped(r.getHuesped().getApellido())
+                        .nombreHuesped(r.getHuesped().getNombre())
+                        .numeroHabitacion(r.getHabitacion().getNumero())
+                        .nombreTipoHabitacion(r.getHabitacion().getTipoHabitacion().getNombre())
+                        .fechaDesde(r.getFechaDesde())
+                        .fechaHasta(r.getFechaHasta())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void cancelarReservas(List<Long> ids) {
+        List<Reserva> reservas = reservaDao.findAllById(ids);
+        reservas.forEach(r -> r.setEstado(EstadoReserva.CANCELADA));
+        reservaDao.saveAll(reservas);
     }
 }

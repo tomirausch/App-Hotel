@@ -23,14 +23,8 @@ public class LineaFactura {
     @Column(name = "descripcion", length = 255)
     private String descripcion;
 
-    @Column(name = "importe", precision = 10, scale = 2)
-    private BigDecimal importe;
-
     @Column(name = "precio_unitario", precision = 10, scale = 2)
     private BigDecimal precioUnitario;
-
-    @Column(name = "iva", length = 10)
-    private String iva;
 
     @Column(name = "cantidad")
     private Integer cantidad;

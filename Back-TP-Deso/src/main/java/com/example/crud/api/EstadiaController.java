@@ -1,6 +1,7 @@
 package com.example.crud.api;
 
 import com.example.crud.dto.EstadiaDTO;
+import com.example.crud.dto.EstadiaDetalleDTO;
 import com.example.crud.model.Estadia;
 import com.example.crud.service.GestorHabitaciones;
 import jakarta.validation.Valid;
@@ -25,5 +26,11 @@ public class EstadiaController {
         return ResponseEntity
                 .created(URI.create("/api/estadias/" + estadia.getId()))
                 .body("Estadía creada con éxito. ID: " + estadia.getId());
+    }
+
+    @GetMapping("/detalles")
+    public ResponseEntity<EstadiaDetalleDTO> obtenerDetallesEstadia(@RequestParam Integer numeroHabitacion) {
+        EstadiaDetalleDTO detalle = gestorHabitaciones.obtenerDetallesEstadia(numeroHabitacion);
+        return ResponseEntity.ok(detalle);
     }
 }

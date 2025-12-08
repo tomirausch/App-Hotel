@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -22,17 +21,11 @@ public class FacturaDaoJpa implements FacturaDao {
 
     @Override
     public void delete(String numero) {
-        repository.findByNumero(numero).ifPresent(repository::delete);
     }
 
     @Override
     public Factura modificar(Factura factura) {
         return repository.save(factura);
-    }
-
-    @Override
-    public Optional<Factura> findByNumero(String numero) {
-        return repository.findByNumero(numero);
     }
 
     @Override

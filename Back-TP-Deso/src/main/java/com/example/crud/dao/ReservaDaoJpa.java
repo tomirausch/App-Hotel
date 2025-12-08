@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -38,5 +39,15 @@ public class ReservaDaoJpa implements ReservaDao {
   @Override
   public Optional<Reserva> findById(Long id) {
     return repository.findById(id);
+  }
+
+  @Override
+  public java.util.List<Reserva> findPendingByGuestName(String nombre, String apellido) {
+    return repository.findPendingByGuestName(nombre, apellido);
+  }
+
+  @Override
+  public java.util.List<Reserva> findAllById(List<Long> ids) {
+    return repository.findAllById(ids);
   }
 }

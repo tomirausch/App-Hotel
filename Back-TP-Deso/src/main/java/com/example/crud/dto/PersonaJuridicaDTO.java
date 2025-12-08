@@ -21,4 +21,17 @@ public class PersonaJuridicaDTO {
     @NotBlank(message = "El CUIT es obligatorio")
     @Size(max = 20)
     private String cuit;
+
+    @Size(max = 30)
+    private String telefono;
+
+    @Size(max = 100)
+    private String calle;
+
+    private Integer numero;
+
+    @Size(max = 10)
+    private String departamento;
+
+    private Integer piso;
 }

@@ -3,29 +3,24 @@ package com.example.crud.dao;
 import com.example.crud.modelFacturacion.PersonaJuridica;
 import com.example.crud.repository.PersonaJuridicaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class PersonaJuridicaDaoJpa implements PersonaJuridicaDao {
 
     private final PersonaJuridicaRepository repository;
 
     @Override
-    public PersonaJuridica save(PersonaJuridica personaJuridica) {
-        return repository.save(personaJuridica);
+    public PersonaJuridica save(PersonaJuridica persona) {
+        return repository.save(persona);
     }
 
     @Override
-    public void delete(String cuit) {
-        repository.findByCuit(cuit).ifPresent(repository::delete);
-    }
-
-    @Override
-    public PersonaJuridica modificar(PersonaJuridica personaJuridica) {
-        return repository.save(personaJuridica);
+    public Optional<PersonaJuridica> findById(Long id) {
+        return repository.findById(id);
     }
 
     @Override

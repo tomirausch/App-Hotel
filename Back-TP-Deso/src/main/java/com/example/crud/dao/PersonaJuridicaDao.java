@@ -4,11 +4,9 @@ import com.example.crud.modelFacturacion.PersonaJuridica;
 import java.util.Optional;
 
 public interface PersonaJuridicaDao {
-    PersonaJuridica save(PersonaJuridica personaJuridica);
+    PersonaJuridica save(PersonaJuridica persona);
 
-    void delete(String cuit);
-
-    PersonaJuridica modificar(PersonaJuridica personaJuridica);
+    Optional<PersonaJuridica> findById(Long id);
 
     Optional<PersonaJuridica> findByCuit(String cuit);
 }

@@ -17,4 +17,8 @@ public interface ReservaDao {
 
         Optional<Reserva> findById(Long id);
 
+        List<Reserva> findPendingByGuestName(String nombre, String apellido);
+
+        List<Reserva> findAllById(List<Long> ids);
+
 }

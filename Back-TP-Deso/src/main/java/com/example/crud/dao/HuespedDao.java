@@ -19,4 +19,6 @@ public interface HuespedDao {
     Optional<Huesped> findById(Long id);
 
     void delete(Huesped h);
+
+    List<Huesped> findAllById(List<Long> ids);
 }

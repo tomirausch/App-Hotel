@@ -1,14 +1,17 @@
 package com.example.crud.service;
 
 import com.example.crud.dao.HuespedDao;
-import com.example.crud.dto.AcompanianteDTO;
 import com.example.crud.dto.HuespedDTO;
 import com.example.crud.exception.RecursoNoEncontradoException;
-import com.example.crud.dao.AcompanianteDao;
-import com.example.crud.model.Acompaniante;
 import com.example.crud.model.Huesped;
 import com.example.crud.enums.TipoDocumento;
-import com.example.crud.auxiliares.AcompanianteMapper;
+import com.example.crud.auxiliares.HuespedMapper;
+import com.example.crud.dto.PersonaJuridicaDTO;
+import com.example.crud.modelFacturacion.PersonaJuridica;
+import com.example.crud.auxiliares.PersonaJuridicaMapper;
+import com.example.crud.exception.DocumentoDuplicadoException;
+import com.example.crud.dao.PersonaJuridicaDao;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +24,11 @@ import java.util.Optional;
 public class GestorHuespedes {
 
     private final HuespedDao dao;
-    private final AcompanianteDao acompanianteDao;
+    private final PersonaJuridicaDao personaJuridicaDao;
 
     @Transactional
     public Huesped crear(HuespedDTO datos) {
-        Huesped nuevo = com.example.crud.auxiliares.HuespedMapper.toEntity(datos);
+        Huesped nuevo = HuespedMapper.toEntity(datos);
         return dao.save(nuevo);
     }
 
@@ -47,7 +50,7 @@ public class GestorHuespedes {
     public Huesped actualizar(Long id, HuespedDTO datos) {
         Huesped existente = dao.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró el huésped con id=" + id));
-        com.example.crud.auxiliares.HuespedMapper.updateEntity(existente, datos);
+        HuespedMapper.updateEntity(existente, datos);
         return dao.save(existente);
     }
 
@@ -59,16 +62,19 @@ public class GestorHuespedes {
     }
 
     @Transactional
-    public AcompanianteDTO darDeAltaAcompaniante(AcompanianteDTO dto) {
-        Acompaniante nuevo = AcompanianteMapper.toEntity(dto);
-        return AcompanianteMapper.toDTO(acompanianteDao.save(nuevo));
+    public PersonaJuridicaDTO crearPersonaJuridica(PersonaJuridicaDTO dto) {
+        if (personaJuridicaDao.findByCuit(dto.getCuit()).isPresent()) {
+            throw new DocumentoDuplicadoException("Ya existe una persona jurídica con CUIT " + dto.getCuit());
+        }
+        PersonaJuridica nueva = PersonaJuridicaMapper.toEntity(dto);
+        return PersonaJuridicaMapper.toDTO(personaJuridicaDao.save(nueva));
     }
 
     @Transactional
-    public AcompanianteDTO buscarAcompaniante(TipoDocumento tipoDoc, String numeroDoc) {
-        Acompaniante encontrado = acompanianteDao.findByDocumento(tipoDoc, numeroDoc)
+    public PersonaJuridicaDTO buscarPersonaJuridicaPorCuit(String cuit) {
+        PersonaJuridica encontrado = personaJuridicaDao.findByCuit(cuit)
                 .orElseThrow(() -> new RecursoNoEncontradoException(
-                        "No se encontró acompañante con documento: " + numeroDoc));
-        return AcompanianteMapper.toDTO(encontrado);
+                        "No se encontró persona jurídica con CUIT: " + cuit));
+        return PersonaJuridicaMapper.toDTO(encontrado);
     }
 }

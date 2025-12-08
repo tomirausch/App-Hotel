@@ -34,4 +34,9 @@ public class EstadiaDaoJpa implements EstadiaDao {
     public Optional<Estadia> findById(Long id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Optional<Estadia> findActiveByHabitacionNumero(Integer numeroHabitacion) {
+        return repository.findActiveByHabitacionNumero(numeroHabitacion);
+    }
 }

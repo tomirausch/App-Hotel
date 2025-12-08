@@ -13,4 +13,5 @@ public interface EstadiaDao {
 
     Optional<Estadia> findById(Long id);
 
+    Optional<Estadia> findActiveByHabitacionNumero(Integer numeroHabitacion);
 }

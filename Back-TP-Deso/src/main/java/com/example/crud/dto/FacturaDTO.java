@@ -19,21 +19,20 @@ public class FacturaDTO {
 
     private Long id;
 
-    @NotNull(message = "La fecha de emisión es obligatoria")
     private LocalDate fechaEmision;
 
-    @NotNull(message = "La hora de emisión es obligatoria")
     private LocalTime horaEmision;
-
-    @NotBlank(message = "El número es obligatorio")
-    @Size(max = 50)
-    private String numero;
 
     @Size(max = 10)
     private String iva;
 
-    @NotNull(message = "El tipo de factura es obligatorio")
+    private Double montoTotal;
+
+    private com.example.crud.enums.TipoMoneda tipoMoneda;
+
     private TipoFactura tipo;
+
+    private com.example.crud.enums.EstadoFactura estado;
 
     private Long idEstadia;
 
@@ -46,4 +45,11 @@ public class FacturaDTO {
 
     @Builder.Default
     private List<NotaCreditoDTO> notasCredito = new ArrayList<>();
+
+    @Builder.Default
+    private List<LineaFacturaDTO> lineas = new ArrayList<>();
+
+    public List<LineaFacturaDTO> getLineas() {
+        return lineas;
+    }
 }

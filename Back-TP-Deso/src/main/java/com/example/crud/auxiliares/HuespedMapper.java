@@ -118,4 +118,8 @@ public final class HuespedMapper {
                 .telefono(source.getTelefono())
                 .build();
     }
+
+    public static HuespedDTO toHuespedDTO(Huesped h) {
+        return toDTO(h);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.crud.auxiliares;
 
 import com.example.crud.model.*;
+import com.example.crud.enums.EstadoEstadia;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,11 +11,12 @@ public final class EstadiaMapper {
     }
 
     public static Estadia toEntity(Huesped responsable,
-            List<Acompaniante> acompanantes,
+            List<Huesped> acompanantes,
             Habitacion habitacion,
             java.time.LocalDate fechaDesde,
             java.time.LocalDate fechaHasta,
-            Reserva reservaOrigen) {
+            Reserva reservaOrigen,
+            EstadoEstadia estado) {
         Estadia nuevaEstadia = new Estadia();
         nuevaEstadia.setResponsable(responsable);
         nuevaEstadia.setAcompanantes(acompanantes);
@@ -23,6 +25,7 @@ public final class EstadiaMapper {
         nuevaEstadia.setFechaHasta(fechaHasta);
         nuevaEstadia.setDescuento(0.0);
         nuevaEstadia.setReservaOrigen(reservaOrigen);
+        nuevaEstadia.setEstado(estado);
 
         int cantidad = 1;
         if (acompanantes != null) {

@@ -1,6 +1,7 @@
 package com.example.crud.model;
 
 import com.example.crud.modelFacturacion.Factura;
+import com.example.crud.enums.EstadoEstadia;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,10 @@ public class Estadia {
     @Column(name = "cant_personas")
     private Integer cantPersonas;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado")
+    private EstadoEstadia estado;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_huesped_responsable", nullable = false)
     private Huesped responsable;
@@ -49,8 +54,8 @@ public class Estadia {
     private Habitacion habitacion;
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "estadia_acompanantes", joinColumns = @JoinColumn(name = "id_estadia"), inverseJoinColumns = @JoinColumn(name = "id_acompanante"))
-    private List<Acompaniante> acompanantes = new ArrayList<>();
+    @JoinTable(name = "estadia_huespedes", joinColumns = @JoinColumn(name = "id_estadia"), inverseJoinColumns = @JoinColumn(name = "id_huesped"))
+    private List<Huesped> acompanantes = new ArrayList<>();
 
     // Relación 1:N con Factura
     @OneToMany(mappedBy = "estadia", cascade = CascadeType.ALL, orphanRemoval = true)

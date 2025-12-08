@@ -1,5 +1,6 @@
 package com.example.crud.dto;
 
+import com.example.crud.enums.EstadoEstadia;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Builder;
@@ -27,6 +28,8 @@ public class EstadiaDTO {
 
     @NotNull(message = "La fecha hasta es obligatoria")
     private LocalDate fechaHasta;
+
+    private EstadoEstadia estado;
 
     private List<Long> listaAcompanantes;
 }

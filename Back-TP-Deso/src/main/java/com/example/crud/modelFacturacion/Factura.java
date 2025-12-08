@@ -32,15 +32,23 @@ public class Factura {
     @Column(name = "hora_emision")
     private LocalTime horaEmision;
 
-    @Column(name = "numero", length = 50)
-    private String numero;
-
     @Column(name = "iva", length = 10)
     private String iva;
+
+    @Column(name = "monto_total")
+    private Double montoTotal;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_moneda", length = 20)
+    private com.example.crud.enums.TipoMoneda tipoMoneda;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", length = 20)
     private TipoFactura tipo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado", length = 20)
+    private com.example.crud.enums.EstadoFactura estado;
 
     // Relación 1:N con LineaFactura
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true)

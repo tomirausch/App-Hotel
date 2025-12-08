@@ -70,4 +70,9 @@ public class HuespedDaoJpa implements HuespedDao {
     public void delete(Huesped h) {
         repository.delete(h);
     }
+
+    @Override
+    public List<Huesped> findAllById(List<Long> ids) {
+        return repository.findAllById(ids);
+    }
 }

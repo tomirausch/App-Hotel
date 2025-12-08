@@ -1,8 +1,8 @@
 package com.example.crud.api;
 
 import com.example.crud.auxiliares.HuespedMapper;
-import com.example.crud.dto.AcompanianteDTO;
 import com.example.crud.dto.HuespedDTO;
+import com.example.crud.dto.PersonaJuridicaDTO;
 import com.example.crud.model.Huesped;
 import com.example.crud.enums.TipoDocumento;
 import com.example.crud.service.GestorHuespedes;
@@ -71,20 +71,17 @@ public class HuespedController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/acompanantes")
-    public ResponseEntity<AcompanianteDTO> crearAcompaniante(@RequestBody AcompanianteDTO datosContacto) {
-        AcompanianteDTO creado = service.darDeAltaAcompaniante(datosContacto);
+    @PostMapping("/persona-juridica")
+    public ResponseEntity<PersonaJuridicaDTO> crearPersonaJuridica(@Valid @RequestBody PersonaJuridicaDTO request) {
+        PersonaJuridicaDTO creado = service.crearPersonaJuridica(request);
         return ResponseEntity
-                .created(URI.create("/api/huespedes/acompañantes/" + creado.getId()))
+                .created(URI.create("/api/huespedes/persona-juridica/" + creado.getId()))
                 .body(creado);
     }
 
-    @GetMapping("/acompanantes/buscar")
-    public ResponseEntity<AcompanianteDTO> buscarAcompaniante(@RequestParam TipoDocumento tipoDoc,
-            @RequestParam String numeroDoc) {
-        AcompanianteDTO encontrado = service.buscarAcompaniante(tipoDoc, numeroDoc);
-        return ResponseEntity
-                .created(URI.create("/api/huespedes/acompañantes/buscar/" + encontrado.getId()))
-                .body(encontrado);
+    @GetMapping("/persona-juridica/buscar")
+    public ResponseEntity<PersonaJuridicaDTO> buscarPersonaJuridicaPorCuit(@RequestParam String cuit) {
+        PersonaJuridicaDTO encontrado = service.buscarPersonaJuridicaPorCuit(cuit);
+        return ResponseEntity.ok(encontrado);
     }
 }

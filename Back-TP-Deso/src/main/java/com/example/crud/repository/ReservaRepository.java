@@ -22,4 +22,9 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
         java.util.List<Reserva> findAllInDateRange(
                         @Param("fechaDesde") java.time.LocalDate fechaDesde,
                         @Param("fechaHasta") java.time.LocalDate fechaHasta);
+
+        @Query("SELECT r FROM Reserva r WHERE r.estado = 'PENDIENTE' AND r.huesped.apellido LIKE %:apellido% AND (:nombre IS NULL OR r.huesped.nombre LIKE %:nombre%)")
+        java.util.List<Reserva> findPendingByGuestName(
+                        @Param("nombre") String nombre,
+                        @Param("apellido") String apellido);
 }

@@ -2,13 +2,13 @@ const API_URL = "http://localhost:8080/api/huespedes";
 
 export const buscarHuespedes = async (filtros) => {
   const params = new URLSearchParams();
-  Object.keys(filtros).forEach(key => {
+  Object.keys(filtros).forEach((key) => {
     if (filtros[key]) params.append(key, filtros[key]);
   });
 
   const response = await fetch(`${API_URL}/buscar?${params.toString()}`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
   });
 
   if (!response.ok) {
@@ -19,8 +19,8 @@ export const buscarHuespedes = async (filtros) => {
 
 export const crearHuesped = async (datosHuesped) => {
   const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(datosHuesped),
   });
 
@@ -31,11 +31,10 @@ export const crearHuesped = async (datosHuesped) => {
   return await response.json();
 };
 
-
 export const actualizarHuesped = async (id, datosHuesped) => {
   const response = await fetch(`${API_URL}/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(datosHuesped),
   });
 
@@ -46,12 +45,15 @@ export const actualizarHuesped = async (id, datosHuesped) => {
   return await response.json();
 };
 
-export const buscarAcompanante = async (tipoDoc, numeroDoc) => {
-  const params = new URLSearchParams({ tipoDoc, numeroDoc });
-  const response = await fetch(`${API_URL}/acompanantes/buscar?${params.toString()}`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-  });
+export const buscarAcompanante = async (tipoDocumento, numeroDocumento) => {
+  const params = new URLSearchParams({ tipoDocumento, numeroDocumento });
+  const response = await fetch(
+    `${API_URL}/buscar?${params.toString()}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Error al buscar huéspedes");
@@ -61,8 +63,8 @@ export const buscarAcompanante = async (tipoDoc, numeroDoc) => {
 
 export const obtenerHuespedPorId = async (id) => {
   const response = await fetch(`${API_URL}/${id}`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
   });
 
   if (!response.ok) {
@@ -73,8 +75,8 @@ export const obtenerHuespedPorId = async (id) => {
 
 export const eliminarHuesped = async (id) => {
   const response = await fetch(`${API_URL}/${id}`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
   });
 
   if (!response.ok) {
