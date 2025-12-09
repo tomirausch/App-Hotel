@@ -116,3 +116,25 @@ export const validarPassword = (password) => {
 };
 
 const esDigito = (charCode) => charCode >= 48 && charCode <= 57;
+
+export const validarBuesquedaReserva = (formData) => {
+
+  const errores = {};
+
+  const camposObligatorios = [
+    "Apellido"
+  ];
+
+  camposObligatorios.forEach((campo) => {
+    const valor = formData.get(campo);
+    if (!valor || valor.toString().trim() === "") {
+      errores[campo] = "Este campo es obligatorio";
+    }
+  });
+
+  return {
+    esValido: Object.keys(errores).length === 0,
+    errores,
+  };
+
+}
