@@ -1,12 +1,19 @@
-import styles from "../../styles/ReservarHabitacion.module.css"
-import Head from 'next/head';
+import styles from "../../styles/ReservarHabitacion.module.css";
+import Head from "next/head";
 import { useState, useMemo } from "react";
-import { obtenerEstadoHabitaciones, crearReserva } from "@/services/reservaService";
-import { fechasEntreFechas, formatearFecha, obtenerNombreDia, formatearFechaHora } from "@/utils/dates";
+import {
+  obtenerEstadoHabitaciones,
+  crearReserva,
+} from "@/services/reservaService";
+import {
+  fechasEntreFechas,
+  formatearFecha,
+  obtenerNombreDia,
+  formatearFechaHora,
+} from "@/utils/dates";
 import Modal from "@/components/Modal";
 
 export default function ReservarHabitacion() {
-
   const [habitaciones, setHabitaciones] = useState([]);
   const [seleccionadoInicio, setSeleccionadoInicio] = useState([]);
   const [seleccionadoFin, setSeleccionadoFin] = useState([]);
@@ -15,44 +22,61 @@ export default function ReservarHabitacion() {
   const [cargando, setCargando] = useState(false);
   const [fechaDesde, setFechaDesde] = useState("");
   const [fechaHasta, setFechaHasta] = useState("");
-  const [mostrandoFormularioHuesped, setMostrandoFormularioHuesped] = useState(false);
+  const [mostrandoFormularioHuesped, setMostrandoFormularioHuesped] =
+    useState(false);
   const [errores, setErrores] = useState({});
-  
-  const [modalConfig, setModalConfig] = useState({ 
-    visible: false, tipo: "", titulo: "", mensaje: "", acciones: [] 
+
+  const [modalConfig, setModalConfig] = useState({
+    visible: false,
+    tipo: "",
+    titulo: "",
+    mensaje: "",
+    acciones: [],
   });
 
-  const cerrarModal = () => setModalConfig(prev => ({ ...prev, visible: false }));
-  
+  const cerrarModal = () =>
+    setModalConfig((prev) => ({ ...prev, visible: false }));
+
   const mostrarError = (mensaje) => {
     setModalConfig({
-      visible: true, type: "error", titulo: "¡Atención!", mensaje: mensaje,
-      acciones: [{ texto: "Entendido", estilo: "cancelar", onClick: cerrarModal }]
+      visible: true,
+      type: "error",
+      titulo: "¡Atención!",
+      mensaje: mensaje,
+      acciones: [
+        { texto: "Entendido", estilo: "cancelar", onClick: cerrarModal },
+      ],
     });
   };
 
   const soloNumeros = (e) => {
-    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    e.target.value = e.target.value.replace(/[^0-9]/g, "");
   };
 
   const seleccionadaReserva = useMemo(() => {
     if (seleccionadoInicio.length === 0) return [];
     if (seleccionadoFin.length === 0) return [seleccionadoInicio];
     const dias = fechasEntreFechas(seleccionadoInicio[0], seleccionadoFin[0]);
-    return dias.map(fecha => [fecha, seleccionadoInicio[1]]);
+    return dias.map((fecha) => [fecha, seleccionadoInicio[1]]);
   }, [seleccionadoInicio, seleccionadoFin]);
 
   const ordenarDatos = useMemo(() => {
     if (!habitaciones) return [];
     const habitacionesOrdenadas = [...habitaciones].sort((a, b) => {
-      const dateA = new Date(a.fecha); const dateB = new Date(b.fecha);
-      if(dateA - dateB !== 0) return dateA - dateB;
+      const dateA = new Date(a.fecha);
+      const dateB = new Date(b.fecha);
+      if (dateA - dateB !== 0) return dateA - dateB;
       return parseInt(a.numero) - parseInt(b.numero);
     });
     const columnas = {};
-    habitacionesOrdenadas.forEach(h => {
+    habitacionesOrdenadas.forEach((h) => {
       if (!columnas[h.id]) {
-        columnas[h.id] = { id: h.id, tipo: h.tipoHabitacion, numero: h.numero, estados: {} };
+        columnas[h.id] = {
+          id: h.id,
+          tipo: h.tipoHabitacion,
+          numero: h.numero,
+          estados: {},
+        };
       }
       columnas[h.id].estados[h.fecha] = h.estado;
     });
@@ -68,17 +92,21 @@ export default function ReservarHabitacion() {
   const handleAgregarSeleccion = () => {
     if (seleccionadaReserva.length === 0) return;
     if (seleccionadaReserva.length < 2) {
-      mostrarError("La estancia mínima es de 2 días. Selecciona fecha de entrada y salida.");
+      mostrarError(
+        "La estancia mínima es de 2 días. Selecciona fecha de entrada y salida."
+      );
       return;
     }
     const hayNoDisponibles = seleccionadaReserva.some((item) => {
       const [fecha, idColumna] = item;
       const estadoCelda = ordenarDatos[idColumna]?.estados[fecha];
-      return estadoCelda !== 'DISPONIBLE';
+      return estadoCelda !== "DISPONIBLE";
     });
 
     if (hayNoDisponibles) {
-      mostrarError("La habitación no se encuentra DISPONIBLE para las fechas seleccionadas.");
+      mostrarError(
+        "La habitación no se encuentra DISPONIBLE para las fechas seleccionadas."
+      );
       return;
     }
     setReservasAcumuladas((prev) => [...prev, ...seleccionadaReserva]);
@@ -91,8 +119,8 @@ export default function ReservarHabitacion() {
     e.preventDefault();
 
     const anioMinimo = 2024;
-    const anioDesde = parseInt(fechaDesde.split('-')[0]);
-    const anioHasta = parseInt(fechaHasta.split('-')[0]);
+    const anioDesde = parseInt(fechaDesde.split("-")[0]);
+    const anioHasta = parseInt(fechaHasta.split("-")[0]);
 
     if (anioDesde < anioMinimo || anioHasta < anioMinimo) {
       mostrarError(`Las fechas no pueden ser anteriores al año ${anioMinimo}.`);
@@ -112,39 +140,59 @@ export default function ReservarHabitacion() {
     setCargando(true);
     try {
       const data = await obtenerEstadoHabitaciones(fechaDesde, fechaHasta);
-      console.log(data);
       setHabitaciones(data);
-    } catch (e) { 
-      console.error(e);
+    } catch (e) {
       mostrarError("Error al conectar con el servidor.");
-    } finally { 
-      setCargando(false); 
+    } finally {
+      setCargando(false);
     }
   };
 
   const mostrarResultados = () => {
     const columnas = ordenarDatos;
     const fechas = new Set();
-    habitaciones.forEach(hab => fechas.add(hab.fecha));
+    habitaciones.forEach((hab) => fechas.add(hab.fecha));
     const fechasArray = Array.from(fechas).sort();
 
     const manejarClick = (fecha, idColumna) => {
-      const esMismoInicio = seleccionadoInicio.length > 0 && seleccionadoInicio[0] === fecha && seleccionadoInicio[1] === idColumna;
-      if (esMismoInicio) { setSeleccionadoInicio([]); setSeleccionadoFin([]); return; }
-      if (seleccionadoInicio.length === 0) { setSeleccionadoInicio([fecha, idColumna]); } 
-      else if (seleccionadoFin.length === 0) {
-        if (seleccionadoInicio[1] !== idColumna) { setSeleccionadoInicio([fecha, idColumna]); return; }
-        const dInicio = new Date(seleccionadoInicio[0]); const dClick = new Date(fecha);
-        if (dClick < dInicio) { setSeleccionadoFin(seleccionadoInicio); setSeleccionadoInicio([fecha, idColumna]); } else { setSeleccionadoFin([fecha, idColumna]); }
-      } else { setSeleccionadoInicio([fecha, idColumna]); setSeleccionadoFin([]); }
+      const esMismoInicio =
+        seleccionadoInicio.length > 0 &&
+        seleccionadoInicio[0] === fecha &&
+        seleccionadoInicio[1] === idColumna;
+      if (esMismoInicio) {
+        setSeleccionadoInicio([]);
+        setSeleccionadoFin([]);
+        return;
+      }
+      if (seleccionadoInicio.length === 0) {
+        setSeleccionadoInicio([fecha, idColumna]);
+      } else if (seleccionadoFin.length === 0) {
+        if (seleccionadoInicio[1] !== idColumna) {
+          setSeleccionadoInicio([fecha, idColumna]);
+          return;
+        }
+        const dInicio = new Date(seleccionadoInicio[0]);
+        const dClick = new Date(fecha);
+        if (dClick < dInicio) {
+          setSeleccionadoFin(seleccionadoInicio);
+          setSeleccionadoInicio([fecha, idColumna]);
+        } else {
+          setSeleccionadoFin([fecha, idColumna]);
+        }
+      } else {
+        setSeleccionadoInicio([fecha, idColumna]);
+        setSeleccionadoFin([]);
+      }
     };
 
     const obtenerClaseSeleccion = (f, id, e) => {
-      let c = `${styles.celdaEstado} ${styles[`estado${e}`] || ''}`;
-      if (reservasAcumuladas.some(i => i[0] === f && i[1] === id)) return `${c} ${styles.estadoAgregado}`;
+      let c = `${styles.celdaEstado} ${styles[`estado${e}`] || ""}`;
+      if (reservasAcumuladas.some((i) => i[0] === f && i[1] === id))
+        return `${c} ${styles.estadoAgregado}`;
       if (seleccionadoInicio.length === 0) return c;
       if (seleccionadoInicio[1] !== id) return c;
-      const tC = new Date(f).getTime(); const tI = new Date(seleccionadoInicio[0]).getTime();
+      const tC = new Date(f).getTime();
+      const tI = new Date(seleccionadoInicio[0]).getTime();
       if (tC === tI) return `${c} ${styles.seleccionInicio}`;
       if (seleccionadoFin.length === 0) return c;
       const tF = new Date(seleccionadoFin[0]).getTime();
@@ -157,25 +205,63 @@ export default function ReservarHabitacion() {
       <>
         <div className={styles.resultadosContainer}>
           <div className={styles.columnaEstaticaContainer}>
-            <div className={styles.celdaTituloEstatico}>Tipo</div><div className={styles.celdaTituloEstatico}>Número</div>
-            {fechasArray.map((f, i) => <div key={i} className={styles.celdaFecha}>{formatearFecha(f)}</div>)}
+            <div className={styles.celdaTituloEstatico}>Tipo</div>
+            <div className={styles.celdaTituloEstatico}>Número</div>
+            {fechasArray.map((f, i) => (
+              <div key={i} className={styles.celdaFecha}>
+                {formatearFecha(f)}
+              </div>
+            ))}
           </div>
           {Object.values(columnas).map((col) => (
             <div key={col.id} className={styles.columnaHabitacion}>
-              <div className={styles.celdaHeaderHabitacion} title={col.tipo}>{col.tipo}</div><div className={styles.celdaHeaderNumero}>{col.numero}</div>
+              <div className={styles.celdaHeaderHabitacion} title={col.tipo}>
+                {col.tipo}
+              </div>
+              <div className={styles.celdaHeaderNumero}>{col.numero}</div>
               {Object.values(col.estados).map((est, i) => (
-                <div key={fechasArray[i]} onClick={() => manejarClick(fechasArray[i], col.id)} className={`${styles.celdaEstado} ${obtenerClaseSeleccion(fechasArray[i], col.id, est)}`}>
-                  <p className={`${styles.estado} ${styles[`estado${est}`]}`}>{est}</p>
+                <div
+                  key={fechasArray[i]}
+                  onClick={() => manejarClick(fechasArray[i], col.id)}
+                  className={`${styles.celdaEstado} ${obtenerClaseSeleccion(
+                    fechasArray[i],
+                    col.id,
+                    est
+                  )}`}
+                >
+                  <p className={`${styles.estado} ${styles[`estado${est}`]}`}>
+                    {est}
+                  </p>
                 </div>
               ))}
             </div>
           ))}
         </div>
         <div className={styles.botonesRespuestaContainer}>
-          <input type="button" value="Atrás" className={styles.btnCancelar} onClick={handleAtras} />
-          <input type="button" value="Agregar Selección" className={styles.btnSiguiente} style={{ backgroundColor: "#3b82f6" }} onClick={handleAgregarSeleccion} />
-          <input type="button" value={`Confirmar (${reservasAcumuladas.length})`} className={`${styles.btnSiguiente} ${reservasAcumuladas.length === 0 ? styles.desactivado : null}`}
-            onClick={() => { setMostrandoLista(true); }} disabled={reservasAcumuladas.length === 0} />
+          <input
+            type="button"
+            value="Atrás"
+            className={styles.btnCancelar}
+            onClick={handleAtras}
+          />
+          <input
+            type="button"
+            value="Agregar Selección"
+            className={styles.btnSiguiente}
+            style={{ backgroundColor: "#3b82f6" }}
+            onClick={handleAgregarSeleccion}
+          />
+          <input
+            type="button"
+            value={`Confirmar (${reservasAcumuladas.length})`}
+            className={`${styles.btnSiguiente} ${
+              reservasAcumuladas.length === 0 ? styles.desactivado : null
+            }`}
+            onClick={() => {
+              setMostrandoLista(true);
+            }}
+            disabled={reservasAcumuladas.length === 0}
+          />
         </div>
       </>
     );
@@ -184,7 +270,13 @@ export default function ReservarHabitacion() {
   const enviarReserva = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const camposObligatorios = ["apellido", "nombre", "tipoDocumento", "numeroDocumento", "telefono"];
+    const camposObligatorios = [
+      "apellido",
+      "nombre",
+      "tipoDocumento",
+      "numeroDocumento",
+      "telefono",
+    ];
     const nuevosErrores = {};
 
     camposObligatorios.forEach((campo) => {
@@ -201,58 +293,58 @@ export default function ReservarHabitacion() {
     setErrores({});
 
     // 2. TRANSFORMACIÓN DE DATOS (Agrupar fechas en rangos)
-    
+
     // A. Agrupar fechas por ID de habitación
     const reservasPorHabitacion = {};
     reservasAcumuladas.forEach(([fecha, idHabitacion]) => {
-        if (!reservasPorHabitacion[idHabitacion]) {
-            reservasPorHabitacion[idHabitacion] = [];
-        }
-        reservasPorHabitacion[idHabitacion].push(fecha);
+      if (!reservasPorHabitacion[idHabitacion]) {
+        reservasPorHabitacion[idHabitacion] = [];
+      }
+      reservasPorHabitacion[idHabitacion].push(fecha);
     });
 
     // B. Construir los rangos consecutivos
     const detalles = [];
 
     Object.keys(reservasPorHabitacion).forEach((idHabStr) => {
-        const idHabitacion = Number(idHabStr);
-        // Ordenar las fechas cronológicamente para detectar consecutivos
-        const fechas = reservasPorHabitacion[idHabitacion].sort();
+      const idHabitacion = Number(idHabStr);
+      // Ordenar las fechas cronológicamente para detectar consecutivos
+      const fechas = reservasPorHabitacion[idHabitacion].sort();
 
-        if (fechas.length === 0) return;
+      if (fechas.length === 0) return;
 
-        let inicioRango = fechas[0];
-        let finRango = fechas[0];
+      let inicioRango = fechas[0];
+      let finRango = fechas[0];
 
-        for (let i = 1; i < fechas.length; i++) {
-            const fechaActual = new Date(fechas[i]);
-            const fechaAnterior = new Date(finRango);
-            
-            // Verificamos si hay 1 día de diferencia
-            const diffTime = Math.abs(fechaActual - fechaAnterior);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+      for (let i = 1; i < fechas.length; i++) {
+        const fechaActual = new Date(fechas[i]);
+        const fechaAnterior = new Date(finRango);
 
-            if (diffDays === 1) {
-                // Es consecutivo, extendemos la fecha hasta
-                finRango = fechas[i];
-            } else {
-                // No es consecutivo (hay un hueco), guardamos el rango anterior
-                detalles.push({
-                    idHabitacion: idHabitacion,
-                    fecha_desde: inicioRango,
-                    fecha_hasta: finRango
-                });
-                // Iniciamos un nuevo rango
-                inicioRango = fechas[i];
-                finRango = fechas[i];
-            }
-        }
-        // Guardamos el último rango procesado
-        detalles.push({
+        // Verificamos si hay 1 día de diferencia
+        const diffTime = Math.abs(fechaActual - fechaAnterior);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays === 1) {
+          // Es consecutivo, extendemos la fecha hasta
+          finRango = fechas[i];
+        } else {
+          // No es consecutivo (hay un hueco), guardamos el rango anterior
+          detalles.push({
             idHabitacion: idHabitacion,
-            fechaDesde: inicioRango,
-            fechaHasta: finRango
-        });
+            fecha_desde: inicioRango,
+            fecha_hasta: finRango,
+          });
+          // Iniciamos un nuevo rango
+          inicioRango = fechas[i];
+          finRango = fechas[i];
+        }
+      }
+      // Guardamos el último rango procesado
+      detalles.push({
+        idHabitacion: idHabitacion,
+        fechaDesde: inicioRango,
+        fechaHasta: finRango,
+      });
     });
     const datosHuesped = {
       nombre: formData.get("nombre"),
@@ -261,136 +353,271 @@ export default function ReservarHabitacion() {
       numeroDocumento: formData.get("numeroDocumento"),
       telefono: formData.get("telefono"),
     };
-    const payload = { detalles: detalles, datosHuesped: datosHuesped };
-    console.log(JSON.stringify(payload));
-    setCargando(true); 
-    
+    setCargando(true);
+
     try {
       const respuesta = await crearReserva({ detalles, datosHuesped });
-      
+
       setModalConfig({
-          visible: true, tipo: "exito", titulo: "¡Reserva Exitosa!", 
-          mensaje: `La reserva se ha creado exitosamente.`,
-          acciones: [{
-            texto: "Aceptar", estilo: "aceptar",
+        visible: true,
+        tipo: "exito",
+        titulo: "¡Reserva Exitosa!",
+        mensaje: `La reserva se ha creado exitosamente.`,
+        acciones: [
+          {
+            texto: "Aceptar",
+            estilo: "aceptar",
             onClick: () => {
               cerrarModal();
-              setHabitaciones([]); setReservasAcumuladas([]);
-              setMostrandoLista(false); setMostrandoFormularioHuesped(false);
-              setFechaDesde(""); setFechaHasta(""); setErrores({});
-            }
-          }]
-        });
-
+              setHabitaciones([]);
+              setReservasAcumuladas([]);
+              setMostrandoLista(false);
+              setMostrandoFormularioHuesped(false);
+              setFechaDesde("");
+              setFechaHasta("");
+              setErrores({});
+            },
+          },
+        ],
+      });
     } catch (e) {
       setModalConfig({
-        visible: true, tipo: "error", titulo: "Error al reservar", mensaje: e.message,
-        acciones: [{ texto: "Cerrar", estilo: "cancelar", onClick: cerrarModal }]
+        visible: true,
+        tipo: "error",
+        titulo: "Error al reservar",
+        mensaje: e.message,
+        acciones: [
+          { texto: "Cerrar", estilo: "cancelar", onClick: cerrarModal },
+        ],
       });
-    } finally { setCargando(false); }
-  }
+    } finally {
+      setCargando(false);
+    }
+  };
 
   const mostrarLista = () => {
-    const generarResumenReservas = (lista) => { 
-        const agrupado = {}; lista.forEach(i => { if(!agrupado[i[1]]) agrupado[i[1]]=[]; agrupado[i[1]].push(i[0]) });
-        return Object.keys(agrupado).map(id => ({Habitacion: ordenarDatos[id].numero, Tipo: ordenarDatos[id].tipo, Ingreso: agrupado[id].sort()[0], Egreso: agrupado[id].sort()[agrupado[id].length-1]}));
+    const generarResumenReservas = (lista) => {
+      const agrupado = {};
+      lista.forEach((i) => {
+        if (!agrupado[i[1]]) agrupado[i[1]] = [];
+        agrupado[i[1]].push(i[0]);
+      });
+      return Object.keys(agrupado).map((id) => ({
+        Habitacion: ordenarDatos[id].numero,
+        Tipo: ordenarDatos[id].tipo,
+        Ingreso: agrupado[id].sort()[0],
+        Egreso: agrupado[id].sort()[agrupado[id].length - 1],
+      }));
     };
     const datosTabla = generarResumenReservas(reservasAcumuladas);
 
     return (
-      <div style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
+      <div style={{ width: "100%", maxWidth: "1000px", margin: "0 auto" }}>
         {!mostrandoFormularioHuesped ? (
           <>
-            <h2 style={{ textAlign: 'center', color: '#1e293b', marginBottom: '20px' }}>Confirmar Selección ({reservasAcumuladas.length} noches)</h2>
+            <h2
+              style={{
+                textAlign: "center",
+                color: "#1e293b",
+                marginBottom: "20px",
+              }}
+            >
+              Confirmar Selección ({reservasAcumuladas.length} noches)
+            </h2>
             <div className={styles.listaContainer}>
               <div className={styles.headerLista}>
-                <div className={styles.tituloHeaderLista}><h3>Habitacion</h3></div>
-                <div className={styles.tituloHeaderLista}><h3>Tipo</h3></div>
-                <div className={styles.tituloHeaderLista}><h3>Ingreso</h3></div>
-                <div className={styles.tituloHeaderLista}><h3>Egreso</h3></div>
+                <div className={styles.tituloHeaderLista}>
+                  <h3>Habitacion</h3>
+                </div>
+                <div className={styles.tituloHeaderLista}>
+                  <h3>Tipo</h3>
+                </div>
+                <div className={styles.tituloHeaderLista}>
+                  <h3>Ingreso</h3>
+                </div>
+                <div className={styles.tituloHeaderLista}>
+                  <h3>Egreso</h3>
+                </div>
               </div>
               <div className={styles.contenidoListaContainer}>
                 {datosTabla.map((fila, index) => (
                   <div key={index} className={styles.filaListaContainer}>
-                    <div className={styles.pListaContainer}><p>{fila.Habitacion}</p></div>
-                    <div className={styles.pListaContainer}><p>{fila.Tipo}</p></div>
-                    <div className={styles.pListaContainer}><p>{formatearFechaHora(fila.Ingreso, "12:00")}</p></div>
-                    <div className={styles.pListaContainer}><p>{formatearFechaHora(fila.Egreso, "10:00")}</p></div>
+                    <div className={styles.pListaContainer}>
+                      <p>{fila.Habitacion}</p>
+                    </div>
+                    <div className={styles.pListaContainer}>
+                      <p>{fila.Tipo}</p>
+                    </div>
+                    <div className={styles.pListaContainer}>
+                      <p>{formatearFechaHora(fila.Ingreso, "12:00")}</p>
+                    </div>
+                    <div className={styles.pListaContainer}>
+                      <p>{formatearFechaHora(fila.Egreso, "10:00")}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className={styles.botonesListaContainer} style={{ marginTop: '30px' }}>
-              <input type="button" value="Volver" className={styles.btnCancelar} onClick={() => setMostrandoLista(false)} />
-              <input type="button" value="Continuar" className={styles.btnSiguiente} 
-                onClick={() => { setMostrandoFormularioHuesped(true); setErrores({}); }} 
+            <div
+              className={styles.botonesListaContainer}
+              style={{ marginTop: "30px" }}
+            >
+              <input
+                type="button"
+                value="Volver"
+                className={styles.btnCancelar}
+                onClick={() => setMostrandoLista(false)}
+              />
+              <input
+                type="button"
+                value="Continuar"
+                className={styles.btnSiguiente}
+                onClick={() => {
+                  setMostrandoFormularioHuesped(true);
+                  setErrores({});
+                }}
               />
             </div>
           </>
         ) : (
-          <div className={`${styles.formulario} ${styles.formularioReservaContainer}`}>
-          <fieldset className={styles.fieldset}>
-            <div className={styles.legend} style={{paddingTop:"20px"}}>Datos del titular</div>
-            
-            <form onSubmit={enviarReserva} id="formDatosHuesped" style={{width: '100%'}}>
-              <div className={styles.formReservaInputsContainer}>
+          <div
+            className={`${styles.formulario} ${styles.formularioReservaContainer}`}
+          >
+            <fieldset className={styles.fieldset}>
+              <div className={styles.legend} style={{ paddingTop: "20px" }}>
+                Datos del titular
+              </div>
 
-                <div className={styles.filaInputs}>
+              <form
+                onSubmit={enviarReserva}
+                id="formDatosHuesped"
+                style={{ width: "100%" }}
+              >
+                <div className={styles.formReservaInputsContainer}>
+                  <div className={styles.filaInputs}>
                     <div className={styles.inputContainer}>
-                    <label>Apellido*</label>
-                    <input type="text" name="apellido" placeholder="Apellido" className={`${errores.Apellido ? styles.inputError : ''}`} onInput={(e) => e.target.value = e.target.value.toUpperCase()} onChange={() => setErrores({ ...errores, Apellido: null })} />
-                    {errores.Apellido && <span className={styles.mensajeError}>{errores.Apellido}</span>}
+                      <label>Apellido*</label>
+                      <input
+                        type="text"
+                        name="apellido"
+                        placeholder="Apellido"
+                        className={`${
+                          errores.Apellido ? styles.inputError : ""
+                        }`}
+                        onInput={(e) =>
+                          (e.target.value = e.target.value.toUpperCase())
+                        }
+                        onChange={() =>
+                          setErrores({ ...errores, Apellido: null })
+                        }
+                      />
+                      {errores.Apellido && (
+                        <span className={styles.mensajeError}>
+                          {errores.Apellido}
+                        </span>
+                      )}
                     </div>
 
                     <div className={styles.inputContainer}>
-                    <label>Nombre*</label>
-                    <input type="text" name="nombre" placeholder="Nombre" onInput={(e) => e.target.value = e.target.value.toUpperCase()} className={`${errores.Nombre ? styles.inputError : ''}`} onChange={() => setErrores({ ...errores, Nombre: null })} />
-                    {errores.Nombre && <span className={styles.mensajeError}>{errores.Nombre}</span>}
+                      <label>Nombre*</label>
+                      <input
+                        type="text"
+                        name="nombre"
+                        placeholder="Nombre"
+                        onInput={(e) =>
+                          (e.target.value = e.target.value.toUpperCase())
+                        }
+                        className={`${errores.Nombre ? styles.inputError : ""}`}
+                        onChange={() =>
+                          setErrores({ ...errores, Nombre: null })
+                        }
+                      />
+                      {errores.Nombre && (
+                        <span className={styles.mensajeError}>
+                          {errores.Nombre}
+                        </span>
+                      )}
                     </div>
-                </div>
+                  </div>
 
-                <div className={styles.filaInputs}>
+                  <div className={styles.filaInputs}>
                     <div className={styles.inputContainer}>
-                    <label>Tipo Doc.*</label>
-                    <select name="tipoDocumento">
+                      <label>Tipo Doc.*</label>
+                      <select name="tipoDocumento">
                         <option value="DNI">DNI</option>
                         <option value="PASAPORTE">Pasaporte</option>
                         <option value="LE">LE</option>
                         <option value="LC">LC</option>
                         <option value="OTRO">Otro</option>
-                    </select>
+                      </select>
                     </div>
 
                     <div className={styles.inputContainer}>
-                    <label>Nro. Documento*</label>
-                    <input type="text" name="numeroDocumento" placeholder="Número" onChange={() => setErrores({ ...errores, NumeroDocumento: null })} className={`${errores.NumeroDocumento ? styles.inputError : ''}`} />
-                    {errores.NumeroDocumento && <span className={styles.mensajeError}>{errores.NumeroDocumento}</span>}
+                      <label>Nro. Documento*</label>
+                      <input
+                        type="text"
+                        name="numeroDocumento"
+                        placeholder="Número"
+                        onChange={() =>
+                          setErrores({ ...errores, NumeroDocumento: null })
+                        }
+                        className={`${
+                          errores.NumeroDocumento ? styles.inputError : ""
+                        }`}
+                      />
+                      {errores.NumeroDocumento && (
+                        <span className={styles.mensajeError}>
+                          {errores.NumeroDocumento}
+                        </span>
+                      )}
                     </div>
-                </div>
+                  </div>
 
-                <div className={styles.filaInputs}>
+                  <div className={styles.filaInputs}>
                     <div className={styles.inputContainer}>
-                    <label>Teléfono*</label>
-                    <input type="text" name="telefono" placeholder="Teléfono" onChange={() => setErrores({ ...errores, Telefono: null })} className={`${errores.Telefono ? styles.inputError : ''}`} onInput={soloNumeros} />
-                    {errores.Telefono && <span className={styles.mensajeError}>{errores.Telefono}</span>}
+                      <label>Teléfono*</label>
+                      <input
+                        type="text"
+                        name="telefono"
+                        placeholder="Teléfono"
+                        onChange={() =>
+                          setErrores({ ...errores, Telefono: null })
+                        }
+                        className={`${
+                          errores.Telefono ? styles.inputError : ""
+                        }`}
+                        onInput={soloNumeros}
+                      />
+                      {errores.Telefono && (
+                        <span className={styles.mensajeError}>
+                          {errores.Telefono}
+                        </span>
+                      )}
                     </div>
                     <div className={styles.inputContainer}></div>
+                  </div>
                 </div>
-
-              </div>
-            </form>
-          </fieldset>
+              </form>
+            </fieldset>
 
             <div className={styles.botonesListaContainer}>
-              <input type="button" value="Atrás" className={styles.btnCancelar} 
-                onClick={() => { setMostrandoFormularioHuesped(false); setErrores({}); }} 
+              <input
+                type="button"
+                value="Atrás"
+                className={styles.btnCancelar}
+                onClick={() => {
+                  setMostrandoFormularioHuesped(false);
+                  setErrores({});
+                }}
               />
-              
-              <input 
-                type="submit" 
-                form="formDatosHuesped" 
-                value={cargando ? "Enviando..." : "Confirmar Reserva"} 
-                className={`${styles.btnSiguiente} ${cargando ? styles.desactivado : ''}`}
+
+              <input
+                type="submit"
+                form="formDatosHuesped"
+                value={cargando ? "Enviando..." : "Confirmar Reserva"}
+                className={`${styles.btnSiguiente} ${
+                  cargando ? styles.desactivado : ""
+                }`}
                 disabled={cargando}
               />
             </div>
@@ -402,36 +629,84 @@ export default function ReservarHabitacion() {
 
   return (
     <>
-      <Head><title>Reservar Habitación</title></Head>
+      <Head>
+        <title>Reservar Habitación</title>
+      </Head>
       <div className={styles.contenedorPrincipal}>
-        <form onSubmit={enviarDatos} className={styles.formulario} id="formulario">
+        <form
+          onSubmit={enviarDatos}
+          className={styles.formulario}
+          id="formulario"
+        >
           <fieldset className={styles.fieldset}>
             <div className={styles.legend}>Ingrese las fechas</div>
             <div className={styles.allInputContainer}>
               <div className={styles.inputContainer}>
                 <label htmlFor="Desde">Desde</label>
-                <input type="date" name="Desde" value={fechaDesde} onChange={(e) => setFechaDesde(e.target.value)} />
+                <input
+                  type="date"
+                  name="Desde"
+                  value={fechaDesde}
+                  onChange={(e) => setFechaDesde(e.target.value)}
+                />
               </div>
               <div className={styles.inputContainer}>
                 <label htmlFor="Hasta"> Hasta</label>
-                <input type="date" name="Hasta" value={fechaHasta} onChange={(e) => setFechaHasta(e.target.value)} />
+                <input
+                  type="date"
+                  name="Hasta"
+                  value={fechaHasta}
+                  onChange={(e) => setFechaHasta(e.target.value)}
+                />
               </div>
             </div>
           </fieldset>
         </form>
 
         <div className={styles.formButtons}>
-          <input type="reset" value="Cancelar" form="formulario" className={styles.btnCancelar}
+          <input
+            type="reset"
+            value="Cancelar"
+            form="formulario"
+            className={styles.btnCancelar}
             onClick={() => {
-              setHabitaciones([]); setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]);
-              setMostrandoLista(false); setFechaDesde(""); setFechaHasta(""); setMostrandoFormularioHuesped(false);
+              setHabitaciones([]);
+              setSeleccionadoInicio([]);
+              setSeleccionadoFin([]);
+              setReservasAcumuladas([]);
+              setMostrandoLista(false);
+              setFechaDesde("");
+              setFechaHasta("");
+              setMostrandoFormularioHuesped(false);
             }}
           />
-          <input type="submit" value={cargando ? "Buscando..." : "Buscar"} 
-            disabled={cargando || !fechaDesde || !fechaHasta || (fechaDesde === fechaHasta) || (fechaHasta < fechaDesde)} 
-            form="formulario" 
-            className={`${styles.btnSiguiente} ${cargando || !fechaDesde || !fechaHasta || (fechaDesde === fechaHasta) || (fechaHasta < fechaDesde) ? styles.desactivado : null}`} 
-            onClick={() => { setSeleccionadoInicio([]); setSeleccionadoFin([]); setReservasAcumuladas([]); setMostrandoLista(false) }} />
+          <input
+            type="submit"
+            value={cargando ? "Buscando..." : "Buscar"}
+            disabled={
+              cargando ||
+              !fechaDesde ||
+              !fechaHasta ||
+              fechaDesde === fechaHasta ||
+              fechaHasta < fechaDesde
+            }
+            form="formulario"
+            className={`${styles.btnSiguiente} ${
+              cargando ||
+              !fechaDesde ||
+              !fechaHasta ||
+              fechaDesde === fechaHasta ||
+              fechaHasta < fechaDesde
+                ? styles.desactivado
+                : null
+            }`}
+            onClick={() => {
+              setSeleccionadoInicio([]);
+              setSeleccionadoFin([]);
+              setReservasAcumuladas([]);
+              setMostrandoLista(false);
+            }}
+          />
         </div>
 
         {habitaciones.length > 0 ? (
@@ -446,5 +721,5 @@ export default function ReservarHabitacion() {
       </div>
       <Modal {...modalConfig} />
     </>
-  )
+  );
 }
