@@ -64,7 +64,6 @@ export default function AltaResponsable() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
-    // Validaciones
     const validacion = validarResponsable(formData);
     if (!validacion.esValido) {
       setErrores(validacion.errores);
@@ -74,13 +73,11 @@ export default function AltaResponsable() {
 
     setEnviando(true);
     try {
-      // 2.B Verificar si el CUIT ya existe
       let existe = false;
       try {
         await buscarPersonaJuridica(data.cuit);
         existe = true;
       } catch (e) {
-        // Si falla es porque no existe (asumiendo behavior de buscarPersonaJuridica)
         existe = false;
       }
 

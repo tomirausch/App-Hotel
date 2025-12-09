@@ -211,11 +211,11 @@ export default function Facturar() {
       if (edad < 18) {
         setModalConfig({
           visible: true,
-          tipo: "error",
+          tipo: "advertencia",
           titulo: "Menor de Edad",
           mensaje: `La persona seleccionada (${persona.nombre}) es menor de edad. Por favor elija otra.`,
           acciones: [
-            { texto: "Aceptar", estilo: "aceptar", onClick: cerrarModal },
+            { texto: "Entendido", estilo: "cancelar", onClick: cerrarModal },
           ],
         });
         return;

@@ -183,7 +183,6 @@ export default function DarAltaHuesped() {
         abrirModal();
       }
     } catch (error) {
-      console.error(error);
       mostrarErrorGenerico();
     } finally {
       setEnviando(false);

@@ -83,46 +83,38 @@ export const validarPassword = (password) => {
   if (!password)
     return { valido: false, mensaje: "La contraseña es obligatoria" };
 
-  // 1. Al menos 5 letras
   const cantidadLetras = (password.match(/[a-zA-Z]/g) || []).length;
   if (cantidadLetras < 5) {
     return { valido: false, mensaje: "Debe tener al menos 5 letras." };
   }
 
-  // 2. Al menos 3 números
   const numeros = password.match(/\d/g) || [];
   if (numeros.length < 3) {
     return { valido: false, mensaje: "Debe tener al menos 3 números." };
   }
 
-  // 3. Validar secuencias prohibidas en los números encontrados (iguales o consecutivos)
-  // Buscamos si existen patrones "111", "123" o "321" dentro del string
   for (let i = 0; i < password.length - 2; i++) {
     const c1 = password.charCodeAt(i);
     const c2 = password.charCodeAt(i + 1);
     const c3 = password.charCodeAt(i + 2);
 
-    // Solo evaluamos si los 3 caracteres consecutivos son dígitos
     if (esDigito(c1) && esDigito(c2) && esDigito(c3)) {
       const n1 = parseInt(password[i]);
       const n2 = parseInt(password[i + 1]);
       const n3 = parseInt(password[i + 2]);
 
-      // Iguales (ej: 111)
       if (n1 === n2 && n2 === n3) {
         return {
           valido: false,
           mensaje: "No puede tener 3 números iguales consecutivos.",
         };
       }
-      // Crecientes (ej: 123)
       if (n1 + 1 === n2 && n2 + 1 === n3) {
         return {
           valido: false,
           mensaje: "No puede tener 3 números consecutivos crecientes.",
         };
       }
-      // Decrecientes (ej: 321)
       if (n1 - 1 === n2 && n2 - 1 === n3) {
         return {
           valido: false,
@@ -151,10 +143,6 @@ export const validarResponsable = (formData) => {
     "provincia",
   ];
 
-  /*
-   * Nota: En el formulario los inputs tienen name="razonSocial", "cuit", etc.
-   * Asegurarse de que coincidan con los nombres aquí.
-   */
   camposObligatorios.forEach((campo) => {
     const valor = formData.get(campo);
     if (!valor || valor.toString().trim() === "") {
@@ -162,7 +150,6 @@ export const validarResponsable = (formData) => {
     }
   });
 
-  // Validaciones adicionales
   const cuit = formData.get("cuit");
   if (cuit && !/^\d+$/.test(cuit)) {
     errores["cuit"] = "El CUIT solo debe contener números";

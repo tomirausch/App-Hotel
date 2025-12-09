@@ -137,14 +137,12 @@ export default function OcuparHabitacion() {
   };
 
   const handleContinuar = () => {
-    // Validar que haya selección
     if (seleccionadaReserva.length === 0) return;
     if (seleccionadaReserva.length < 2) {
       mostrarError("La estancia mínima es de 2 días (una noche).");
       return;
     }
 
-    // Validar bloqueos
     let hayBloqueo = false;
     let hayReserva = false;
     seleccionadaReserva.forEach((item) => {
@@ -162,16 +160,12 @@ export default function OcuparHabitacion() {
       return;
     }
 
-    // Función para avanzar
     const avanzar = () => {
-      setReservasAcumuladas(seleccionadaReserva); // Sobrescribe, no acumula
-      setMostrandoLista(true); // Pasa a la siguiente pantalla
-      // Opcional: Limpiar selección visual si quieres, aunque dejarla ayuda si vuelven atrás
-      // setSeleccionadoInicio([]); setSeleccionadoFin([]);
+      setReservasAcumuladas(seleccionadaReserva);
+      setMostrandoLista(true);
       cerrarModal();
     };
 
-    // Si hay reserva previa, advertir
     if (hayReserva) {
       setModalConfig({
         visible: true,
@@ -221,7 +215,6 @@ export default function OcuparHabitacion() {
       setReservasAcumuladas([]);
       setMostrandoLista(false);
     } catch (e) {
-      console.error(e);
       mostrarError("Error al obtener la disponibilidad.");
     } finally {
       setCargando(false);
@@ -270,7 +263,6 @@ export default function OcuparHabitacion() {
       }
       setBusquedaRealizada(true);
     } catch (err) {
-      console.error(err);
       mostrarError("Error al realizar la búsqueda.");
     } finally {
       setCargando(false);
@@ -291,8 +283,6 @@ export default function OcuparHabitacion() {
       fechaDesde: fechaDesde,
       fechaHasta: fechaHasta,
     };
-
-    console.log("Enviando Payload:", JSON.stringify(payload, null, 2)); // Para debug
 
     try {
       await crearOcupacion(payload);
@@ -351,7 +341,6 @@ export default function OcuparHabitacion() {
         ],
       });
     } catch (e) {
-      console.log(e.message);
       mostrarError(e.message || "Error de conexión con el servidor.");
     } finally {
       setConfirmando(false);
@@ -415,7 +404,6 @@ export default function OcuparHabitacion() {
               <input
                 type="button"
                 value="Volver"
-                // Añadimos la clase desactivado si confirma
                 className={`${styles.btnCancelar} ${
                   confirmando ? styles.desactivado : ""
                 }`}
