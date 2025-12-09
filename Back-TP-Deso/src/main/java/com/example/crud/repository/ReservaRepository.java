@@ -26,7 +26,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
                         @Param("fechaDesde") LocalDate fechaDesde,
                         @Param("fechaHasta") LocalDate fechaHasta);
 
-        @Query("SELECT r FROM Reserva r WHERE r.estado = 'PENDIENTE' AND r.huesped.apellido LIKE %:apellido% AND (:nombre IS NULL OR r.huesped.nombre LIKE %:nombre%)")
+        @Query("SELECT r FROM Reserva r WHERE r.estado = 'PENDIENTE' AND r.huesped.apellido =:apellido AND (:nombre IS NULL OR r.huesped.nombre =:nombre)")
         List<Reserva> buscarPendientesPorNombreHuesped(
                         @Param("nombre") String nombre,
                         @Param("apellido") String apellido);
