@@ -1,0 +1,82 @@
+.inputFormContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form{
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    padding: 20px 20px;
+    display: flex;
+    justify-content: center;
+}
+.allInputContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+  border: none; 
+}
+
+.inputError {
+  border-bottom: 2px solid red !important;
+}
+
+.mensajeError {
+  font-size: 0.85rem;
+  display: block;
+  color: red;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.responseContainer{
+  border-radius: 10px;
+  border: 1px solid whitesmoke;
+  width: 1200px;
+  height: auto;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.reservaRespuestaContainer{
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: whitesmoke;
+  color: #000000;
+}
+
+.reservaRespuestaContainer:hover{
+  background-color: #018db479;
+}
+
+.reservasContainer{
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.seleccionada{
+  background-color: #018db4;
+}
+
+.seleccionada:hover{
+  background-color: #018db4;
+}
+
+.buttonContainer{
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.desactivado{
+  opacity: 0.5 !important;
+  cursor: not-allowed;
+}

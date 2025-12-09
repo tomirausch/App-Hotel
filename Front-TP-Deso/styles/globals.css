@@ -35,3 +35,42 @@ option{
   background-color: #1E2448;
   color: whitesmoke;
 }
+
+.btnBase {
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.btnCancelar {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.btnSiguiente {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.btnCancelar:hover {
+  background-color: #a82f27;
+}
+
+.btnSiguiente:hover {
+  background-color: #337535;
+}
+
+.btnCancelar:active,
+.btnSiguiente:active {
+  transform: scale(0.95);
+}
+
+.btnSiguiente:disabled {
+  background-color: #204821;
+  cursor: not-allowed;
+  color: white;
+}
