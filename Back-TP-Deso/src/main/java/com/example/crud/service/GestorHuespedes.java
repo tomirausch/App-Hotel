@@ -58,12 +58,12 @@ public class GestorHuespedes {
     public Optional<Huesped> buscarPorDocumento(TipoDocumento tipo, String numero) {
         if (tipo == null || numero == null)
             return Optional.empty();
-        return dao.findByDocumento(tipo.name(), numero);
+        return dao.buscarPorDocumento(tipo.name(), numero);
     }
 
     @Transactional
     public PersonaJuridicaDTO crearPersonaJuridica(PersonaJuridicaDTO dto) {
-        if (personaJuridicaDao.findByCuit(dto.getCuit()).isPresent()) {
+        if (personaJuridicaDao.buscarPorCuit(dto.getCuit()).isPresent()) {
             throw new DocumentoDuplicadoException("Ya existe una persona jurídica con CUIT " + dto.getCuit());
         }
         PersonaJuridica nueva = PersonaJuridicaMapper.toEntity(dto);
@@ -72,7 +72,7 @@ public class GestorHuespedes {
 
     @Transactional
     public PersonaJuridicaDTO buscarPersonaJuridicaPorCuit(String cuit) {
-        PersonaJuridica encontrado = personaJuridicaDao.findByCuit(cuit)
+        PersonaJuridica encontrado = personaJuridicaDao.buscarPorCuit(cuit)
                 .orElseThrow(() -> new RecursoNoEncontradoException(
                         "No se encontró persona jurídica con CUIT: " + cuit));
         return PersonaJuridicaMapper.toDTO(encontrado);

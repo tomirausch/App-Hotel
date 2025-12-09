@@ -24,7 +24,7 @@ public class PersonaJuridicaDaoJpa implements PersonaJuridicaDao {
     }
 
     @Override
-    public Optional<PersonaJuridica> findByCuit(String cuit) {
+    public Optional<PersonaJuridica> buscarPorCuit(String cuit) {
         return repository.findByCuit(cuit);
     }
 }

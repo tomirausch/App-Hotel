@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface HabitacionDao {
 
-    List<Habitacion> findAllOrdenadas();
+    List<Habitacion> listarTodasOrdenadas();
 
     Optional<Habitacion> findById(Long id);
 

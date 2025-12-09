@@ -4,24 +4,30 @@ import com.example.crud.model.Estadia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
+import java.util.Optional;
+import java.time.LocalDate;
+
 @Repository
 public interface EstadiaRepository extends JpaRepository<Estadia, Long> {
 
-        @org.springframework.data.jpa.repository.Query("SELECT e FROM Estadia e JOIN e.habitacion h WHERE h.id = :habitacionId AND "
+        @Query("SELECT e FROM Estadia e JOIN e.habitacion h WHERE h.id = :habitacionId AND "
                         +
                         "((e.fechaDesde <= :fechaHasta AND e.fechaHasta >= :fechaDesde))")
-        java.util.List<Estadia> findConflictingEstadias(
-                        @org.springframework.data.repository.query.Param("habitacionId") Long habitacionId,
-                        @org.springframework.data.repository.query.Param("fechaDesde") java.time.LocalDate fechaDesde,
-                        @org.springframework.data.repository.query.Param("fechaHasta") java.time.LocalDate fechaHasta);
+        List<Estadia> buscarEstadiasConflictivas(
+                        @Param("habitacionId") Long habitacionId,
+                        @Param("fechaDesde") LocalDate fechaDesde,
+                        @Param("fechaHasta") LocalDate fechaHasta);
 
-        @org.springframework.data.jpa.repository.Query("SELECT e FROM Estadia e WHERE " +
+        @Query("SELECT e FROM Estadia e WHERE " +
                         "((e.fechaDesde <= :fechaHasta AND e.fechaHasta >= :fechaDesde))")
-        java.util.List<Estadia> findAllInDateRange(
-                        @org.springframework.data.repository.query.Param("fechaDesde") java.time.LocalDate fechaDesde,
-                        @org.springframework.data.repository.query.Param("fechaHasta") java.time.LocalDate fechaHasta);
+        List<Estadia> buscarEnRangoFecha(
+                        @Param("fechaDesde") LocalDate fechaDesde,
+                        @Param("fechaHasta") LocalDate fechaHasta);
 
-        @org.springframework.data.jpa.repository.Query("SELECT e FROM Estadia e JOIN e.habitacion h WHERE h.numero = :numeroHabitacion AND e.estado = 'ACTIVA'")
-        java.util.Optional<Estadia> findActiveByHabitacionNumero(
-                        @org.springframework.data.repository.query.Param("numeroHabitacion") Integer numeroHabitacion);
+        @Query("SELECT e FROM Estadia e JOIN e.habitacion h WHERE h.numero = :numeroHabitacion AND e.estado = 'ACTIVA'")
+        Optional<Estadia> buscarActivaPorNumeroHabitacion(
+                        @Param("numeroHabitacion") Integer numeroHabitacion);
 }

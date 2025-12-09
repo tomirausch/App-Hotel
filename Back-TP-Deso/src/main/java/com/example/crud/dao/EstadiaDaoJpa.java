@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+import java.util.List;
+import java.time.LocalDate;
+
 @Repository
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EstadiaDaoJpa implements EstadiaDao {
@@ -20,14 +23,14 @@ public class EstadiaDaoJpa implements EstadiaDao {
     }
 
     @Override
-    public java.util.List<Estadia> findConflictingEstadias(Long habitacionId, java.time.LocalDate fechaDesde,
-            java.time.LocalDate fechaHasta) {
-        return repository.findConflictingEstadias(habitacionId, fechaDesde, fechaHasta);
+    public List<Estadia> buscarEstadiasConflictivas(Long habitacionId, LocalDate fechaDesde,
+            LocalDate fechaHasta) {
+        return repository.buscarEstadiasConflictivas(habitacionId, fechaDesde, fechaHasta);
     }
 
     @Override
-    public java.util.List<Estadia> findAllInDateRange(java.time.LocalDate fechaDesde, java.time.LocalDate fechaHasta) {
-        return repository.findAllInDateRange(fechaDesde, fechaHasta);
+    public List<Estadia> buscarEnRangoFecha(LocalDate fechaDesde, LocalDate fechaHasta) {
+        return repository.buscarEnRangoFecha(fechaDesde, fechaHasta);
     }
 
     @Override
@@ -36,7 +39,7 @@ public class EstadiaDaoJpa implements EstadiaDao {
     }
 
     @Override
-    public Optional<Estadia> findActiveByHabitacionNumero(Integer numeroHabitacion) {
-        return repository.findActiveByHabitacionNumero(numeroHabitacion);
+    public Optional<Estadia> buscarActivaPorNumeroHabitacion(Integer numeroHabitacion) {
+        return repository.buscarActivaPorNumeroHabitacion(numeroHabitacion);
     }
 }

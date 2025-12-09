@@ -10,5 +10,5 @@ public interface UsuarioDao {
 
     Usuario modificar(Usuario usuario);
 
-    Optional<Usuario> findByNombre(String nombre);
+    Optional<Usuario> buscarPorNombre(String nombre);
 }

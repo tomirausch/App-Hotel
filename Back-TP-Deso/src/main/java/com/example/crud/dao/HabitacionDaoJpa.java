@@ -16,7 +16,7 @@ public class HabitacionDaoJpa implements HabitacionDao {
     private final HabitacionRepository repository;
 
     @Override
-    public List<Habitacion> findAllOrdenadas() {
+    public List<Habitacion> listarTodasOrdenadas() {
         return repository.findAllByOrderByNumeroAsc();
     }
 

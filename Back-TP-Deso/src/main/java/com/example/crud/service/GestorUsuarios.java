@@ -16,7 +16,7 @@ public class GestorUsuarios {
     private final UsuarioDao usuarioDao;
 
     public boolean autenticarUsuario(String nombre, String contrasena) {
-        return usuarioDao.findByNombre(nombre)
+        return usuarioDao.buscarPorNombre(nombre)
                 .map(u -> u.getContrasena().equals(contrasena))
                 .orElse(false);
     }
@@ -29,12 +29,10 @@ public class GestorUsuarios {
     }
 
     public boolean modificarUsuario(String email) {
-        // TODO: Implementar
         return false;
     }
 
     public boolean darBajaUsuario(String email) {
-        // TODO: Implementar
         return false;
     }
 }

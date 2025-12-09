@@ -8,5 +8,5 @@ public interface PersonaJuridicaDao {
 
     Optional<PersonaJuridica> findById(Long id);
 
-    Optional<PersonaJuridica> findByCuit(String cuit);
+    Optional<PersonaJuridica> buscarPorCuit(String cuit);
 }

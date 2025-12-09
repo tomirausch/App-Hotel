@@ -22,7 +22,7 @@ public class HuespedDaoJpa implements HuespedDao {
     }
 
     @Override
-    public Optional<Huesped> findByDocumento(String tipo, String numero) {
+    public Optional<Huesped> buscarPorDocumento(String tipo, String numero) {
         return repository.findByTipoDocumentoAndNumeroDocumento(TipoDocumento.valueOf(tipo), numero);
     }
 

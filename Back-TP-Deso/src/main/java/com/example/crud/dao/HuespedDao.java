@@ -9,7 +9,7 @@ import com.example.crud.enums.TipoDocumento;
 public interface HuespedDao {
     Huesped save(Huesped h);
 
-    Optional<Huesped> findByDocumento(String tipo, String numero);
+    Optional<Huesped> buscarPorDocumento(String tipo, String numero);
 
     List<Huesped> buscarPorCriterios(String apellido,
             String nombre,

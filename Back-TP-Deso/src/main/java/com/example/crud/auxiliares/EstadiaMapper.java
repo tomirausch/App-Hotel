@@ -4,6 +4,7 @@ import com.example.crud.model.*;
 import com.example.crud.enums.EstadoEstadia;
 import java.math.BigDecimal;
 import java.util.List;
+import java.time.LocalDate;
 
 public final class EstadiaMapper {
 
@@ -13,8 +14,8 @@ public final class EstadiaMapper {
     public static Estadia toEntity(Huesped responsable,
             List<Huesped> acompanantes,
             Habitacion habitacion,
-            java.time.LocalDate fechaDesde,
-            java.time.LocalDate fechaHasta,
+            LocalDate fechaDesde,
+            LocalDate fechaHasta,
             Reserva reservaOrigen,
             EstadoEstadia estado) {
         Estadia nuevaEstadia = new Estadia();
@@ -33,16 +34,7 @@ public final class EstadiaMapper {
         }
         nuevaEstadia.setCantPersonas(cantidad);
 
-        // Calcular costo
-        if (habitacion.getTipoHabitacion() != null) {
-            long dias = java.time.temporal.ChronoUnit.DAYS.between(fechaDesde, fechaHasta) + 1;
-            if (dias < 1)
-                dias = 1;
-            BigDecimal costoTotal = habitacion.getTipoHabitacion().getCosto().multiply(new BigDecimal(dias));
-            nuevaEstadia.setCostoEstadia(costoTotal);
-        } else {
-            nuevaEstadia.setCostoEstadia(BigDecimal.ZERO);
-        }
+        nuevaEstadia.setCostoEstadia(BigDecimal.ZERO);
 
         return nuevaEstadia;
     }

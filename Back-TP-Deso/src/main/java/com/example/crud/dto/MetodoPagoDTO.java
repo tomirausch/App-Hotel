@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -26,7 +27,7 @@ public class MetodoPagoDTO {
     private String numeroCheque;
     private String tipoCheque; // Enum TipoCheque
     private String plaza;
-    private java.time.LocalDate fechaCobro;
+    private LocalDate fechaCobro;
     private String banco;
 
     // Campos para Efectivo

@@ -19,9 +19,6 @@ public class HabitacionController {
 
     private final GestorHabitaciones service;
 
-    // ===========================================================
-    // CU05 – Mostrar estado de habitaciones en un rango de fechas
-    // ===========================================================
     @GetMapping("/estado")
     public ResponseEntity<List<HabitacionDTO>> estadoEnRango(
             @RequestParam("desde") String desdeStr,

@@ -23,12 +23,8 @@ public class HuespedController {
 
     private final GestorHuespedes service;
 
-    // ===========================================================
-    // CU09 – Alta de huésped
-    // ===========================================================
     @PostMapping
     public ResponseEntity<HuespedDTO> crear(@Valid @RequestBody HuespedDTO request) {
-        // Delegamos la lógica de 'Upsert' y mapeo al servicio
         Huesped creado = service.crear(request);
 
         HuespedDTO response = HuespedMapper.toDTO(creado);

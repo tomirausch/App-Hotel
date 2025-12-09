@@ -29,7 +29,7 @@ public class UsuarioDaoJpa implements UsuarioDao {
     }
 
     @Override
-    public Optional<Usuario> findByNombre(String nombre) {
+    public Optional<Usuario> buscarPorNombre(String nombre) {
         return repository.findByNombre(nombre);
     }
 }

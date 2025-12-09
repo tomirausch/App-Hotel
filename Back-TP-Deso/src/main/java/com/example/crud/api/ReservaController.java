@@ -5,12 +5,12 @@ import com.example.crud.model.Reserva;
 import com.example.crud.dto.ReservaPendienteDTO;
 import java.util.List;
 import com.example.crud.service.GestorHabitaciones;
+import com.example.crud.service.HotelFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 
 @RestController
@@ -20,12 +20,13 @@ import java.net.URI;
 public class ReservaController {
 
         private final GestorHabitaciones gestorHabitaciones;
+        private final HotelFacade hotelFacade;
 
         @PostMapping
         public ResponseEntity<?> crearReserva(@Valid @RequestBody ReservaDTO request) {
-                java.util.List<Reserva> nuevasReservas = gestorHabitaciones.confirmarReserva(request);
+                List<Reserva> nuevasReservas = hotelFacade.confirmarReserva(request);
 
-                java.util.List<Long> ids = nuevasReservas.stream()
+                List<Long> ids = nuevasReservas.stream()
                                 .map(Reserva::getId)
                                 .toList();
 
@@ -44,7 +45,7 @@ public class ReservaController {
         }
 
         @PostMapping("/cancelar")
-        public ResponseEntity<String> cancelarReservas(@RequestBody java.util.List<Long> ids) {
+        public ResponseEntity<String> cancelarReservas(@RequestBody List<Long> ids) {
                 gestorHabitaciones.cancelarReservas(ids);
                 return ResponseEntity.ok("Reservas canceladas con éxito");
         }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDate;
 
 @Repository
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -21,19 +22,19 @@ public class ReservaDaoJpa implements ReservaDao {
   }
 
   @Override
-  public java.util.List<Reserva> saveAll(java.util.List<Reserva> reservas) {
+  public List<Reserva> saveAll(List<Reserva> reservas) {
     return repository.saveAll(reservas);
   }
 
   @Override
-  public java.util.List<Reserva> findConflictingReservations(Long habitacionId, java.time.LocalDate fechaDesde,
-      java.time.LocalDate fechaHasta) {
-    return repository.findConflictingReservations(habitacionId, fechaDesde, fechaHasta);
+  public List<Reserva> buscarReservasConflictivas(Long habitacionId, LocalDate fechaDesde,
+      LocalDate fechaHasta) {
+    return repository.buscarReservasConflictivas(habitacionId, fechaDesde, fechaHasta);
   }
 
   @Override
-  public java.util.List<Reserva> findAllInDateRange(java.time.LocalDate fechaDesde, java.time.LocalDate fechaHasta) {
-    return repository.findAllInDateRange(fechaDesde, fechaHasta);
+  public List<Reserva> buscarEnRangoFecha(LocalDate fechaDesde, LocalDate fechaHasta) {
+    return repository.buscarEnRangoFecha(fechaDesde, fechaHasta);
   }
 
   @Override
@@ -42,12 +43,12 @@ public class ReservaDaoJpa implements ReservaDao {
   }
 
   @Override
-  public java.util.List<Reserva> findPendingByGuestName(String nombre, String apellido) {
-    return repository.findPendingByGuestName(nombre, apellido);
+  public List<Reserva> buscarPendientesPorNombreHuesped(String nombre, String apellido) {
+    return repository.buscarPendientesPorNombreHuesped(nombre, apellido);
   }
 
   @Override
-  public java.util.List<Reserva> findAllById(List<Long> ids) {
+  public List<Reserva> findAllById(List<Long> ids) {
     return repository.findAllById(ids);
   }
 }
