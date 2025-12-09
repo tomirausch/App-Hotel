@@ -1,13 +1,7 @@
 package com.example.crud.service;
 
 import com.example.crud.modelFacturacion.Factura;
-import com.example.crud.modelFacturacion.Cheque;
-import com.example.crud.modelFacturacion.Pago;
-import com.example.crud.enums.TipoDocumento;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import com.example.crud.dao.FacturaDao;
 import com.example.crud.dao.EstadiaDao;
@@ -56,22 +50,4 @@ public class GestorFacturacion {
         return FacturaMapper.toDTO(facturaDao.save(factura));
     }
 
-    public Factura facturar(Integer nroHabitacion, LocalTime horaSalida, String responsablePago) {
-        return null;
-    }
-
-    public void ingresarPago(Integer numeroHabitacion, Float importe, String cotizacion,
-            String nroCheque, String plaza, LocalDate fechaCobro) {
-    }
-
-    public List<Cheque> listarCheques(LocalDate fechaDesde, LocalDate fechaHasta) {
-        return null;
-    }
-
-    public List<Pago> listarIngresos(LocalDate fechaDesde, LocalDate fechaHasta) {
-        return null;
-    }
-
-    public void ingresarNotaCredito(String cuit, TipoDocumento tipo, String documento) {
-    }
 }

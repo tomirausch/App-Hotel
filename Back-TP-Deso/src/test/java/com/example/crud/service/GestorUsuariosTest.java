@@ -78,13 +78,4 @@ class GestorUsuariosTest {
         assertEquals("nuevo", resultado.getNombre());
     }
 
-    @Test
-    void modificarUsuario() {
-        assertFalse(gestorUsuarios.modificarUsuario("email"));
-    }
-
-    @Test
-    void darBajaUsuario() {
-        assertFalse(gestorUsuarios.darBajaUsuario("email"));
-    }
 }

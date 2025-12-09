@@ -28,11 +28,4 @@ public class GestorUsuarios {
         return UsuarioMapper.toDTO(guardado);
     }
 
-    public boolean modificarUsuario(String email) {
-        return false;
-    }
-
-    public boolean darBajaUsuario(String email) {
-        return false;
-    }
 }

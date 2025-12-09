@@ -41,12 +41,6 @@ public class FacturaDTO {
     private Long idPersonaJuridica;
 
     @Builder.Default
-    private List<PagoDTO> pagos = new ArrayList<>();
-
-    @Builder.Default
-    private List<NotaCreditoDTO> notasCredito = new ArrayList<>();
-
-    @Builder.Default
     private List<LineaFacturaDTO> lineas = new ArrayList<>();
 
     public List<LineaFacturaDTO> getLineas() {

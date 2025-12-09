@@ -54,14 +54,6 @@ public class Factura {
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LineaFactura> lineasFactura = new ArrayList<>();
 
-    // Relación 1:N con NotaCredito
-    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NotaCredito> notasCredito = new ArrayList<>();
-
-    // Relación 1:N con Pago
-    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pago> pagos = new ArrayList<>();
-
     // Relación N:1 con Estadia
     @ManyToOne
     @JoinColumn(name = "id_estadia")
