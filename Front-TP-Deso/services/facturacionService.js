@@ -1,8 +1,12 @@
 const API_URL = "http://localhost:8080/api/facturacion";
 
 export const buscarOcupantes = async (numeroHabitacion, horaSalida) => {
-  const params = new URLSearchParams({ numeroHabitacion, horaSalida });
-  const response = await fetch(`${API_URL}/ocupantes?${params.toString()}`);
+  // Nota: horaSalida no se usa en el endpoint actual de estadias, pero se mantiene en la firma por compatibilidad
+  const params = new URLSearchParams({ numeroHabitacion });
+  // El endpoint correcto está en EstadiaController: /api/estadias/detalles
+  const response = await fetch(
+    `http://localhost:8080/api/estadias/detalles?${params.toString()}`
+  );
 
   if (!response.ok) {
     // Intentamos leer el mensaje del backend
@@ -12,22 +16,6 @@ export const buscarOcupantes = async (numeroHabitacion, horaSalida) => {
         "No se encontraron ocupantes o la habitación no está activa."
     );
   }
-  return await response.json();
-};
-
-export const obtenerPreFactura = async (
-  idEstadia,
-  idResponsable,
-  esPersonaJuridica
-) => {
-  const params = new URLSearchParams({
-    idEstadia,
-    idResponsable,
-    esPersonaJuridica: esPersonaJuridica,
-  });
-  const response = await fetch(`${API_URL}/pre-factura?${params.toString()}`);
-
-  if (!response.ok) throw new Error("Error al calcular la pre-factura.");
   return await response.json();
 };
 

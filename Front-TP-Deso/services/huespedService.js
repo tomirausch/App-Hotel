@@ -47,13 +47,10 @@ export const actualizarHuesped = async (id, datosHuesped) => {
 
 export const buscarAcompanante = async (tipoDocumento, numeroDocumento) => {
   const params = new URLSearchParams({ tipoDocumento, numeroDocumento });
-  const response = await fetch(
-    `${API_URL}/buscar?${params.toString()}`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  const response = await fetch(`${API_URL}/buscar?${params.toString()}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
 
   if (!response.ok) {
     throw new Error("Error al buscar huéspedes");
@@ -84,4 +81,34 @@ export const eliminarHuesped = async (id) => {
     throw new Error(errorData.message || "Error al eliminar el huésped");
   }
   return true;
+};
+
+export const buscarPersonaJuridica = async (cuit) => {
+  const params = new URLSearchParams({ cuit });
+  const response = await fetch(
+    `${API_URL}/persona-juridica/buscar?${params.toString()}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Error al buscar persona jurídica");
+  }
+  return await response.json();
+};
+
+export const crearPersonaJuridica = async (datosPersonaJuridica) => {
+  const response = await fetch(`${API_URL}/persona-juridica`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(datosPersonaJuridica),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || "Error al crear la persona jurídica");
+  }
+  return await response.json();
 };

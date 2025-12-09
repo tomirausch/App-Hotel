@@ -4,8 +4,19 @@
   margin: 40px auto;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(255,255,255,0.1);
   min-height: 500px;
+  border: 1px solid whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contenedorResponsable {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 850px;
+  padding: 20px;
 }
 
 .titulo {
@@ -42,31 +53,61 @@
   font-size: 1rem;
 }
 
-.tablaOcupantes {
+.tablaContainer {
   width: 100%;
-  border-collapse: collapse;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
   margin-bottom: 20px;
 }
 
-.tablaOcupantes th, .tablaOcupantes td {
+.header {
+  background-color: #111428;
+  color: whitesmoke;
+  font-weight: bold;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   padding: 12px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
+  border-bottom: 1px solid #ccc;
 }
 
-.tablaOcupantes th {
-  background-color: #f8f9fa;
-  color: #1E2448;
+.fila {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: white; /* Ensure readability */
+  color: #333;
+}
+
+.fila:last-child {
+  border-bottom: none;
+}
+
+.fila:hover {
+  background-color: #018db479; /* Blue tint from BuscarHuesped */
 }
 
 .filaSeleccionada {
-  background-color: #e0f2fe;
+  background-color: #018db4 !important;
+  color: white;
+}
+
+.filaSeleccionada:hover {
+  background-color: #018db4 !important;
+}
+
+.celda {
+  display: flex;
+  align-items: center;
 }
 
 .opcionTercero {
-  background-color: #f9fafb;
+  color: whitesmoke;
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid whitesmoke;
   border-radius: 5px;
   margin-top: 20px;
   display: flex;
@@ -75,7 +116,6 @@
 }
 
 .resumenContainer {
-  background-color: #f8fafc;
   padding: 20px;
   border-radius: 8px;
   border: 1px solid #e2e8f0;
@@ -113,11 +153,11 @@
   margin-top: 10px;
 }
 
-/* --- BOTONES --- */
 .botonesContainer {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
+  gap: 40px;
 }
 
 .btnSiguiente, .btnCancelar {
@@ -132,12 +172,20 @@
 
 .btnSiguiente {
   background-color: #22c55e;
-  color: white;
+  color: whitesmoke;
 }
 
 .btnCancelar {
   background-color: #ef4444;
-  color: white;
+  color: whitesmoke;
+}
+
+.btnSiguiente:not(.desactivado):hover {
+  opacity: 0.8;
+}
+
+.btnCancelar:not(.desactivado):hover {
+  opacity: 0.8;
 }
 
 .desactivado {
@@ -147,4 +195,10 @@
 
 .inputError {
     border: 1px solid #ef4444 !important;
+}
+
+.msgError {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 2px;
 }

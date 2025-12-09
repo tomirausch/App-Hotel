@@ -2,10 +2,21 @@ export const validarHuesped = (formData) => {
   const errores = {};
 
   const camposObligatorios = [
-    "Apellido", "Nombre", "TipoDocumento", "NumeroDocumento", 
-    "PosicionIVA", "FechaNacimiento", "NumeroTelefono", 
-    "Ocupacion", "Nacionalidad", "Calle", "Numero", 
-    "CP", "Pais", "Provincia", "Localidad"
+    "Apellido",
+    "Nombre",
+    "TipoDocumento",
+    "NumeroDocumento",
+    "PosicionIVA",
+    "FechaNacimiento",
+    "NumeroTelefono",
+    "Ocupacion",
+    "Nacionalidad",
+    "Calle",
+    "Numero",
+    "CP",
+    "Pais",
+    "Provincia",
+    "Localidad",
   ];
 
   camposObligatorios.forEach((campo) => {
@@ -18,7 +29,6 @@ export const validarHuesped = (formData) => {
   const posicionIVA = formData.get("PosicionIVA");
   const cuit = formData.get("CUIT");
 
-  
   if (posicionIVA === "ResponsableInscripto") {
     if (!cuit || cuit.toString().trim() === "") {
       errores["CUIT"] = "El CUIT es obligatorio para esta condición fiscal";
@@ -26,7 +36,7 @@ export const validarHuesped = (formData) => {
   }
 
   const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-  
+
   const nombre = formData.get("Nombre");
   if (nombre && !regexSoloLetras.test(nombre.toString())) {
     errores["Nombre"] = "El nombre solo puede contener letras y espacios";
@@ -51,7 +61,7 @@ export const validarHuesped = (formData) => {
 
 export const validarBusquedaHuesped = (formData) => {
   const errores = {};
-  const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/; 
+  const regexSoloLetras = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]*$/;
 
   const nombre = formData.get("Nombre");
   if (nombre && !regexSoloLetras.test(nombre.toString())) {
@@ -61,7 +71,7 @@ export const validarBusquedaHuesped = (formData) => {
   const apellido = formData.get("Apellido");
   if (apellido && !regexSoloLetras.test(apellido.toString())) {
     errores["Apellido"] = "El apellido solo puede contener letras y espacios";
-  } 
+  }
 
   return {
     esValido: Object.keys(errores).length === 0,
@@ -70,7 +80,8 @@ export const validarBusquedaHuesped = (formData) => {
 };
 
 export const validarPassword = (password) => {
-  if (!password) return { valido: false, mensaje: "La contraseña es obligatoria" };
+  if (!password)
+    return { valido: false, mensaje: "La contraseña es obligatoria" };
 
   // 1. Al menos 5 letras
   const cantidadLetras = (password.match(/[a-zA-Z]/g) || []).length;
@@ -99,15 +110,24 @@ export const validarPassword = (password) => {
 
       // Iguales (ej: 111)
       if (n1 === n2 && n2 === n3) {
-        return { valido: false, mensaje: "No puede tener 3 números iguales consecutivos." };
+        return {
+          valido: false,
+          mensaje: "No puede tener 3 números iguales consecutivos.",
+        };
       }
       // Crecientes (ej: 123)
       if (n1 + 1 === n2 && n2 + 1 === n3) {
-        return { valido: false, mensaje: "No puede tener 3 números consecutivos crecientes." };
+        return {
+          valido: false,
+          mensaje: "No puede tener 3 números consecutivos crecientes.",
+        };
       }
       // Decrecientes (ej: 321)
       if (n1 - 1 === n2 && n2 - 1 === n3) {
-        return { valido: false, mensaje: "No puede tener 3 números consecutivos decrecientes." };
+        return {
+          valido: false,
+          mensaje: "No puede tener 3 números consecutivos decrecientes.",
+        };
       }
     }
   }
@@ -116,3 +136,45 @@ export const validarPassword = (password) => {
 };
 
 const esDigito = (charCode) => charCode >= 48 && charCode <= 57;
+
+export const validarResponsable = (formData) => {
+  const errores = {};
+
+  const camposObligatorios = [
+    "razonSocial",
+    "cuit",
+    "telefono",
+    "calle",
+    "numero",
+    "cp",
+    "localidad",
+    "provincia",
+  ];
+
+  /*
+   * Nota: En el formulario los inputs tienen name="razonSocial", "cuit", etc.
+   * Asegurarse de que coincidan con los nombres aquí.
+   */
+  camposObligatorios.forEach((campo) => {
+    const valor = formData.get(campo);
+    if (!valor || valor.toString().trim() === "") {
+      errores[campo] = "Este campo es obligatorio";
+    }
+  });
+
+  // Validaciones adicionales
+  const cuit = formData.get("cuit");
+  if (cuit && !/^\d+$/.test(cuit)) {
+    errores["cuit"] = "El CUIT solo debe contener números";
+  }
+
+  const telefono = formData.get("telefono");
+  if (telefono && !/^\d+$/.test(telefono)) {
+    errores["telefono"] = "El teléfono solo debe contener números";
+  }
+
+  return {
+    esValido: Object.keys(errores).length === 0,
+    errores,
+  };
+};
