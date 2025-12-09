@@ -863,6 +863,16 @@ export default function OcuparHabitacion() {
                           style={{ backgroundColor: "blue" }}
                           onClick={() => {
                             if (
+                              acompananteEncontrado.id ===
+                              huespedSeleccionado.id
+                            ) {
+                              mostrarError(
+                                "El huésped titular no puede ser agregado como acompañante."
+                              );
+                              return;
+                            }
+
+                            if (
                               !acompanantes.some(
                                 (a) => a.id === acompananteEncontrado.id
                               )
