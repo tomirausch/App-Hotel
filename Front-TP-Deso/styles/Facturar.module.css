@@ -53,6 +53,17 @@
   font-size: 1rem;
 }
 
+.fullWidth {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.fullWidth input {
+  width: 46%; 
+}
+
 .tablaContainer {
   width: 100%;
   border: 1px solid #ccc;
@@ -78,7 +89,7 @@
   border-bottom: 1px solid #eee;
   cursor: pointer;
   transition: background-color 0.2s;
-  background-color: white; /* Ensure readability */
+  background-color: whitesmoke;
   color: #333;
 }
 
@@ -87,12 +98,12 @@
 }
 
 .fila:hover {
-  background-color: #018db479; /* Blue tint from BuscarHuesped */
+  background-color: #018db479;
 }
 
 .filaSeleccionada {
   background-color: #018db4 !important;
-  color: white;
+  color: whitesmoke;
 }
 
 .filaSeleccionada:hover {
@@ -155,9 +166,9 @@
 
 .botonesContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 30px;
-  gap: 40px;
+  gap: 20px;
 }
 
 .btnSiguiente, .btnCancelar {

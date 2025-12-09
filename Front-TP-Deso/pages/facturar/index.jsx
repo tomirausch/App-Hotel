@@ -10,11 +10,9 @@ import { buscarPersonaJuridica } from "@/services/huespedService";
 export default function Facturar() {
   const router = useRouter();
 
-  // Estados de Flujo
   const [paso, setPaso] = useState(1);
   const [cargando, setCargando] = useState(false);
 
-  // Datos Paso 1 (Búsqueda)
   const [busqueda, setBusqueda] = useState({
     numeroHabitacion: "",
     horaSalida: "",
@@ -25,16 +23,12 @@ export default function Facturar() {
   const inputHabitacionRef = useRef(null);
   const inputHoraRef = useRef(null);
 
-  // Datos Paso 2 (Selección)
-  const [seleccionado, setSeleccionado] = useState(null); // ID del ocupante
+  const [seleccionado, setSeleccionado] = useState(null);
   const [esTercero, setEsTercero] = useState(false);
   const [cuitTercero, setCuitTercero] = useState("");
-
-  // Datos Paso 3 (Confirmación)
   const [preFactura, setPreFactura] = useState(null);
   const [itemsSeleccionados, setItemsSeleccionados] = useState({});
 
-  // Modal
   const [modalConfig, setModalConfig] = useState({
     visible: false,
     tipo: "",
@@ -45,15 +39,11 @@ export default function Facturar() {
   const cerrarModal = () =>
     setModalConfig((prev) => ({ ...prev, visible: false }));
 
-  // Helpers
   const aMayusculas = (e) => {
     e.target.value = e.target.value.toUpperCase();
     handleBusquedaChange(e);
   };
 
-  // -----------------------------------------------------
-  // PASO 1: BUSCAR HABITACIÓN
-  // -----------------------------------------------------
   const handleBusquedaChange = (e) => {
     setBusqueda({ ...busqueda, [e.target.name]: e.target.value });
     if (erroresInput[e.target.name])
@@ -70,8 +60,6 @@ export default function Facturar() {
   const buscar = async (e) => {
     e.preventDefault();
 
-    // 3.A.1 Validar campos (Errores acumulados)
-    // 3.A.1 Validar campos (Errores inline)
     const nuevosErroresInput = {};
     let hayError = false;
 
@@ -96,9 +84,7 @@ export default function Facturar() {
         busqueda.numeroHabitacion,
         busqueda.horaSalida
       );
-      // El backend ahora devuelve EstadiaDetalleDTO { idEstadia, ocupantes, ... }
       if (data && data.ocupantes) {
-        console.log("Data", data);
         setOcupantes(data.ocupantes);
         setDatosEstadia(data);
         setPaso(2);
@@ -126,16 +112,10 @@ export default function Facturar() {
       setCargando(false);
     }
   };
-
-  // -----------------------------------------------------
-  // PASO 2: SELECCIONAR RESPONSABLE
-  // -----------------------------------------------------
   const seleccionarResponsable = async () => {
     let responsable = null;
     if (esTercero) {
-      // 5.B: Facturar a tercero
       if (!cuitTercero.trim()) {
-        // 5.C: CUIT Vacío -> Ejecutar CU03
         setModalConfig({
           visible: true,
           tipo: "advertencia",
@@ -158,7 +138,6 @@ export default function Facturar() {
       try {
         const personaJuridica = await buscarPersonaJuridica(cuitTercero);
 
-        // 5.B.2: Mostrar Razón Social y confirmar
         setModalConfig({
           visible: true,
           tipo: "confirmacion",
@@ -168,19 +147,17 @@ export default function Facturar() {
             {
               texto: "CANCELAR",
               estilo: "cancelar",
-              onClick: cerrarModal, // 5.B.2.2 vuelve al paso 5 (aquí se mantiene en la misma pantalla)
+              onClick: cerrarModal,
             },
             {
               texto: "ACEPTAR",
               estilo: "aceptar",
               onClick: () => {
                 cerrarModal();
-                // 5.B.2.1.1: Ir al punto 6 (Generar Pre-Factura en nuestro caso)
                 const resp = {
                   ...personaJuridica,
                   nombre: personaJuridica.razonSocial,
                   esPersonaJuridica: true,
-                  // Si el DTO no trae posicionIVA, definimos una por defecto o la que traiga
                   posicionIVA:
                     personaJuridica.posicionIVA || "RESPONSABLE_INSCRIPTO",
                   id: personaJuridica.id,
@@ -191,10 +168,9 @@ export default function Facturar() {
           ],
         });
       } catch (error) {
-        // No encontrado -> flujo 5.C (Dar alta)
         setModalConfig({
           visible: true,
-          type: "advertencia",
+          tipo: "advertencia",
           titulo: "No encontrado",
           mensaje:
             "No se encontró el CUIT ingresado. Debe dar de alta al responsable.",
@@ -210,9 +186,8 @@ export default function Facturar() {
       } finally {
         setCargando(false);
       }
-      return; // Esperamos acción del modal
+      return;
     } else {
-      // Facturar a ocupante
       if (!seleccionado) {
         setModalConfig({
           visible: true,
@@ -227,7 +202,6 @@ export default function Facturar() {
       }
 
       const persona = ocupantes.find((o) => o.id === seleccionado);
-      // 5.A: Validación de edad
       const hoy = new Date();
       const nacimiento = new Date(persona.fechaNacimiento);
       let edad = hoy.getFullYear() - nacimiento.getFullYear();
@@ -244,13 +218,11 @@ export default function Facturar() {
             { texto: "Aceptar", estilo: "aceptar", onClick: cerrarModal },
           ],
         });
-        return; // 5.A.2 Vuelve al paso 5
+        return;
       }
       responsable = {
         ...persona,
         esPersonaJuridica: false,
-        // Usamos la posición IVA que viene del ocupante (asumiendo que viene en el objeto)
-        // Si no viene, por defecto consumidor final
         posicionIVA: persona.posicionIVA || "CONSUMIDOR_FINAL",
       };
       generarPreFacturaLocal(responsable);
@@ -258,34 +230,36 @@ export default function Facturar() {
   };
 
   const generarPreFacturaLocal = (responsable) => {
-    // 1. Definir Tipo de Factura
     let tipoFactura = "B";
     if (responsable.posicionIVA === "RESPONSABLE_INSCRIPTO") {
       tipoFactura = "A";
     }
-
-    // 2. Construir Items
     const items = [];
 
-    // Item Estadía
     items.push({
       detalle: "Estadía Habitación",
-      monto: datosEstadia.costoBaseEstadia,
+      precioUnitario: datosEstadia.costoBaseEstadia,
       cantidad: 1,
+      monto: datosEstadia.costoBaseEstadia,
     });
 
-    // Items Servicios
     if (datosEstadia.serviciosConsumidos) {
       datosEstadia.serviciosConsumidos.forEach((serv) => {
+        const cantidad = serv.cantidad || 1;
+
+        const precioUnitario = serv.precioUnidad || serv.precio || 0;
+
+        const totalLinea = precioUnitario * cantidad;
+
         items.push({
-          detalle: serv.nombre, // Asumiendo que el servicio tiene nombre y precio
-          monto: serv.precio,
-          cantidad: 1, // O la cantidad que venga
+          detalle: serv.nombre,
+          precioUnitario: precioUnitario,
+          cantidad: cantidad,
+          monto: totalLinea,
         });
       });
     }
 
-    // 3. Calcular Totales Iniciales
     const total = items.reduce((acc, item) => acc + item.monto, 0);
     let subtotal = total;
     let iva = 0;
@@ -299,17 +273,16 @@ export default function Facturar() {
       nombreResponsable: responsable.esPersonaJuridica
         ? responsable.nombre
         : `${responsable.apellido} ${responsable.nombre}`,
-      cuitResponsable: responsable.cuit || responsable.numeroDocumento || "N/A", // Ojo: Huesped tiene dni, no cuit a veces
+      cuitResponsable: responsable.cuit || responsable.numeroDocumento || "N/A",
       tipoFactura,
       items,
       subtotal,
       iva,
       total,
-      idResponsable: responsable.id || 0, // 0 si es tercero nuevo
+      idResponsable: responsable.id || 0,
       esPersonaJuridica: responsable.esPersonaJuridica,
     });
 
-    // Seleccionar todos por defecto
     const seleccionInicial = {};
     items.forEach((_, i) => (seleccionInicial[i] = true));
     setItemsSeleccionados(seleccionInicial);
@@ -317,17 +290,12 @@ export default function Facturar() {
     setPaso(3);
   };
 
-  // -----------------------------------------------------
-  // PASO 3: CONFIRMAR Y FACTURAR
-  // -----------------------------------------------------
   const toggleItem = (index) => {
     const nuevaSeleccion = {
       ...itemsSeleccionados,
       [index]: !itemsSeleccionados[index],
     };
     setItemsSeleccionados(nuevaSeleccion);
-
-    // Recalcular totales dinámicamente al cambiar selección
     recalcularTotales(nuevaSeleccion);
   };
 
@@ -359,9 +327,19 @@ export default function Facturar() {
     );
 
     if (itemsFinales.length === 0) {
-      alert("Debe seleccionar al menos un ítem para facturar.");
-      // Según CU, si no hay ítems tildados vuelve al paso anterior (Paso 4 del CU -> nuestro paso 2)
-      // Pero aquí ya estamos en la pantalla de confirmación, así que solo alertamos.
+      setModalConfig({
+        visible: true,
+        tipo: "error",
+        titulo: "Error",
+        mensaje: "Debe seleccionar al menos un ítem para facturar.",
+        acciones: [
+          {
+            texto: "Entendido",
+            estilo: "cancelar",
+            onClick: cerrarModal,
+          },
+        ],
+      });
       return;
     }
 
@@ -384,8 +362,8 @@ export default function Facturar() {
           : null,
         lineas: itemsFinales.map((i) => ({
           descripcion: i.detalle,
-          precioUnitario: i.monto,
-          cantidad: 1,
+          precioUnitario: i.precioUnitario,
+          cantidad: i.cantidad,
         })),
         pagos: [],
       };
@@ -423,7 +401,6 @@ export default function Facturar() {
     }
   };
 
-  // --- RENDERIZADO ---
   return (
     <>
       <Head>
@@ -434,7 +411,6 @@ export default function Facturar() {
       <div className={styles.contenedorPrincipal}>
         <h2 className={styles.titulo}>Facturación / Check-out</h2>
 
-        {/* --- PANTALLA 1: BUSCADOR --- */}
         {paso === 1 && (
           <form className={styles.formBuscador} onSubmit={buscar}>
             <div className={styles.inputGroup}>
@@ -493,7 +469,6 @@ export default function Facturar() {
           </form>
         )}
 
-        {/* --- PANTALLA 2: SELECCIÓN RESPONSABLE --- */}
         {paso === 2 && (
           <div className={styles.contenedorResponsable}>
             <h3 className={styles.titulo}>Seleccione Responsable de Pago</h3>
@@ -578,7 +553,6 @@ export default function Facturar() {
           </div>
         )}
 
-        {/* --- PANTALLA 3: DETALLE Y CONFIRMACIÓN --- */}
         {paso === 3 && preFactura && (
           <div>
             <div className={styles.resumenContainer}>
@@ -606,6 +580,7 @@ export default function Facturar() {
                         display: "flex",
                         alignItems: "center",
                         gap: "10px",
+                        flex: 1,
                       }}
                     >
                       <input
@@ -613,14 +588,43 @@ export default function Facturar() {
                         checked={!!itemsSeleccionados[i]}
                         onChange={() => toggleItem(i)}
                       />
-                      {item.detalle}
+                      <span>
+                        {item.detalle}{" "}
+                        {item.cantidad > 1 && (
+                          <span style={{ color: "#666", fontSize: "0.9em" }}>
+                            (x{item.cantidad})
+                          </span>
+                        )}
+                      </span>
                     </label>
-                    <span>
-                      ${" "}
-                      {item.monto.toLocaleString("es-AR", {
-                        minimumFractionDigits: 2,
-                      })}
-                    </span>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-end",
+                      }}
+                    >
+                      {item.cantidad > 1 && (
+                        <span
+                          style={{
+                            fontSize: "0.8em",
+                            color: "#888",
+                            marginBottom: "2px",
+                          }}
+                        >
+                          {item.cantidad} x ${" "}
+                          {item.precioUnitario.toLocaleString("es-AR", {
+                            minimumFractionDigits: 2,
+                          })}
+                        </span>
+                      )}
+                      <span>
+                        ${" "}
+                        {item.monto.toLocaleString("es-AR", {
+                          minimumFractionDigits: 2,
+                        })}
+                      </span>
+                    </div>
                   </li>
                 ))}
               </ul>

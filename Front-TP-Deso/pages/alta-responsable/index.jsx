@@ -207,7 +207,7 @@ export default function AltaResponsable() {
                 <span className={styles.mensajeError}>{errores.cuit}</span>
               )}
             </div>
-            <div className={styles.formGroup}>
+            <div className={`${styles.formGroup} ${styles.fullWidth}`}>
               <label>Teléfono*</label>
               <input
                 type="text"
