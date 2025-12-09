@@ -114,6 +114,22 @@ export default function OcuparHabitacion() {
     return copia;
   }, [huespedesEncontrados, ordenHuesped, columnaHuesped]);
 
+  const seleccionarTitular = (huesped) => {
+    const hoy = new Date();
+    const nacimiento = new Date(huesped.fechaNacimiento);
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const m = hoy.getMonth() - nacimiento.getMonth();
+    if (m < 0 || (m === 0 && hoy.getDate() < nacimiento.getDate())) edad--;
+
+    if (edad < 18) {
+      mostrarError(
+        `El huésped titular (${huesped.nombre} ${huesped.apellido}) debe ser mayor de edad (Tiene ${edad} años).`
+      );
+      return;
+    }
+    setHuespedSeleccionado(huesped);
+  };
+
   const handleAtras = () => {
     setSeleccionadoInicio([]);
     setSeleccionadoFin([]);
@@ -400,8 +416,9 @@ export default function OcuparHabitacion() {
                 type="button"
                 value="Volver"
                 // Añadimos la clase desactivado si confirma
-                className={`${styles.btnCancelar} ${confirmando ? styles.desactivado : ""
-                  }`}
+                className={`${styles.btnCancelar} ${
+                  confirmando ? styles.desactivado : ""
+                }`}
                 disabled={confirmando}
                 onClick={() => {
                   setMostrandoLista(false);
@@ -411,8 +428,9 @@ export default function OcuparHabitacion() {
               <input
                 type="button"
                 value="Continuar al Check-in"
-                className={`${styles.btnSiguiente} ${confirmando ? styles.desactivado : ""
-                  }`}
+                className={`${styles.btnSiguiente} ${
+                  confirmando ? styles.desactivado : ""
+                }`}
                 style={{ backgroundColor: "#22c55e" }}
                 disabled={confirmando}
                 onClick={() => setMostrandoFormularioHuesped(true)}
@@ -489,8 +507,9 @@ export default function OcuparHabitacion() {
                         <input
                           type="button"
                           value="Atrás"
-                          className={`${styles.btnCancelar} ${deshabilitarBotonesGlobal ? styles.desactivado : ""
-                            }`}
+                          className={`${styles.btnCancelar} ${
+                            deshabilitarBotonesGlobal ? styles.desactivado : ""
+                          }`}
                           disabled={deshabilitarBotonesGlobal}
                           onClick={() => {
                             setMostrandoFormularioHuesped(false);
@@ -502,8 +521,9 @@ export default function OcuparHabitacion() {
                         <input
                           type="submit"
                           value={cargando ? "Buscando..." : "BUSCAR"}
-                          className={`${styles.btnSiguiente} ${deshabilitarBotonesGlobal ? styles.desactivado : ""
-                            }`}
+                          className={`${styles.btnSiguiente} ${
+                            deshabilitarBotonesGlobal ? styles.desactivado : ""
+                          }`}
                           disabled={deshabilitarBotonesGlobal}
                           style={{ maxWidth: "200px" }}
                         />
@@ -633,9 +653,10 @@ export default function OcuparHabitacion() {
                             {huespedesOrdenados.map((h) => (
                               <div
                                 key={h.id}
-                                className={`${styles.filaListaContainer} ${huespedSeleccionado?.id === h.id &&
+                                className={`${styles.filaListaContainer} ${
+                                  huespedSeleccionado?.id === h.id &&
                                   styles.seleccionado
-                                  }`}
+                                }`}
                                 style={{
                                   gridTemplateColumns: "1fr 1fr 1fr 1fr",
                                   cursor: confirmando
@@ -643,7 +664,7 @@ export default function OcuparHabitacion() {
                                     : "pointer",
                                 }}
                                 onClick={() =>
-                                  !confirmando && setHuespedSeleccionado(h)
+                                  !confirmando && seleccionarTitular(h)
                                 }
                               >
                                 <div className={styles.pListaContainer}>
@@ -744,8 +765,9 @@ export default function OcuparHabitacion() {
                         <input
                           type="button"
                           value="Atrás"
-                          className={`${styles.btnCancelar} ${deshabilitarBotonesGlobal ? styles.desactivado : ""
-                            }`}
+                          className={`${styles.btnCancelar} ${
+                            deshabilitarBotonesGlobal ? styles.desactivado : ""
+                          }`}
                           disabled={deshabilitarBotonesGlobal}
                           onClick={() => {
                             setMostrandoFormularioHuesped(false);
@@ -759,8 +781,9 @@ export default function OcuparHabitacion() {
                         <input
                           type="submit"
                           value={cargando ? "Buscando..." : "BUSCAR"}
-                          className={`${styles.btnSiguiente} ${deshabilitarBotonesGlobal ? styles.desactivado : ""
-                            }`}
+                          className={`${styles.btnSiguiente} ${
+                            deshabilitarBotonesGlobal ? styles.desactivado : ""
+                          }`}
                           disabled={deshabilitarBotonesGlobal}
                           style={{ maxWidth: "200px" }}
                         />
@@ -827,11 +850,12 @@ export default function OcuparHabitacion() {
                         <input
                           type="button"
                           value="Agregar acompañante"
-                          className={`${styles.btnBase} ${Object.keys(acompananteEncontrado).length === 0 ||
-                              deshabilitarBotonesGlobal
+                          className={`${styles.btnBase} ${
+                            Object.keys(acompananteEncontrado).length === 0 ||
+                            deshabilitarBotonesGlobal
                               ? styles.desactivado
                               : ""
-                            }`}
+                          }`}
                           disabled={
                             Object.keys(acompananteEncontrado).length === 0 ||
                             deshabilitarBotonesGlobal
@@ -859,11 +883,12 @@ export default function OcuparHabitacion() {
                         <input
                           type="button"
                           value={confirmando ? "Procesando..." : "Confirmar"}
-                          className={`${styles.btnSiguiente} ${Object.keys(acompanantes).length === 0 ||
-                              deshabilitarBotonesGlobal
+                          className={`${styles.btnSiguiente} ${
+                            Object.keys(acompanantes).length === 0 ||
+                            deshabilitarBotonesGlobal
                               ? styles.desactivado
                               : ""
-                            }`}
+                          }`}
                           disabled={
                             Object.keys(acompanantes).length === 0 ||
                             deshabilitarBotonesGlobal
@@ -892,8 +917,9 @@ export default function OcuparHabitacion() {
                     <input
                       type="button"
                       value="Cargar Acompañante"
-                      className={`${styles.btnBase} ${deshabilitarBotonesGlobal ? styles.desactivado : ""
-                        }`}
+                      className={`${styles.btnBase} ${
+                        deshabilitarBotonesGlobal ? styles.desactivado : ""
+                      }`}
                       style={{ backgroundColor: "#3b82f6" }}
                       disabled={deshabilitarBotonesGlobal}
                       onClick={() => {
@@ -908,8 +934,9 @@ export default function OcuparHabitacion() {
                       value={
                         confirmando ? "Procesando..." : "CONFIRMAR OCUPACIÓN"
                       }
-                      className={`${styles.btnSiguiente} ${deshabilitarConfirmar ? styles.desactivado : ""
-                        }`}
+                      className={`${styles.btnSiguiente} ${
+                        deshabilitarConfirmar ? styles.desactivado : ""
+                      }`}
                       onClick={() => {
                         finalizarOcupacion();
                       }}
@@ -1022,8 +1049,9 @@ export default function OcuparHabitacion() {
           <input
             type="button"
             value="Siguiente"
-            className={`${styles.btnSiguiente} ${seleccionadaReserva.length === 0 ? styles.desactivado : ""
-              }`}
+            className={`${styles.btnSiguiente} ${
+              seleccionadaReserva.length === 0 ? styles.desactivado : ""
+            }`}
             style={{ backgroundColor: "#22c55e" }}
             onClick={handleContinuar}
             disabled={seleccionadaReserva.length === 0}
@@ -1104,14 +1132,15 @@ export default function OcuparHabitacion() {
                 fechaHasta < fechaDesde
               }
               form="formulario"
-              className={`${styles.btnSiguiente} ${cargando ||
-                  !fechaDesde ||
-                  !fechaHasta ||
-                  fechaDesde === fechaHasta ||
-                  fechaHasta < fechaDesde
+              className={`${styles.btnSiguiente} ${
+                cargando ||
+                !fechaDesde ||
+                !fechaHasta ||
+                fechaDesde === fechaHasta ||
+                fechaHasta < fechaDesde
                   ? styles.desactivado
                   : null
-                }`}
+              }`}
               onClick={() => {
                 setSeleccionadoInicio([]);
                 setSeleccionadoFin([]);
