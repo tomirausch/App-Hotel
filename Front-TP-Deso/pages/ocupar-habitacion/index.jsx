@@ -262,7 +262,7 @@ export default function OcuparHabitacion() {
         setHuespedesEncontrados(data);
       } else {
         const data = await buscarAcompanante(tipoDocumento, numeroDocumento);
-        if (data) {
+        if (data && data.length > 0) {
           setAcompananteEncontrado(data[0]);
         } else {
           setAcompananteEncontrado({});
