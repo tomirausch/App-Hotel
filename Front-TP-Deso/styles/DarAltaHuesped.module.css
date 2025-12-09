@@ -122,7 +122,7 @@
   transform: scale(0.95);
 }
 
-.btnSiguiente:disabled {
+.btnSiguiente:disabled, .btnCancelar:disabled {
   background-color: #204821;
   cursor: not-allowed;
   color: white;
