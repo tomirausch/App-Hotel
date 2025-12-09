@@ -34,6 +34,7 @@ export default function BuscarHuesped() {
   };
 
   const manejarOrdenamiento = (columna) => {
+    console.log("Columna clickeada:", columna); 
     setSeleccionado(null);
     if (columnaSeleccionada !== columna) {
       setColumnaSeleccionada(columna);
@@ -48,27 +49,33 @@ export default function BuscarHuesped() {
   };
 
   const personasOrdenadas = useMemo(() => {
-    if (!orden || !columnaSeleccionada) {
-      return personas;
-    }
-
-    const copia = [...personas];
-
-    copia.sort((a, b) => {
-      const valorA = a[columnaSeleccionada]?.toString().toLowerCase() || "";
-      const valorB = b[columnaSeleccionada]?.toString().toLowerCase() || "";
-
-      if (valorA < valorB) {
-        return orden === "asc" ? -1 : 1;
+      if (!orden || !columnaSeleccionada) {
+        return personas;
       }
-      if (valorA > valorB) {
-        return orden === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
 
-    return copia;
-  }, [personas, orden, columnaSeleccionada]);
+      const copia = [...personas];
+
+      copia.sort((a, b) => {
+        if (columnaSeleccionada === "numeroDocumento") {
+          const valA = Number(a[columnaSeleccionada]) || 0;
+          const valB = Number(b[columnaSeleccionada]) || 0;
+          return orden === "asc" ? valA - valB : valB - valA;
+        }
+
+        const valorA = a[columnaSeleccionada]?.toString().toLowerCase() || "";
+        const valorB = b[columnaSeleccionada]?.toString().toLowerCase() || "";
+
+        if (valorA < valorB) {
+          return orden === "asc" ? -1 : 1;
+        }
+        if (valorA > valorB) {
+          return orden === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+
+      return copia;
+    }, [personas, orden, columnaSeleccionada]);
 
   const router = useRouter();
 
@@ -140,7 +147,7 @@ export default function BuscarHuesped() {
             <img 
               src={orden === "asc" ? "/flecha-arriba.png" : "/flecha-abajo.png"} 
               alt="Orden"
-              style={{height: "20px", width:"20px", filter: "invert(1)"}} 
+              style={{height: "20px", width:"20px"}} 
             />
           )}
         </div>
@@ -151,7 +158,7 @@ export default function BuscarHuesped() {
             <img 
               src={orden === "asc" ? "/flecha-arriba.png" : "/flecha-abajo.png"} 
               alt="Orden"
-              style={{height: "20px", width:"20px", filter: "invert(1)"}} 
+              style={{height: "20px", width:"20px"}} 
             />
           )}
         </div>
@@ -162,7 +169,7 @@ export default function BuscarHuesped() {
             <img 
               src={orden === "asc" ? "/flecha-arriba.png" : "/flecha-abajo.png"} 
               alt="Orden"
-              style={{height: "20px", width:"20px", filter: "invert(1)"}} 
+              style={{height: "20px", width:"20px"}} 
             />
           )}
         </div>
@@ -173,7 +180,7 @@ export default function BuscarHuesped() {
             <img 
               src={orden === "asc" ? "/flecha-arriba.png" : "/flecha-abajo.png"} 
               alt="Orden"
-              style={{height: "20px", width:"20px" , filter: "invert(1)"}} 
+              style={{height: "20px", width:"20px"}} 
             />
           )}
         </div>
