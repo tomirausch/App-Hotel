@@ -517,14 +517,18 @@ export default function DarAltaHuesped() {
           type="button"
           form="formulario"
           value="Cancelar"
-          className={styles.btnCancelar}
+          className={`${styles.btnCancelar} ${
+            enviando ? styles.desactivado : ""
+          }`}
           disabled={enviando}
         />
         <input
           type="submit"
           form="formulario"
           value={enviando ? "Enviando" : "Siguiente"}
-          className={styles.btnSiguiente}
+          className={`${styles.btnSiguiente} ${
+            enviando ? styles.desactivado : ""
+          }`}
           disabled={enviando}
         />
       </div>
