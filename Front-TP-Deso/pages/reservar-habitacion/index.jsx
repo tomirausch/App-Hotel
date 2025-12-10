@@ -26,6 +26,8 @@ export default function ReservarHabitacion() {
     useState(false);
   const [errores, setErrores] = useState({});
 
+  const hoy = new Date().toISOString().split("T")[0];
+
   const [modalConfig, setModalConfig] = useState({
     visible: false,
     tipo: "",
@@ -118,12 +120,8 @@ export default function ReservarHabitacion() {
     setHabitaciones([]);
     e.preventDefault();
 
-    const anioMinimo = 2024;
-    const anioDesde = parseInt(fechaDesde.split("-")[0]);
-    const anioHasta = parseInt(fechaHasta.split("-")[0]);
-
-    if (anioDesde < anioMinimo || anioHasta < anioMinimo) {
-      mostrarError(`Las fechas no pueden ser anteriores al año ${anioMinimo}.`);
+    if (fechaDesde < hoy) {
+      mostrarError("La fecha de inicio no puede ser anterior al día de hoy.");
       return;
     }
 
@@ -604,7 +602,9 @@ export default function ReservarHabitacion() {
               <input
                 type="button"
                 value="Atrás"
-                className={styles.btnCancelar}
+                className={`${styles.btnCancelar} ${
+                  cargando ? styles.desactivado : ""
+                }`}
                 onClick={() => {
                   setMostrandoFormularioHuesped(false);
                   setErrores({});
@@ -668,7 +668,9 @@ export default function ReservarHabitacion() {
             type="reset"
             value="Cancelar"
             form="formulario"
-            className={styles.btnCancelar}
+            className={`${styles.btnCancelar} ${
+              cargando ? styles.desactivado : ""
+            }`}
             onClick={() => {
               setHabitaciones([]);
               setSeleccionadoInicio([]);

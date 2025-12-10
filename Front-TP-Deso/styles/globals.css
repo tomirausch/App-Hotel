@@ -27,7 +27,7 @@ input{
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-    cursor: pointer;   /* Para que aparezca la manito al pasar el mouse */
+    cursor: pointer;   
     filter: opacity(0.5) invert(1);
 }
 

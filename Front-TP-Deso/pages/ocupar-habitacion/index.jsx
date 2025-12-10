@@ -16,6 +16,7 @@ import Modal from "@/components/Modal";
 
 export default function OcuparHabitacion() {
   const router = useRouter();
+  const hoy = new Date().toISOString().split("T")[0];
 
   const formBuscarRef = useRef(null);
 
@@ -29,7 +30,7 @@ export default function OcuparHabitacion() {
   const [errores, setErrores] = useState({});
   const [cargando, setCargando] = useState(false);
   const [confirmando, setConfirmando] = useState(false);
-  const [fechaDesde, setFechaDesde] = useState("");
+  const [fechaDesde, setFechaDesde] = useState(hoy);
   const [fechaHasta, setFechaHasta] = useState("");
   const [modalConfig, setModalConfig] = useState({
     visible: false,
@@ -189,12 +190,8 @@ export default function OcuparHabitacion() {
     setHabitaciones([]);
     e.preventDefault();
 
-    const anioMinimo = 2024;
-    const anioDesde = parseInt(fechaDesde.split("-")[0]);
-    const anioHasta = parseInt(fechaHasta.split("-")[0]);
-
-    if (anioDesde < anioMinimo || anioHasta < anioMinimo) {
-      mostrarError(`Las fechas no pueden ser anteriores al año ${anioMinimo}.`);
+    if (fechaDesde < hoy) {
+      mostrarError("La fecha de inicio no puede ser anterior al día de hoy.");
       return;
     }
 
@@ -329,7 +326,7 @@ export default function OcuparHabitacion() {
               setReservasAcumuladas([]);
               setMostrandoLista(false);
               setMostrandoFormularioHuesped(false);
-              setFechaDesde("");
+              setFechaDesde(hoy);
               setFechaHasta("");
               setSeleccionadoInicio([]);
               setSeleccionadoFin([]);
@@ -1111,14 +1108,16 @@ export default function OcuparHabitacion() {
               type="reset"
               value="Cancelar"
               form="formulario"
-              className={styles.btnCancelar}
+              className={`${styles.btnCancelar} ${
+                cargando ? styles.desactivado : ""
+              }`}
               onClick={() => {
                 setHabitaciones([]);
                 setSeleccionadoInicio([]);
                 setSeleccionadoFin([]);
                 setReservasAcumuladas([]);
                 setMostrandoLista(false);
-                setFechaDesde("");
+                setFechaDesde(hoy);
                 setFechaHasta("");
                 setMostrandoFormularioHuesped(false);
               }}

@@ -1,13 +1,11 @@
-/* --- LAYOUT PRINCIPAL --- */
 .contenedorPrincipal {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
-  font-family: sans-serif; /* Fuente básica para que se lea bien */
+  font-family: sans-serif; 
 }
 
-/* --- FORMULARIO (Sin cambios mayores, solo orden) --- */
 .formulario {
   width: 600px;
   max-width: 100%;
@@ -23,8 +21,8 @@
   border: none;
   padding: 0 20px 20px 20px;
   width: 100%;
-  box-sizing: border-box; /* ESTO ES CRUCIAL para que el padding no rompa el ancho */
-  min-width: 0; /* Evita que flexbox rompa el fieldset */
+  box-sizing: border-box; 
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
@@ -85,19 +83,18 @@
   border-radius: 10px;
   border: 1px solid whitesmoke;
 }
-/* 1. Contenedor Marco: Define el tamaño visible y redondea bordes */
+
 .containerResponse, .containerNullResponse {
   width: 1200px;
-  max-width: 95vw; /* Para que no rompa en pantallas chicas */
+  max-width: 95vw; 
   margin-top: 30px;
 
 }
 
-/* 2. Área Scrollable: Permite el movimiento horizontal */
 .resultadosContainer {
   display: flex;
   flex-direction: row;
-  overflow-x: auto; /* Scroll horizontal activo */
+  overflow-x: auto;
   width: 100%;
   scrollbar-width: thin;
   scrollbar-color: whitesmoke transparent;
@@ -108,25 +105,23 @@
 
 }
 
-/* --- COLUMNA FIJA (IZQUIERDA) --- */
 .columnaEstaticaContainer {
   display: flex;
   flex-direction: column;
   position: sticky;
   left: 0;
-  z-index: 10; /* Se queda por encima de las otras columnas */
-  background-color: #1E2448; /* Color de fondo sólido para que no sea transparente */
-  min-width: 120px; /* Ancho fijo para los títulos laterales */
+  z-index: 10; 
+  background-color: #1E2448;
+  min-width: 120px;
   border-right: 1px solid whitesmoke;
-  box-shadow: 4px 0 5px rgba(0,0,0,0.3); /* Sombra para dar efecto de flotación */
+  box-shadow: 4px 0 5px rgba(0,0,0,0.3); 
 }
 
-/* Títulos "Tipo" y "Numero" de la izquierda */
 .celdaTituloEstatico {
-  height: 50px; /* ALTURA FIJA DE CABECERA */
+  height: 50px; 
   display: flex;
   align-items: center;
-  justify-content: center; /* Centrado */
+  justify-content: center; 
   background-color: #334155;
   color: white;
   font-weight: bold;
@@ -134,9 +129,8 @@
   padding: 0 10px;
 }
 
-/* Celdas de Fechas (Izquierda) */
 .celdaFecha {
-  height: 50px; /* ALTURA FIJA DE FILA (Debe coincidir con celdaEstado) */
+  height: 50px; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,31 +141,26 @@
   font-size: 14px;
 }
 
-
-/* --- COLUMNAS DE DATOS (DERECHA) --- */
 .columnaHabitacion {
   display: flex;
   flex-direction: column;
-  background-color: #f1f5f9; /* Fondo claro para las columnas de datos */
-  min-width: 160px; /* ANCHO MÍNIMO: Evita que el título se corte */
-  flex-shrink: 0; /* Prohibido encogerse */
+  background-color: #f1f5f9; 
+  min-width: 160px; 
+  flex-shrink: 0; 
   border-right: 1px solid #cbd5e1;
 }
 
-/* Cabeceras de la habitación (Tipo y Número) */
 .celdaHeaderHabitacion {
-  height: 50px; /* ALTURA FIJA DE CABECERA (Coincide con celdaTituloEstatico) */
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #3b82f6; /* Azul más vivo */
+  background-color: #3b82f6;
   color: white;
   font-weight: bold;
   border-bottom: 1px solid #60a5fa;
   padding: 0 5px;
-  
-  /* Evita cortes de texto */
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -180,13 +169,12 @@
 
 .celdaHeaderNumero {
   composes: celdaHeaderHabitacion;
-  background-color: #2563eb; /* Un azul un poco más oscuro para el número */
+  background-color: #2563eb; 
 }
 
-/* Celdas de Estado (Disponible/Reservado) */
 .celdaEstado {
   background-color: whitesmoke !important;
-  height: 50px; /* ALTURA FIJA DE FILA (Coincide con celdaFecha) */
+  height: 50px; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,11 +183,11 @@
   font-weight: bold;
   padding: 0 5px;
   color: #000000;
-  white-space: nowrap; /* Sin saltos de línea */
+  white-space: nowrap;
 }
 
 .celdaEstado:hover {
-  background-color: #dbeafe; /* Azul claro al pasar el mouse */
+  background-color: #dbeafe;
   cursor: pointer;
 }
 
@@ -210,47 +198,43 @@
 }
 
 .estadoDISPONIBLE {
-  background-color: #22c55e; /* Verde */
+  background-color: #22c55e; 
 }
 
 .estadoOCUPADA {
-  background-color: #ef4444; /* Rojo */
+  background-color: #ef4444;
 }
 
 .estadoRESERVADA {
-  background-color: #ff8c00; /* Naranja */
+  background-color: #ff8c00;
 }
 
 .estadoMANTENIMIENTO {
-  background-color: #6b7280; /* Gris */
+  background-color: #6b7280;
 }
 
 .estadoFUERA_DE_SERVICIO {
-  background-color: #374151; /* Gris oscuro */
+  background-color: #374151; 
 }
 
-/* Color para el Click Inicial */
 .seleccionInicio {
-  background-color: #ff8c006b !important; /* Azul fuerte */
+  background-color: #ff8c006b !important;
   color: white !important;
 }
 
-/* Color para el Click Final */
 .seleccionFin {
   background-color: #ff8c006b !important;
   color: white !important;
 }
 
-/* Color para el Rango (el medio) */
 .seleccionRango {
-  background-color: #ffa2306b !important; /* Azul muy clarito */
-  color: #1e40af !important; /* Texto azul oscuro */
+  background-color: #ffa2306b !important; 
+  color: #1e40af !important; 
 }
 
-/* Opcional: Para mejorar la UX, cambia el cursor */
 .celdaEstado {
   cursor: pointer;
-  user-select: none; /* Evita que se seleccione el texto al hacer click rápido */
+  user-select: none; 
 }
 
 .botonesRespuestaContainer{
@@ -283,24 +267,20 @@
 
 .listaContainer {
   width: 100%;
-  max-width: 900px; /* Que no se estire infinito */
+  max-width: 900px; 
   margin: 20px auto;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Somrbita elegante */
-  overflow: hidden; /* Para que los bordes redondeados no se corten */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+  overflow: hidden;
   border: 1px solid #cbd5e1;
 }
 
-/* --- HEADER (Títulos) --- */
 .headerLista {
   display: grid;
-  /* DEFINICIÓN DE COLUMNAS: 
-     1fr (Hab) - 2.5fr (Tipo ancho) - 1fr (Ingreso) - 1fr (Egreso) 
-     ¡Esto alinea todo! */
   grid-template-columns: 0.8fr 2.5fr 1fr 1fr; 
   
-  background-color: #1e293b; /* Azul oscuro */
+  background-color: #1e293b; 
   color: white;
   padding: 15px 10px;
   text-transform: uppercase;
@@ -311,18 +291,16 @@
 .tituloHeaderLista {
   display: flex;
   align-items: center;
-  justify-content: center; /* Centrado horizontal */
+  justify-content: center; 
   text-align: center;
 }
 
 .tituloHeaderLista h3 {
   margin: 0;
   font-weight: bold;
-  font-size: inherit; /* Hereda los 14px del padre */
+  font-size: inherit; 
 }
 
-
-/* --- FILAS DE DATOS --- */
 .contenidoListaContainer {
   display: flex;
   flex-direction: column;
@@ -330,12 +308,10 @@
 
 .filaListaContainer {
   display: grid;
-  /* IMPORTANTE: Debe tener las mismas columnas que el header */
   grid-template-columns: 0.8fr 2.5fr 1fr 1fr;
-  
   padding: 15px 10px;
   border-bottom: 1px solid #e2e8f0;
-  align-items: center; /* Centrado vertical */
+  align-items: center;
   transition: background-color 0.2s;
   color: #334155;
   font-size: 14px;
@@ -346,13 +322,12 @@
 }
 
 .filaListaContainer:hover {
-  background-color: #f1f5f9; /* Efecto hover gris clarito */
+  background-color: #f1f5f9; 
 }
 
-/* Celdas individuales */
 .pListaContainer {
   display: flex;
-  justify-content: center; /* Centrado horizontal */
+  justify-content: center;
   text-align: center;
   padding: 0 5px;
 }
@@ -368,7 +343,6 @@
   margin-bottom: 60px;
 }
 
-/* --- ESTILOS DE MODAL UNIFICADOS --- */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -397,7 +371,6 @@
   align-items: center;
 }
 
-/* Bordes de colores por tipo */
 .exito { border-top: 6px solid #22c55e; }
 .error { border-top: 6px solid #ef4444; }
 .advertencia { border-top: 6px solid #eab308; }
@@ -474,11 +447,10 @@
 .formReservaInputsContainer {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Espacio entre filas */
+  gap: 15px; 
   width: 100%;
 }
 
-/* --- AGREGA ESTO QUE FALTABA --- */
 .filaInputs {
   display: flex;
   flex-direction: row;
@@ -486,7 +458,6 @@
   width: 100%;
 }
 
-/* Ajuste para móviles: que se pongan en columna si la pantalla es chica */
 @media (max-width: 600px) {
   .filaInputs {
     flex-direction: column;

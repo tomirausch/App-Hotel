@@ -1,4 +1,3 @@
-/* --- LAYOUT PRINCIPAL (TU CÓDIGO ORIGINAL) --- */
 .contenedorPrincipal {
   display: flex;
   flex-direction: column;
@@ -7,7 +6,6 @@
   font-family: sans-serif;
 }
 
-/* --- FORMULARIO --- */
 .formulario {
   width: 600px;
   max-width: 100%;
@@ -51,7 +49,6 @@
   margin-top: 20px;
 }
 
-/* --- BOTONES --- */
 .btnBase {
   padding: 10px 20px;
   font-size: 14px;
@@ -101,15 +98,14 @@
 
 .containerResponse {
   width: 1200px;
-  max-width: 95vw; /* Para que no rompa en pantallas chicas */
+  max-width: 95vw; 
   margin-top: 30px;
 }
 
-/* --- TABLA MATRIZ --- */
 .resultadosContainer {
   display: flex;
   flex-direction: row;
-  overflow-x: auto; /* Scroll horizontal activo */
+  overflow-x: auto; 
   width: 100%;
   scrollbar-width: thin;
   scrollbar-color: whitesmoke transparent;
@@ -119,14 +115,13 @@
   margin-bottom: 30px;
 }
 
-/* --- COLUMNA FIJA (IZQUIERDA) --- */
 .columnaEstaticaContainer {
   display: flex;
   flex-direction: column;
   position: sticky;
   left: 0;
   z-index: 10;
-  background-color: #1E2448; /* TU AZUL OSCURO */
+  background-color: #1E2448;
   min-width: 120px;
   border-right: 1px solid whitesmoke;
   box-shadow: 4px 0 5px rgba(0,0,0,0.3);
@@ -156,7 +151,6 @@
   font-size: 14px;
 }
 
-/* --- COLUMNAS DE DATOS (DERECHA) --- */
 .columnaHabitacion {
   display: flex;
   flex-direction: column;
@@ -188,9 +182,8 @@
   background-color: #2563eb;
 }
 
-/* Celdas de Estado */
 .celdaEstado {
-  background-color: whitesmoke !important; /* TU FONDO ORIGINAL */
+  background-color: whitesmoke !important;
   height: 50px;
   display: flex;
   align-items: center;
@@ -215,14 +208,12 @@
   color: whitesmoke;
 }
 
-/* --- ESTADOS Y COLORES ORIGINALES --- */
 .estadoDISPONIBLE { background-color: #22c55e; }
 .estadoOCUPADA { background-color: #ef4444; }
 .estadoRESERVADA { background-color: #ff8c00; }
 .estadoMANTENIMIENTO { background-color: #6b7280; }
 .estadoFUERA_DE_SERVICIO { background-color: #374151; }
 
-/* TUS COLORES DE SELECCIÓN (Naranjas transparentes) */
 .seleccionInicio {
   background-color: #ff8c006b !important;
   color: white !important;
@@ -253,7 +244,6 @@
   margin-bottom: 60px;
 }
 
-/* --- LISTA RESUMEN (TU GRID ORIGINAL) --- */
 .listaContainer {
   width: 100%;
   max-width: 900px;
@@ -332,8 +322,6 @@
   margin-bottom: 60px;
 }
 
-/* --- ESTILOS AGREGADOS SOLO PARA EL NUEVO FORMULARIO Y MODAL --- */
-
 .formularioReservaContainer {
   display: flex;
   flex-direction: column;
@@ -349,7 +337,6 @@
   gap: 20px;
 }
 
-/* Para poner Apellido y Nombre en la misma linea si quieres, o dejarlos en columna */
 .filaInputs {
     display: flex;
     gap: 30px; 
@@ -359,7 +346,6 @@
 }
 
 .cardFormulario {
-    /* Usamos estilos similares a tu .formulario original */
     width: 800px; 
     max-width: 100%;
     margin: 0 auto;
@@ -377,7 +363,6 @@
     font-size: 1.5rem;
 }
 
-/* Validaciones */
 .inputError {
   border-bottom: 2px solid red !important;
   background-color: transparent;
@@ -390,7 +375,6 @@
   font-weight: 500;
 }
 
-/* --- MODAL UNIFICADO --- */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -419,7 +403,6 @@
   align-items: center;
 }
 
-/* Bordes superiores de colores para el modal */
 .exito { border-top: 6px solid #22c55e; }
 .error { border-top: 6px solid #ef4444; }
 .advertencia { border-top: 6px solid #eab308; }

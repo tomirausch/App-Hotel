@@ -456,6 +456,7 @@ export default function Facturar() {
                   cargando ? styles.desactivado : ""
                 }`}
                 onClick={limpiarFormulario}
+                disabled={cargando}
               />
               <input
                 type="submit"
