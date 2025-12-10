@@ -1,6 +1,6 @@
 import styles from "../../styles/OcuparHabitacion.module.css";
 import Head from "next/head";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useRouter } from "next/router";
 import {
   obtenerEstadoHabitaciones,
@@ -16,6 +16,8 @@ import Modal from "@/components/Modal";
 
 export default function OcuparHabitacion() {
   const router = useRouter();
+
+  const formBuscarRef = useRef(null);
 
   const [habitaciones, setHabitaciones] = useState([]);
   const [seleccionadoInicio, setSeleccionadoInicio] = useState([]);
@@ -431,7 +433,11 @@ export default function OcuparHabitacion() {
               {buscando === "huesped" ? (
                 <>
                   <h3 className={styles.legend}>Buscar Huésped Titular</h3>
-                  <form onSubmit={buscarPersonaEnBD} id="formBuscarHuesped">
+                  <form
+                    onSubmit={buscarPersonaEnBD}
+                    id="formBuscarHuesped"
+                    ref={formBuscarRef}
+                  >
                     <div className={styles.formReservaInputsContainer}>
                       <div className={styles.filaInputs}>
                         <div className={styles.inputContainer}>
@@ -870,9 +876,7 @@ export default function OcuparHabitacion() {
                                 acompananteEncontrado,
                               ]);
                             }
-                            document
-                              .getElementById("formBuscarHuesped")
-                              .reset();
+                            formBuscarRef.current?.reset();
                             setAcompananteEncontrado({});
                             setBusquedaRealizada(false);
                           }}

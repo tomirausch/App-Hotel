@@ -18,6 +18,13 @@ export default function BuscarHuesped() {
   const [errores, setErrores] = useState({});
   const [idHuesped, setIdHuesped] = useState(null);
 
+  const [filtros, setFiltros] = useState({
+    Apellido: "",
+    Nombre: "",
+    TipoDocumento: "",
+    NumeroDocumento: "",
+  });
+
   const [modalConfig, setModalConfig] = useState({
     visible: false,
     tipo: "",
@@ -91,10 +98,19 @@ export default function BuscarHuesped() {
 
   const router = useRouter();
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFiltros((prev) => ({ ...prev, [name]: value }));
+    if (errores[name]) {
+      setErrores((prev) => ({ ...prev, [name]: null }));
+    }
+  };
+
   const buscar = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
+    const formData = new FormData();
+    Object.keys(filtros).forEach((key) => formData.append(key, filtros[key]));
 
     const validacion = validarBusquedaHuesped(formData);
     if (!validacion.esValido) {
@@ -104,21 +120,18 @@ export default function BuscarHuesped() {
 
     setErrores({});
 
-    const filtros = {
-      apellido: formData.get("Apellido")?.trim(),
-      nombre: formData.get("Nombre")?.trim(),
-      tipoDocumento:
-        formData.get("TipoDocumento") === "-"
-          ? ""
-          : formData.get("TipoDocumento"),
-      numeroDocumento: formData.get("NumeroDocumento")?.trim(),
+    const params = {
+      apellido: filtros.Apellido?.trim(),
+      nombre: filtros.Nombre?.trim(),
+      tipoDocumento: filtros.TipoDocumento === "-" ? "" : filtros.TipoDocumento,
+      numeroDocumento: filtros.NumeroDocumento?.trim(),
     };
 
     setCargando(true);
     setBusqueda(false);
 
     try {
-      const resultados = await buscarHuespedes(filtros);
+      const resultados = await buscarHuespedes(params);
       setPersonas(resultados);
       setBusqueda(true);
       setOrden("asc");
@@ -138,7 +151,12 @@ export default function BuscarHuesped() {
     setBusqueda(false);
     setPersonas([]);
     setSeleccionado(null);
-    document.getElementById("formulario").reset();
+    setFiltros({
+      Apellido: "",
+      Nombre: "",
+      TipoDocumento: "",
+      NumeroDocumento: "",
+    });
   };
 
   const mostrarBusqueda = () => {
@@ -160,19 +178,6 @@ export default function BuscarHuesped() {
       return (
         <>
           <div className={`${styles.containerPersona} ${styles.header}`}>
-            <div className={styles.containerP}>
-              <p onClick={() => manejarOrdenamiento("apellido")}>Apellido</p>
-              {columnaSeleccionada === "apellido" && (
-                <img
-                  src={
-                    orden === "asc" ? "/flecha-arriba.png" : "/flecha-abajo.png"
-                  }
-                  alt="Orden"
-                  style={{ height: "20px", width: "20px", filter: "invert(1)" }}
-                />
-              )}
-            </div>
-
             <div className={styles.containerP}>
               <p onClick={() => manejarOrdenamiento("apellido")}>Apellido</p>
               {columnaSeleccionada === "apellido" && (
@@ -307,9 +312,10 @@ export default function BuscarHuesped() {
                 <input
                   type="text"
                   name="Apellido"
+                  value={filtros.Apellido}
+                  onChange={handleChange}
                   placeholder="Apellido"
                   className={errores.Apellido ? styles.inputError : ""}
-                  onChange={() => setErrores({ ...errores, Apellido: null })}
                 />
                 {errores.Apellido && (
                   <span className={styles.mensajeError}>
@@ -323,9 +329,10 @@ export default function BuscarHuesped() {
                 <input
                   type="text"
                   name="Nombre"
+                  value={filtros.Nombre}
+                  onChange={handleChange}
                   placeholder="Nombre"
                   className={errores.Nombre ? styles.inputError : ""}
-                  onChange={() => setErrores({ ...errores, Nombre: null })}
                 />
                 {errores.Nombre && (
                   <span className={styles.mensajeError}>{errores.Nombre}</span>
@@ -334,7 +341,11 @@ export default function BuscarHuesped() {
 
               <div className={styles.containerInput}>
                 <label htmlFor="TipoDocumento">Tipo Documento</label>
-                <select name="TipoDocumento">
+                <select
+                  name="TipoDocumento"
+                  value={filtros.TipoDocumento}
+                  onChange={handleChange}
+                >
                   <option value="">-</option>
                   <option value="DNI">DNI</option>
                   <option value="Pasaporte">Pasaporte</option>
@@ -349,6 +360,8 @@ export default function BuscarHuesped() {
                 <input
                   type="text"
                   name="NumeroDocumento"
+                  value={filtros.NumeroDocumento}
+                  onChange={handleChange}
                   placeholder="Numero Documento"
                 />
               </div>
@@ -365,8 +378,9 @@ export default function BuscarHuesped() {
           <input
             type="button"
             value="Cancelar"
-            form="formulario"
-            className={styles.btnCancelar}
+            className={`${styles.btnCancelar} ${
+              cargando ? styles.desactivado : null
+            }`}
             onClick={() => {
               cancelarBusqueda();
               setErrores({});

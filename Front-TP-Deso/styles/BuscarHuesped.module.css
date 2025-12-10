@@ -84,17 +84,22 @@
   color: white;
 }
 
-.btnCancelar:hover {
-  background-color: #a82f27;
+.btnSiguiente:not(.desactivado):hover {
+  opacity: 0.8;
 }
 
-.btnSiguiente:hover {
-  background-color: #337535;
+.btnCancelar:not(.desactivado):hover {
+  opacity: 0.8;
 }
 
 .btnCancelar:active,
 .btnSiguiente:active {
   transform: scale(0.95);
+}
+
+.btnSiguiente:disabled, .btnCancelar:disabled{
+  opacity: 0.5;
+  cursor:default;
 }
 
 .containerPersona {
@@ -120,9 +125,9 @@
 .containerPersona p {
   text-align: start;
   margin: 0;
-  white-space: nowrap; /* Evita que el texto salte de línea si es largo */
-  overflow: hidden;    /* Corta el texto si es muy largo */
-  text-overflow: ellipsis; /* Pone "..." si se corta */
+  white-space: nowrap; 
+  overflow: hidden;   
+  text-overflow: ellipsis;
 }
 
 .header {
@@ -160,19 +165,6 @@
 
 .seleccionado:hover{
   background-color: #018db4;
-}
-
-.desactivado{
-  opacity: 0.5;
-  cursor:default;
-}
-
-.desactivado:active{
-  opacity: 0.5 !important;
-}
-
-.desactivado:hover{
-  background-color: #4CAF50;
 }
 
 .inputError {
