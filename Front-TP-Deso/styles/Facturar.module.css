@@ -213,3 +213,8 @@
   font-size: 0.85rem;
   margin-top: 2px;
 }
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer; /* Buena práctica para indicar que es clicable */
+}

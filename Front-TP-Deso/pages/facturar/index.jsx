@@ -440,7 +440,7 @@ export default function Facturar() {
                 ref={inputHoraRef}
                 value={busqueda.horaSalida}
                 onChange={handleBusquedaChange}
-                className={erroresInput.horaSalida ? styles.inputError : ""}
+                className={erroresInput.horaSalida && styles.inputError}
               />
               {erroresInput.horaSalida && (
                 <span className={styles.msgError}>
