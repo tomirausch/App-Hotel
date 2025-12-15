@@ -9,4 +9,6 @@ public interface PersonaJuridicaDao {
     Optional<PersonaJuridica> findById(Long id);
 
     Optional<PersonaJuridica> buscarPorCuit(String cuit);
+
+    void deleteById(Long id);
 }

@@ -187,4 +187,56 @@ class GestorHuespedesTest {
 
         assertThrows(RecursoNoEncontradoException.class, () -> gestorHuespedes.buscarPersonaJuridicaPorCuit(cuit));
     }
+
+    @Test
+    void eliminarPersonaJuridica_DeberiaEliminar_CuandoExiste() {
+        Long id = 1L;
+        PersonaJuridica pj = new PersonaJuridica();
+        pj.setId(id);
+
+        when(personaJuridicaDao.findById(id)).thenReturn(Optional.of(pj));
+
+        gestorHuespedes.eliminarPersonaJuridica(id);
+
+        verify(personaJuridicaDao).deleteById(id);
+    }
+
+    @Test
+    void eliminarPersonaJuridica_DeberiaLanzarExcepcion_CuandoNoExiste() {
+        Long id = 1L;
+        when(personaJuridicaDao.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(RecursoNoEncontradoException.class, () -> gestorHuespedes.eliminarPersonaJuridica(id));
+        verify(personaJuridicaDao, never()).deleteById(any());
+    }
+
+    @Test
+    void modificarPersonaJuridica_DeberiaModificar_CuandoExiste() {
+        Long id = 1L;
+        PersonaJuridicaDTO dto = new PersonaJuridicaDTO();
+        dto.setRazonSocial("Nueva Razon Social");
+
+        PersonaJuridica existente = new PersonaJuridica();
+        existente.setId(id);
+        existente.setRazonSocial("Vieja Razon Social");
+
+        when(personaJuridicaDao.findById(id)).thenReturn(Optional.of(existente));
+        when(personaJuridicaDao.save(any(PersonaJuridica.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        PersonaJuridicaDTO result = gestorHuespedes.modificarPersonaJuridica(id, dto);
+
+        assertNotNull(result);
+        assertEquals("Nueva Razon Social", result.getRazonSocial());
+        verify(personaJuridicaDao).save(existente);
+    }
+
+    @Test
+    void modificarPersonaJuridica_DeberiaLanzarExcepcion_CuandoNoExiste() {
+        Long id = 1L;
+        PersonaJuridicaDTO dto = new PersonaJuridicaDTO();
+        when(personaJuridicaDao.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(RecursoNoEncontradoException.class, () -> gestorHuespedes.modificarPersonaJuridica(id, dto));
+        verify(personaJuridicaDao, never()).save(any());
+    }
 }

@@ -80,4 +80,17 @@ public class HuespedController {
         PersonaJuridicaDTO encontrado = service.buscarPersonaJuridicaPorCuit(cuit);
         return ResponseEntity.ok(encontrado);
     }
+
+    @DeleteMapping("/persona-juridica/{id}")
+    public ResponseEntity<Void> eliminarPersonaJuridica(@PathVariable Long id) {
+        service.eliminarPersonaJuridica(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/persona-juridica/{id}")
+    public ResponseEntity<PersonaJuridicaDTO> modificarPersonaJuridica(@PathVariable Long id,
+            @Valid @RequestBody PersonaJuridicaDTO request) {
+        PersonaJuridicaDTO actualizado = service.modificarPersonaJuridica(id, request);
+        return ResponseEntity.ok(actualizado);
+    }
 }

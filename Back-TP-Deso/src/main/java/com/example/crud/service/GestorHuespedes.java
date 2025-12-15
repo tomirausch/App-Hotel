@@ -77,4 +77,21 @@ public class GestorHuespedes {
                         "No se encontró persona jurídica con CUIT: " + cuit));
         return PersonaJuridicaMapper.toDTO(encontrado);
     }
+
+    @Transactional
+    public void eliminarPersonaJuridica(Long id) {
+        if (personaJuridicaDao.findById(id).isEmpty()) {
+            throw new RecursoNoEncontradoException("No se encontró la persona jurídica con id=" + id);
+        }
+        personaJuridicaDao.deleteById(id);
+    }
+
+    @Transactional
+    public PersonaJuridicaDTO modificarPersonaJuridica(Long id, PersonaJuridicaDTO dto) {
+        PersonaJuridica existente = personaJuridicaDao.findById(id)
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró la persona jurídica con id=" + id));
+
+        PersonaJuridicaMapper.updateEntity(existente, dto);
+        return PersonaJuridicaMapper.toDTO(personaJuridicaDao.save(existente));
+    }
 }
