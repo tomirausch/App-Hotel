@@ -4,16 +4,16 @@ Sistema integral de gestión hotelera desarrollado con **Spring Boot** (backend)
 
 ## Tabla de Contenidos
 
-- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
-- [Arquitectura y Patrones de Diseño](#-arquitectura-y-patrones-de-diseño)
-- [Requisitos Previos](#-requisitos-previos)
-- [Base de Datos](#-base-de-datos)
-- [Ejecutar Backend (Spring Boot)](#-ejecutar-backend-spring-boot)
-- [Ejecutar Frontend (Next.js)](#-ejecutar-frontend-nextjs)
-- [Endpoints de Ejemplo (API)](#-endpoints-de-ejemplo-api)
-- [Testing](#-testing)
-- [Diagramas](#-diagramas)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Arquitectura y Patrones de Diseño](#arquitectura-y-patrones-de-diseño)
+- [Requisitos Previos](#requisitos-previos)
+- [Base de Datos](#base-de-datos)
+- [Ejecutar Backend (Spring Boot)](#ejecutar-backend-spring-boot)
+- [Ejecutar Frontend (Next.js)](#ejecutar-frontend-nextjs)
+- [Endpoints de Ejemplo (API)](#endpoints-de-ejemplo-api)
+- [Testing](#testing)
+- [Diagramas](#diagramas)
+- [Estructura del Proyecto](#estructura-del-proyecto)
 
 ---
 
@@ -383,7 +383,7 @@ http://localhost:8080/api/habitaciones/estado?desde=2024-12-20&hasta=2024-12-25
 
 ## Diagramas
 
-Los diagramas de diseño del sistema (Diagrama de Clases, Diagramas de Secuencia) fueron desarrollados durante la etapa de Diseño de Sistemas y están disponibles en el repositorio o pueden ser consultados con los docentes.
+Los diagramas de diseño del sistema (Diagrama de Clases, Diagramas de Secuencia) fueron desarrollados durante la etapa de Diseño de Sistemas y están disponibles en la carpeta [`/Diagramas-TP-Deso`](/Diagramas-TP-Deso) del repositorio.
 
 ---
 
@@ -411,6 +411,8 @@ App-Hotel/
 │   ├── schema.sql                   # Script CREATE TABLE
 │   ├── seed.sql                     # Script INSERT con datos
 │   └── pom.xml                      # Dependencias Maven
+│
+├── Diagramas-TP-Deso/ 
 │
 ├── Front-TP-Deso/                   # Frontend (Next.js)
 │   ├── pages/                       # Páginas de Next.js
