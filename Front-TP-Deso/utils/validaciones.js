@@ -58,6 +58,12 @@ export const validarHuesped = (formData) => {
     errores["Email"] = "Formato de email inválido";
   }
 
+  const fechaNacimiento = formData.get("FechaNacimiento");
+  const fechaActual = new Date().toLocaleDateString('en-CA');
+  if(fechaNacimiento>=fechaActual){
+    errores["FechaNacimiento"] = "Fecha inválida"
+  }
+
   return {
     esValido: Object.keys(errores).length === 0,
     errores,
