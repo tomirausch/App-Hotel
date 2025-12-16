@@ -47,6 +47,11 @@ export const validarHuesped = (formData) => {
     errores["Apellido"] = "El apellido solo puede contener letras y espacios";
   }
 
+  const nacionalidad = formData.get("Nacionalidad");
+  if (nacionalidad && !regexSoloLetras.test(nacionalidad.toString())) {
+  errores["Nacionalidad"] = "La nacionalidad solo puede contener letras y espacios";
+  }
+
   const email = formData.get("Email");
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (email && !emailRegex.test(email.toString())) {
