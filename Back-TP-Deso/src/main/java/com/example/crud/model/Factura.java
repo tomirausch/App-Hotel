@@ -1,8 +1,6 @@
-package com.example.crud.modelFacturacion;
+package com.example.crud.model;
 
 import com.example.crud.enums.TipoFactura;
-import com.example.crud.model.Estadia;
-import com.example.crud.model.Huesped;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

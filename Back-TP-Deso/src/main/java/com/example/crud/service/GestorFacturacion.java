@@ -1,6 +1,6 @@
 package com.example.crud.service;
 
-import com.example.crud.modelFacturacion.Factura;
+import com.example.crud.model.Factura;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import com.example.crud.dao.FacturaDao;
@@ -12,7 +12,7 @@ import com.example.crud.dto.FacturaDTO;
 import com.example.crud.auxiliares.FacturaMapper;
 import com.example.crud.model.Estadia;
 import com.example.crud.model.Huesped;
-import com.example.crud.modelFacturacion.PersonaJuridica;
+import com.example.crud.model.PersonaJuridica;
 import com.example.crud.exception.RecursoNoEncontradoException;
 
 @Service

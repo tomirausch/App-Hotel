@@ -2,8 +2,8 @@ package com.example.crud.auxiliares;
 
 import com.example.crud.dto.FacturaDTO;
 import com.example.crud.dto.LineaFacturaDTO;
-import com.example.crud.modelFacturacion.Factura;
-import com.example.crud.modelFacturacion.LineaFactura;
+import com.example.crud.model.Factura;
+import com.example.crud.model.LineaFactura;
 import java.util.stream.Collectors;
 
 public class FacturaMapper {

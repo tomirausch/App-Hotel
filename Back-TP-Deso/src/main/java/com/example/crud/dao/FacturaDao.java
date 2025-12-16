@@ -1,6 +1,6 @@
 package com.example.crud.dao;
 
-import com.example.crud.modelFacturacion.Factura;
+import com.example.crud.model.Factura;
 import com.example.crud.model.Estadia;
 import java.util.List;
 

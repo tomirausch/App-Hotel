@@ -1,0 +1,119 @@
+@startuml
+title Diagrama de Secuencia: Reservar Habitacion (CU04)
+
+actor "Cliente/Frontend" as User
+participant "UI: Reservar Habitación" as UI
+participant "ReservaController" as RC
+participant "HotelFacade" as Facade
+participant "GestorHuespedes" as Guesped
+participant "HuespedMapper" as HM
+participant "GestorHabitaciones" as GH
+participant "HabitacionDao" as HD
+participant "ReservaMapper" as RM
+participant "Reserva" as R
+participant "ReservaDao" as RD
+' ==== Inicio: referencia a CU05 ====
+User -> UI: iniciarReserva()\nseleccionarRango(fechaInicio, fechaFin)
+activate UI
+ref over UI, RC, GH
+  CU05 - Mostrar estado de habitaciones
+end ref
+UI -> UI: evaluarListadoHabitaciones(listadoHabitaciones)
+alt listadoHabitaciones es nulo
+    UI --> User: informar("No hay habitaciones disponibles para el período indicado")
+    deactivate UI
+else listadoHabitaciones no es nulo
+    UI --> User: mostrarListadoHabitaciones(listadoHabitaciones)
+    User -> UI: seleccionarHabitaciones(habitacionesSeleccionadas)
+    UI -> UI: validarEstadosSeleccion("DISPONIBLE")
+    alt alguna habitación no está DISPONIBLE
+        UI --> User: informar("Las habitaciones seleccionadas no están 'Disponibles' para el período indicado")
+        UI --> User: mostrarListadoHabitaciones(listadoHabitaciones)
+        deactivate UI
+    else todas las habitaciones DISPONIBLES
+        UI -> UI: marcarHabitacionesComoReservadasVisualmente()
+        UI --> User: mostrarResumenHabitaciones("tipoHabitación, Ingreso: día dd/MM/aaaa 12:00hs, Egreso: día dd/MM/aaaa 10:00hs")
+        UI --> User: mostrarOpciones("ACEPTAR", "RECHAZAR")
+        User -> UI: seleccionarOpcion(opcion)
+        alt opcion == "RECHAZAR"
+            UI -> UI: deshacerSeleccionHabitaciones()
+            deactivate UI
+        else opcion == "ACEPTAR"
+            UI --> User: mostrarFormularioDatosHuesped("nombre, apellido, tipoDoc, nroDoc, teléfono")
+            User -> UI: completarDatosHuesped(datosHuesped)
+            UI -> UI: validarDatosHuesped(datosHuesped)
+            alt Datos inválidos
+                UI --> User: mostrarErroresValidacion()
+                ' (el actor puede corregir y volver a intentar)
+            else Datos válidos
+                ' ==== Flujo backend actualizado ====
+                UI -> RC: crearReserva(ReservaDTO)
+                activate RC
+                RC -> Facade: confirmarReserva(ReservaDTO)
+                activate Facade
+                ' 1. Obtener o Crear Huésped (Delegado a Facade)
+                Facade -> Facade: obtenerOcrearHuesped(ReservaDTO)
+                activate Facade
+                    Facade -> HM: toHuespedDTO(datosHuesped)
+                    activate HM
+                    HM --> Facade: HuespedDTO
+                    deactivate HM
+                    Facade -> Guesped: buscarPorDocumento(tipo, numero)
+                    activate Guesped
+                    Guesped --> Facade: Optional<Huesped>
+                    deactivate Guesped
+                    alt Huésped existe
+                        Facade --> Facade: usarHuespedExistente()
+                    else Huésped no existe
+                        Facade -> Guesped: crear(HuespedDTO)
+                        activate Guesped
+                        Guesped --> Facade: HuespedNuevo
+                        deactivate Guesped
+                        Facade --> Facade: usarHuespedNuevo()
+                    end
+                deactivate Facade
+                ' 2. Confirmar Reserva (Delegado a GestorHabitaciones)
+                Facade -> GH: confirmarReserva(ReservaDTO, Huesped)
+                activate GH
+                ' 3. Obtener Habitaciones
+                GH -> GH: obtenerHabitaciones(detalles)
+                activate GH
+                    GH -> HD: findAllById(ids)
+                    activate HD
+                    HD --> GH: List<Habitacion>
+                    deactivate HD
+                deactivate GH
+                ' 4. Crear Entidades Reserva (Mapeo y Cálculo de Monto)
+                GH -> RM: toEntity(ReservaDTO, huesped, habitaciones)
+                activate RM
+                    loop por cada detalle
+                        create R
+                        RM -> R: <<create>>
+                        RM -> R: setHuesped(huesped)
+                        RM -> R: setHabitacion(habitacion)
+                        RM -> R: setEstado(PENDIENTE)
+                        
+                        ' Cálculo de monto dentro del Mapper
+                        RM -> RM: calcularMonto(habitacion, dias)
+                        RM -> R: setMonto(montoCalculado)
+                    end
+                RM --> GH: List<Reserva> (entities)
+                deactivate RM
+                ' 5. Guardar Reservas
+                GH -> RD: saveAll(List<Reserva>)
+                activate RD
+                RD --> GH: List<Reserva> (persistidas)
+                deactivate RD
+                GH --> Facade: List<Reserva>
+                deactivate GH
+                Facade --> RC: List<Reserva>
+                deactivate Facade
+                RC --> UI: 201 Created (IDs)
+                deactivate RC
+                UI --> User: mostrarConfirmacionReserva(IDs)
+                deactivate UI
+            end ' Datos válidos
+        end ' ACEPTAR / RECHAZAR
+    end ' estado habitaciones
+end ' listado nulo / no nulo
+@enduml

@@ -1,0 +1,150 @@
+@startuml
+title Diagrama de Secuencia: Ocupar Habitación (CU15)
+actor "Recepcionista" as Actor
+participant "UI: Ocupar Habitación" as UI
+participant "EstadiaController" as Controller
+participant "GestorHabitaciones" as Gestor
+participant "HuespedDao" as HuespedDao
+participant "HabitacionDao" as HabitacionDao
+participant "ReservaDao" as ReservaDao
+participant "EstadiaMapper" as Mapper
+participant "PrecioStrategy" as Pricing
+participant "Estadia" as Estadia
+participant "EstadiaDao" as EstadiaDao
+' ==== Capa UI: selección de habitaciones ====
+Actor -> UI: iniciarOcuparHabitacion()
+activate UI
+' Referencia al CU05 - Mostrar estado habitaciones
+ref over UI, Gestor
+  CU05 - Mostrar estado habitaciones
+end ref
+UI -> UI: evaluarListadoHabitaciones(listadoHabitaciones)
+alt No hay habitaciones DISPONIBLES o RESERVADAS\ncon las comodidades deseadas
+    UI --> Actor: informar("No hay habitaciones disponibles o reservadas\npara el período solicitado")
+    deactivate UI
+else Hay habitaciones que cumplen criterios
+    UI --> Actor: mostrarListadoHabitaciones(listadoHabitaciones)
+    Actor -> UI: seleccionarHabitaciones(habitacionesSeleccionadas)
+    ' Validar que solo se seleccionen DISPONIBLES o RESERVADAS
+    UI -> UI: validarEstadosSeleccion("DISPONIBLE o RESERVADA")
+    alt Al menos una habitación con estado inválido
+        UI --> Actor: informar("Debe seleccionar solo habitaciones Disponibles o Reservadas")
+        UI --> Actor: mostrarListadoHabitaciones(listadoHabitaciones)
+        deactivate UI
+    else Estados válidos
+        ' Evaluar conflicto: disponible pero con días reservados
+        UI -> UI: evaluarCrucesConReservas(habitacionesSeleccionadas)
+        alt Existe habitación disponible con días reservados
+            UI --> Actor: informar("La habitación seleccionada tiene días reservados.\nSe indican días y responsable de la reserva")
+            UI --> Actor: mostrarBotones("OCUPAR IGUAL","VOLVER")
+            Actor -> UI: seleccionarOpcion(opcionConflicto)
+            alt opcionConflicto == "VOLVER"
+                UI --> Actor: mostrarListadoHabitaciones(listadoHabitaciones)
+                deactivate UI
+            else opcionConflicto == "OCUPAR IGUAL"
+                ' Se continúa con el flujo
+            end
+        else No hay conflictos de reservas
+            ' Se continúa directamente
+        end
+        ' Habitaciones aceptadas para ocupar
+        UI -> UI: marcarHabitacionesComoOcupadasVisualmente()
+        ' ==== Datos del huésped responsable ====
+        UI --> Actor: mostrarFormularioHuesped("nombre, apellido, tipo documento, número documento")
+        Actor -> UI: completarDatosHuesped(datosHuesped)
+        UI -> UI: validarDatosHuesped(datosHuesped)
+        alt Datos inválidos
+            UI --> Actor: mostrarErroresValidacion()
+            ' El actor puede corregir y reenviar (no se modela el loop explícito)
+        else Datos válidos
+            ' ==== Referencia al CU02 - Buscar Huésped ====
+            ref over UI, Gestor
+              CU02 - Buscar Huésped
+            end ref
+            UI --> Actor: mostrarResultadosHuespedes(listaHuespedes)
+            Actor -> UI: seleccionarHuespedYacompanantes()
+            UI -> UI: prepararDatosSeleccion()
+            ' Opciones finales
+            UI --> Actor: mostrarOpciones("SEGUIR CARGANDO","CARGAR OTRA HABITACIÓN","SALIR")
+            Actor -> UI: seleccionarOpcion(opcionFinal)
+            alt opcionFinal == "SEGUIR CARGANDO"
+                UI --> Actor: mostrarFormularioHuesped("nombre, apellido, tipo documento, número documento")
+                ' Vuelve a cargar datos de huésped anterior (no se detalla más)
+            else opcionFinal == "CARGAR OTRA HABITACIÓN"
+                UI --> Actor: mostrarListadoHabitaciones(listadoHabitaciones)
+                ' Vuelve al listado de habitaciones (no se reexpande el flujo)
+            else opcionFinal == "SALIR"
+                ' ==== Aquí se envía la petición al backend y continúa el flujo original ====
+                UI -> Controller: ocuparHabitacion(EstadiaDTO)
+                deactivate UI
+                activate Controller
+                Controller -> Gestor: ocuparHabitacion(EstadiaDTO)
+                activate Gestor
+                ' 1. Obtener huésped responsable
+                Gestor -> HuespedDao: findById(idHuespedResponsable)
+                activate HuespedDao
+                HuespedDao --> Gestor: responsable
+                deactivate HuespedDao
+                ' 2. Obtener acompañantes (si existen)
+                opt listaAcompanantes no vacía
+                    Gestor -> HuespedDao: findAllById(listaAcompanantes)
+                    activate HuespedDao
+                    HuespedDao --> Gestor: acompanantes
+                    deactivate HuespedDao
+                end
+                ' 3. Obtener habitación
+                Gestor -> HabitacionDao: findById(idHabitacion)
+                activate HabitacionDao
+                HabitacionDao --> Gestor: habitacion
+                deactivate HabitacionDao
+                ' 4. Gestionar Reservas Conflictivas
+                Gestor -> ReservaDao: buscarReservasConflictivas(idHabitacion, desde, hasta)
+                activate ReservaDao
+                ReservaDao --> Gestor: reservasConflictivas
+                deactivate ReservaDao
+                opt reservasConflictivas no vacía
+                    ' Tomamos la primera (o iteramos si fuera necesario, el código toma la 0)
+                    Gestor -> Gestor: reserva = reservasConflictivas.get(0)
+                    
+                    alt reserva.huesped == responsable
+                        Gestor -> Gestor: reserva.setEstado(CONFIRMADA)
+                        Gestor -> ReservaDao: save(reserva)
+                        Gestor -> Gestor: reservaOrigen = reserva
+                    else reserva.huesped != responsable
+                        Gestor -> Gestor: reserva.setEstado(CANCELADA)
+                        Gestor -> ReservaDao: save(reserva)
+                    end
+                end
+                ' 5. Crear Estadia
+                Gestor -> Mapper: toEntity(responsable, acompanantes, habitacion, fechas, reservaOrigen, ACTIVA)
+                activate Mapper
+                create Estadia
+                Mapper -> Estadia: <<create>>
+                Mapper --> Gestor: nuevaEstadia
+                deactivate Mapper
+                ' 6. Calcular Costo
+                Gestor -> Pricing: calcularPrecio(habitacion, desde, hasta)
+                activate Pricing
+                Pricing --> Gestor: costo
+                deactivate Pricing
+                
+                Gestor -> Estadia: setCostoEstadia(costo)
+                ' 7. Guardar Estadia
+                Gestor -> EstadiaDao: save(nuevaEstadia)
+                activate EstadiaDao
+                EstadiaDao --> Gestor: estadiaGuardada
+                deactivate EstadiaDao
+                Gestor --> Controller: estadiaGuardada
+                deactivate Gestor
+                
+                Controller --> UI: 201 Created (ID Estadia)
+                deactivate Controller
+                
+                activate UI
+                UI --> Actor: mostrarConfirmacionCheckIn(ID)
+                deactivate UI
+            end ' opcionFinal
+        end ' Datos válidos
+    end ' Estados válidos
+end ' Hay habitaciones / no hay
+@enduml
