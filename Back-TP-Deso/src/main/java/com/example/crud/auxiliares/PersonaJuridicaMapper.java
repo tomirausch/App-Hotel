@@ -1,7 +1,7 @@
 package com.example.crud.auxiliares;
 
 import com.example.crud.dto.PersonaJuridicaDTO;
-import com.example.crud.modelFacturacion.PersonaJuridica;
+import com.example.crud.model.PersonaJuridica;
 
 public class PersonaJuridicaMapper {
 

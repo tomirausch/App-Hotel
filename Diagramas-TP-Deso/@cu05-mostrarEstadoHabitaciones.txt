@@ -1,0 +1,80 @@
+@startuml
+title Diagrama de Secuencia: Mostrar Estado Habitaciones (CU05)
+
+actor "Cliente (API)" as Client
+participant "UI: Estado Habitaciones" as UI
+participant ":HabitacionController" as Controller
+participant ":GestorHabitaciones" as Service
+participant ":HabitacionDao" as HabDao
+participant ":ReservaDao" as ResDao
+participant ":EstadiaDao" as EstDao
+participant "HabitacionMapper" as Mapper
+participant "dto:HabitacionDTO" as DTO
+' ==== Interacción con la UI + Validación de fechas ====
+Client -> UI: completarFormularioRango(fechaInicio, fechaFin)\nconsultar()
+activate UI
+UI -> UI: validarFechas(fechaInicio, fechaFin)
+alt Fechas inválidas
+    UI --> Client: mostrarErroresValidacion()
+    deactivate UI
+else Fechas válidas
+    ' ==== Llamada al backend con fechas válidas ====
+    UI -> Controller: GET /api/habitaciones/estado (desde, hasta)
+    activate Controller
+        Controller -> Service: calcularEstadoDiario(desde, hasta)
+        activate Service
+            ' 1. Recuperación de datos
+            Service -> HabDao: listarTodasOrdenadas()
+            activate HabDao
+            HabDao --> Service: listaHabitaciones
+            deactivate HabDao
+            Service -> ResDao: buscarEnRangoFecha(desde, hasta)
+            activate ResDao
+            ResDao --> Service: listaReservas
+            deactivate ResDao
+            Service -> EstDao: buscarEnRangoFecha(desde, hasta)
+            activate EstDao
+            EstDao --> Service: listaEstadias
+            deactivate EstDao
+            ' 2. Agrupamiento de datos (Optimización)
+            Service -> Service: agruparReservasPorHabitacion()
+            Service -> Service: agruparEstadiasPorHabitacion()
+            ' 3. Lógica de cálculo (Iteración)
+            loop para cada habitacion en listaHabitaciones
+                loop para cada fecha en [desde, hasta]
+                    ' 4. Creación del DTO base
+                    Service -> Mapper: toDTO(habitacion)
+                    activate Mapper
+                    create DTO
+                    Mapper -> DTO: <<create>>
+                    Mapper --> Service: dto
+                    deactivate Mapper
+                    
+                    Service -> DTO: setFecha(fecha)
+                    ' 5. Llamada interna para determinar estado
+                    Service -> Service: calcularEstadoParaDia(h, fecha, reservas, estadias)
+                    activate Service
+                        ' Lógica interna del método
+                        alt habitacion FUERA_DE_SERVICIO
+                             Service --> Service: FUERA_DE_SERVICIO
+                        else existe estadía activa para fecha
+                            Service --> Service: OCUPADA
+                        else existe reserva para fecha
+                            Service --> Service: RESERVADA
+                        else
+                            Service --> Service: DISPONIBLE
+                        end
+                    deactivate Service
+                    Service -> DTO: setEstado(estado)
+                    
+                    ' Nota: No se setean datos de reserva/huesped en este flujo actual
+                end
+            end
+        Service --> Controller: List<HabitacionDTO>
+        deactivate Service
+    Controller --> UI: 200 OK (List<HabitacionDTO>)
+    deactivate Controller
+    UI --> Client: mostrarEstadoHabitaciones(List<HabitacionDTO>)
+    deactivate UI
+end
+@enduml

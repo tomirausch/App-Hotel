@@ -47,10 +47,21 @@ export const validarHuesped = (formData) => {
     errores["Apellido"] = "El apellido solo puede contener letras y espacios";
   }
 
+  const nacionalidad = formData.get("Nacionalidad");
+  if (nacionalidad && !regexSoloLetras.test(nacionalidad.toString())) {
+  errores["Nacionalidad"] = "La nacionalidad solo puede contener letras y espacios";
+  }
+
   const email = formData.get("Email");
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (email && !emailRegex.test(email.toString())) {
     errores["Email"] = "Formato de email inválido";
+  }
+
+  const fechaNacimiento = formData.get("FechaNacimiento");
+  const fechaActual = new Date().toLocaleDateString('en-CA');
+  if(fechaNacimiento>=fechaActual){
+    errores["FechaNacimiento"] = "Fecha inválida"
   }
 
   return {

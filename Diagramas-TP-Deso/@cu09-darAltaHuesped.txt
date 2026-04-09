@@ -1,0 +1,104 @@
+@startuml
+title Diagrama de Secuencia: Dar Alta Huesped (CU09)
+
+actor "Cliente (API)" as Client
+participant "UI: Alta Huésped" as UI
+participant ":HuespedController" as Controller
+participant ":GestorHuespedes" as Service
+participant "HuespedMapper" as Mapper
+participant "nuevo:Huesped" as Entity
+participant ":HuespedDao" as DAO
+
+' ==== Interacción con la UI + Validación ====
+Client -> UI: completarFormularioAlta(HuespedDTO)\nconfirmar()
+activate UI
+
+UI -> UI: validarDatos(HuespedDTO)
+alt Datos inválidos
+    UI --> Client: mostrarErroresValidacion()
+    deactivate UI
+
+else Datos válidos
+
+    ' ==== Referencia al CU02 - Buscar Huésped ====
+    ref over UI, Controller, Service
+        CU02 - Buscar Huésped
+    end ref
+
+    UI -> UI: evaluarResultadoBusqueda()
+
+    alt Huésped no encontrado (null)
+        ' ==== Flujo de Alta (CU09) ====
+        UI -> Controller: POST /api/huespedes (HuespedDTO)
+        activate Controller
+
+            Controller -> Service: crear(HuespedDTO)
+            activate Service
+
+                Service -> Mapper: toEntity(HuespedDTO)
+                activate Mapper
+
+                create Entity
+                Mapper -> Entity: <<create>>
+
+                Mapper --> Service: nuevo
+                deactivate Mapper
+
+                Service -> DAO: save(nuevo)
+                activate DAO
+                DAO --> Service: nuevo
+                deactivate DAO
+
+            Service --> Controller: nuevo
+            deactivate Service
+
+            Controller -> Mapper: toDTO(nuevo)
+            activate Mapper
+            Mapper --> Controller: HuespedDTO
+            deactivate Mapper
+
+        Controller --> UI: 201 Created (HuespedDTO)
+        deactivate Controller
+
+        UI --> Client: mostrarConfirmacionAlta(HuespedDTO)
+        deactivate UI
+
+    else Huésped existente
+
+        ' ==== 2.B – Advertencia de duplicado ====
+        UI --> Client: mostrarCartel("¡CUIDADO! El tipo y número de documento ya existen en el sistema")
+        UI --> Client: mostrarBotones("ACEPTAR IGUALMENTE", "CORREGIR", "CANCELAR")
+
+        alt Actor elige "ACEPTAR IGUALMENTE"
+            ' Va al punto 3 del flujo principal (continuar con la operación prevista)
+            ' En este contexto: derivamos al CU Modificar Huésped
+            ref over UI, Controller, Service
+                CU - Modificar Huésped
+            end ref
+
+            UI --> Client: mostrarConfirmacionModificacion()
+
+        else Actor elige "CORREGIR"
+            ' Vuelve al paso 2 del flujo principal con foco en Tipo de documento
+            UI --> Client: enfocarCampo("Tipo de documento")
+            ' El actor corrige datos y podría volver a confirmar luego
+
+        else Actor elige "CANCELAR"
+            ' ==== 2.C – Cancelar alta ====
+            UI --> Client: mostrarDialogoConfirmacion("¿Desea cancelar el alta del huésped?", "Sí", "No")
+
+            alt Actor elige "Sí"
+                ' 2.C.2.1 – El sistema continúa en el paso 6 (fin del CU / salir)
+                UI --> Client: cerrarFormularioAlta()
+
+            else Actor elige "No"
+                ' 2.C.3.1 – Regresa al paso 1 mostrando datos ya ingresados
+                UI --> Client: mostrarFormularioConDatosPrevios()
+            end
+        end
+
+        deactivate UI
+    end
+end
+
+@enduml

@@ -1,4 +1,4 @@
-package com.example.crud.modelFacturacion;
+package com.example.crud.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

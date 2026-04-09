@@ -7,7 +7,7 @@ import com.example.crud.model.Huesped;
 import com.example.crud.enums.TipoDocumento;
 import com.example.crud.auxiliares.HuespedMapper;
 import com.example.crud.dto.PersonaJuridicaDTO;
-import com.example.crud.modelFacturacion.PersonaJuridica;
+import com.example.crud.model.PersonaJuridica;
 import com.example.crud.auxiliares.PersonaJuridicaMapper;
 import com.example.crud.exception.DocumentoDuplicadoException;
 import com.example.crud.dao.PersonaJuridicaDao;

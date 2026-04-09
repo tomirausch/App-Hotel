@@ -1,0 +1,92 @@
+@startuml
+title Diagrama de Secuencia: Buscar Huésped (CU02)
+
+actor "Cliente (API)" as Client
+participant "UI: Buscar Huésped" as UI
+participant ":HuespedController" as Controller
+participant "filtros:HuespedDTO" as DTO
+participant ":GestorHuespedes" as Service
+participant ":HuespedDao" as DAO
+participant "HuespedMapper" as Mapper
+
+' ==== Interacción con la UI + Validación ====
+Client -> UI: completarFormularioBusqueda()\nconfirmar()
+activate UI
+
+UI -> UI: validarFiltros(apellido, nombre,\nTipoDocumento, numeroDocumento)
+alt Filtros inválidos
+    UI --> Client: mostrarErroresValidacion()
+    deactivate UI
+
+else Filtros válidos
+
+    ' ==== Construcción de filtros y llamada al backend ====
+    UI -> Controller: GET /api/huespedes/buscar (params)
+    activate Controller
+
+        ' Creación del objeto de filtros
+        create DTO
+        Controller -> DTO: <<create>>
+        Controller -> DTO: setApellido(apellido)
+        Controller -> DTO: setNombre(nombre)
+        Controller -> DTO: setTipoDocumento(TipoDocumento)
+        Controller -> DTO: setNumeroDocumento(numeroDocumento)
+
+        Controller -> Service: buscar(filtros)
+        activate Service
+
+            Service -> DAO: buscarPorCriterios(...)
+            activate DAO
+            DAO --> Service: listaHuespedes
+            deactivate DAO
+
+        Service --> Controller: listaHuespedes
+        deactivate Service
+
+        loop para cada Huesped en listaHuespedes
+            Controller -> Mapper: toDTO(Huesped)
+            activate Mapper
+            Mapper --> Controller: HuespedDTO
+            deactivate Mapper
+        end
+
+    Controller --> UI: 200 OK (List<HuespedDTO>)
+    deactivate Controller
+
+    ' ==== Lógica según resultado de la búsqueda ====
+    UI -> UI: evaluarResultados(listaHuespedes)
+
+    alt listaHuespedes es nula
+        ' Referencia al caso de uso: Dar de alta huésped
+        ref over UI, Controller, Service
+            CU - Dar de alta huésped
+        end ref
+
+        UI --> Client: navegarAAltaHuesped()
+        deactivate UI
+
+    else listaHuespedes no es nula
+        UI --> Client: mostrarResultados(List<HuespedDTO>)
+
+        Client -> UI: seleccionarHuesped(huespedSeleccionado?)
+        Client -> UI: presionarSiguiente()
+
+        alt hay huésped seleccionado
+            ' Referencia al caso de uso: Modificar huésped
+            ref over UI, Controller, Service
+                CU - Modificar huésped
+            end ref
+
+        else sin huésped seleccionado
+            ' Si no selecciona nadie y da Siguiente → Alta huésped
+            ref over UI, Controller, Service
+                CU - Dar de alta huésped
+            end ref
+        end
+
+        deactivate UI
+    end
+
+end
+
+@enduml

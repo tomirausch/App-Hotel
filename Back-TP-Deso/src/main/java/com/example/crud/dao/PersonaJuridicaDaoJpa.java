@@ -1,6 +1,6 @@
 package com.example.crud.dao;
 
-import com.example.crud.modelFacturacion.PersonaJuridica;
+import com.example.crud.model.PersonaJuridica;
 import com.example.crud.repository.PersonaJuridicaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

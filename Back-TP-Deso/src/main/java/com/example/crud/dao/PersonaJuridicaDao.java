@@ -1,6 +1,6 @@
 package com.example.crud.dao;
 
-import com.example.crud.modelFacturacion.PersonaJuridica;
+import com.example.crud.model.PersonaJuridica;
 import java.util.Optional;
 
 public interface PersonaJuridicaDao {

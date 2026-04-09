@@ -12,7 +12,7 @@ import com.example.crud.enums.TipoDocumento;
 import com.example.crud.exception.DocumentoDuplicadoException;
 import com.example.crud.exception.RecursoNoEncontradoException;
 import com.example.crud.model.Huesped;
-import com.example.crud.modelFacturacion.PersonaJuridica;
+import com.example.crud.model.PersonaJuridica;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
